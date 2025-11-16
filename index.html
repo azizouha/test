@@ -1877,6 +1877,95 @@
                 display: block !important;
                 min-height: 200px;
             }
+
+            /* ==================== PERSONALIZA TU TACO - 2 COLONNES MOBILE ==================== */
+            /* Salsas en 2 colonnes */
+            #salsas-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px;
+            }
+
+            /* Carnes en 2 colonnes */
+            #personaliza .paso-section:nth-of-type(2) .ingredientes-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px;
+            }
+
+            /* Extras en 2 colonnes */
+            #personaliza .paso-section:nth-of-type(3) .ingredientes-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px;
+            }
+
+            /* Gratinado en 2 colonnes */
+            #personaliza .paso-section:nth-of-type(4) .ingredientes-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px;
+            }
+
+            /* ==================== BOUTONS STYLE ENTRANTES POUR AUTRES SECTIONS ==================== */
+            /* Patatas - Grands boutons pleine largeur */
+            #patatas .menu-item .item-controls {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                gap: 12px;
+                margin-top: 15px;
+            }
+
+            #patatas .menu-item .quantity-control {
+                width: 100%;
+                justify-content: center;
+                flex: none;
+            }
+
+            #patatas .menu-item .add-to-cart-btn {
+                width: 100%;
+                flex: none;
+                min-width: 100%;
+            }
+
+            /* Hamburguesas - Grands boutons pleine largeur */
+            #hamburguesas .menu-item .item-controls {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                gap: 12px;
+                margin-top: 15px;
+            }
+
+            #hamburguesas .menu-item .quantity-control {
+                width: 100%;
+                justify-content: center;
+                flex: none;
+            }
+
+            #hamburguesas .menu-item .add-to-cart-btn {
+                width: 100%;
+                flex: none;
+                min-width: 100%;
+            }
+
+            /* Bebidas & Postres - Grands boutons pleine largeur */
+            #bebidas .menu-item .item-controls {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                gap: 12px;
+                margin-top: 15px;
+            }
+
+            #bebidas .menu-item .quantity-control {
+                width: 100%;
+                justify-content: center;
+                flex: none;
+            }
+
+            #bebidas .menu-item .add-to-cart-btn {
+                width: 100%;
+                flex: none;
+                min-width: 100%;
+            }
         }
 
         /* Très petits écrans (< 400px) */
@@ -2449,7 +2538,11 @@
                             <span class="item-price">6,50€</span>
                             <button class="add-to-cart-btn" data-item="camembert---5-unidades" data-name="Camembert - 5 unidades" data-price="6.50" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">Añadir</button>
                         </div>
-                        <div class="subitem"><span>7 unidades</span><span class="item-price">8,00€</span></div>
+                        <div class="subitem">
+                            <span>7 unidades</span>
+                            <span class="item-price">8,00€</span>
+                            <button class="add-to-cart-btn" data-item="tenders---7-unidades" data-name="Tenders - 7 unidades" data-price="8.00" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">Añadir</button>
+                        </div>
                     </div>
                 </div>
                 <div class="menu-item">
@@ -2465,7 +2558,11 @@
                             <span class="item-price">3,00€</span>
                             <button class="add-to-cart-btn" data-item="nuggets---5-unidades" data-name="Nuggets - 5 unidades" data-price="3.00" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">Añadir</button>
                         </div>
-                        <div class="subitem"><span>7 unidades</span><span class="item-price">5,00€</span></div>
+                        <div class="subitem">
+                            <span>7 unidades</span>
+                            <span class="item-price">5,00€</span>
+                            <button class="add-to-cart-btn" data-item="nuggets---7-unidades" data-name="Nuggets - 7 unidades" data-price="5.00" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">Añadir</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2796,19 +2893,214 @@
             <div class="tab-banner banner-mobile" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczMb5OITwAe7pCGkwFOkdoiifqJ-xRijCi6i9kM5J_tDak39V7A6ZzGxtf9v9FqqekmZGCv8SWOYUv1HwUFNdtp-6f38ufSA4mQlcuwvzZ-ToMfSZ92Rbjp8UDmN8VpVf7TnVtwFhkzaTwcpsQ-H6Xo=w492-h400-s-no-gm?authuser=0');"></div>
             <h2 class="section-title">Bebidas</h2>
             <div class="menu-grid">
+                <!-- Oasis -->
                 <div class="menu-item">
-                    <div class="item-name">Bebidas <span class="item-price">2,00€</span><div class="item-controls">
-                        <div class="quantity-control">
-                            <button class="quantity-btn minus" data-item="item">−</button>
-                            <span class="quantity-display" id="qty-item">1</span>
-                            <button class="quantity-btn plus" data-item="item">+</button>
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczPcmW7r8J7NZCFylDLV-tUhgud-nhsKcLVRhFMHZdHWK8SwimwZaI1a1UsidinW1GHKRUP2kczRxCzQuh_Qv8sF1JiT1eHo--k5njJhU-x6h02Sku77PYIxr1Il56jGLS46kdK7XaUxilmSiPYb0So=w869-h869-s-no-gm?authuser=0" alt="Oasis" class="item-icon">
+                            Oasis
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="2.00" data-category="general">
+                        <span class="item-price">2,00€</span>
+                    </div>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="oasis">−</button>
+                            <span class="quantity-display" id="qty-oasis">1</span>
+                            <button class="quantity-btn plus" data-item="oasis">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="oasis" data-name="Oasis" data-price="2.00" data-category="bebidas">
                             Añadir
                         </button>
                     </div>
                 </div>
-                    <div class="item-description">Oasis, Capri Sun, Schweppes, Tropico, Lipton, Coca-cola, Orangina, 7up, Aquarius, Fanta</div>
+
+                <!-- Capri Sun -->
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczNeGQw9J9fUSAhbalodLz1jIF_Bx0XfIo5tZO3xL9hDmCQltzZOuPnPwlYpYpDkskdfM-f1-Csy51MaKjk6MCLKU2cWIaIbJpG4n3aBpf_mtr7TLqeBjWor_v2kZDap92bB3ejYgbeAL0xrGpYT4BQ=w869-h869-s-no-gm?authuser=0" alt="Capri Sun" class="item-icon">
+                            Capri Sun
+                        </div>
+                        <span class="item-price">2,00€</span>
+                    </div>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="capri-sun">−</button>
+                            <span class="quantity-display" id="qty-capri-sun">1</span>
+                            <button class="quantity-btn plus" data-item="capri-sun">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="capri-sun" data-name="Capri Sun" data-price="2.00" data-category="bebidas">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Schweppes -->
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczNii9blW-ZGKPxFQ-DAg10kS80xSYJd2aIQGLMuPS7ozTS5zw8jvMdLPM1ci4CdDUuLXHO8KJynqdm4lxhUPDi-qSHJc_gws9oS_xt_fJd_NjmIBLaXLvTYvjnAobxos9OMfKr1ILO2FzcKv86pMUE=w869-h869-s-no-gm?authuser=0" alt="Schweppes" class="item-icon">
+                            Schweppes
+                        </div>
+                        <span class="item-price">2,00€</span>
+                    </div>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="schweppes">−</button>
+                            <span class="quantity-display" id="qty-schweppes">1</span>
+                            <button class="quantity-btn plus" data-item="schweppes">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="schweppes" data-name="Schweppes" data-price="2.00" data-category="bebidas">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tropico -->
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczNFqVKdXK_G4gCMat4lb88gm1raEdw9Ue5hvtronqkkRfJBaRQvFBsjDTvPbZe711Zc-4DA-2TVdK3kr7EHN17gm_zNFX8vofu3pV-fbk52BoxH6Ed2yuiJtiI-smOAxihVgOEMTfwNdwwL8SLEhwA=w869-h869-s-no-gm?authuser=0" alt="Tropico" class="item-icon">
+                            Tropico
+                        </div>
+                        <span class="item-price">2,00€</span>
+                    </div>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="tropico">−</button>
+                            <span class="quantity-display" id="qty-tropico">1</span>
+                            <button class="quantity-btn plus" data-item="tropico">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="tropico" data-name="Tropico" data-price="2.00" data-category="bebidas">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lipton -->
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczPktPaA_cw8ncnZtILI_hD1o2F9jv_aA5vv0X5-Z1thSKsn3dBWZ0z6W3OozsR85yOu4WNuHR-FMzAz2Sjfhw2Y-IdP1zi0t0TwNi9ivTBJqBbcAC0pcN39iekSad8mHQ0AIf1B9eZbT98VijaZ5hU=w869-h869-s-no-gm?authuser=0" alt="Lipton" class="item-icon">
+                            Lipton
+                        </div>
+                        <span class="item-price">2,00€</span>
+                    </div>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="lipton">−</button>
+                            <span class="quantity-display" id="qty-lipton">1</span>
+                            <button class="quantity-btn plus" data-item="lipton">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="lipton" data-name="Lipton" data-price="2.00" data-category="bebidas">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coca-cola -->
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczO1-5GYcq043bbaqOHdhYRhKERHR4dBl8iD1SNs7EBrrjjvRvMaY396lEz_LXnW8B6JFXvSPv7_BGSFXdocaBY_Ul7ewK804zfNiRjnILzsx3uSJLV11kPRqoeWpl8QPdmgLvLskoPbS7jSkGERDig=w869-h869-s-no-gm?authuser=0" alt="Coca-cola" class="item-icon">
+                            Coca-cola
+                        </div>
+                        <span class="item-price">2,00€</span>
+                    </div>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="coca-cola">−</button>
+                            <span class="quantity-display" id="qty-coca-cola">1</span>
+                            <button class="quantity-btn plus" data-item="coca-cola">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="coca-cola" data-name="Coca-cola" data-price="2.00" data-category="bebidas">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Orangina -->
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczM5N4NRW8yXP-ecnU-4sgwV7zAldPFkNkOW7lOp7uusR1q62NlrGGwpC_ra5RgpHb0YOjHavgA6EK6w5t4Ig2fbMRs89a_xXPYb_5BaF7b0SLZENhlfugrKOgJM42mkNn690RRAomT_J3P3pUywn6g=w869-h869-s-no-gm?authuser=0" alt="Orangina" class="item-icon">
+                            Orangina
+                        </div>
+                        <span class="item-price">2,00€</span>
+                    </div>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="orangina">−</button>
+                            <span class="quantity-display" id="qty-orangina">1</span>
+                            <button class="quantity-btn plus" data-item="orangina">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="orangina" data-name="Orangina" data-price="2.00" data-category="bebidas">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 7up -->
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczOj56l-b9dGy9l-Fx6k-0oFWEGJhtxoFN73GMW7uytLhBSx9kH4D9qQQzIppR22uVUi5VmclnlB538lAHi07smuKYKQtIDwK2-uB7NSgrfvBlQRl1uC77sZHzwTxA_6alQOOWujTdcDGna0q-ZaCLY=w869-h869-s-no-gm?authuser=0" alt="7up" class="item-icon">
+                            7up
+                        </div>
+                        <span class="item-price">2,00€</span>
+                    </div>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="7up">−</button>
+                            <span class="quantity-display" id="qty-7up">1</span>
+                            <button class="quantity-btn plus" data-item="7up">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="7up" data-name="7up" data-price="2.00" data-category="bebidas">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Aquarius -->
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczOpSOOU-G4WvToHQyaKJ6ZPv3lPma6PyeeCiLnjZxa8QhLPf9pbC-XYGBq2lmhrPEFDiRTqYIhSRHbaqTEq77rj63SOe_ckN5Vc5OvOHuKVTDE4uERCiTjCozYDWjwATP2znvMWu9ezHPeEiMUQIrs=w869-h869-s-no-gm?authuser=0" alt="Aquarius" class="item-icon">
+                            Aquarius
+                        </div>
+                        <span class="item-price">2,00€</span>
+                    </div>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="aquarius">−</button>
+                            <span class="quantity-display" id="qty-aquarius">1</span>
+                            <button class="quantity-btn plus" data-item="aquarius">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="aquarius" data-name="Aquarius" data-price="2.00" data-category="bebidas">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Fanta -->
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczNtSuzZ_M-JAYV4YNJC9wPiXGQVtQ4UKbG_Lh4D-OOYcJp3hBW3lhktJ161mo_QAzZhxsORaZvHQvWlEg3c1uLceyQ2IKY7L7hdtzXNUnC1P7uimsGVgTdQoZWurcBJyvhamj7cVj5B0q-N1Br4pf8=w869-h869-s-no-gm?authuser=0" alt="Fanta" class="item-icon">
+                            Fanta
+                        </div>
+                        <span class="item-price">2,00€</span>
+                    </div>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="fanta">−</button>
+                            <span class="quantity-display" id="qty-fanta">1</span>
+                            <button class="quantity-btn plus" data-item="fanta">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="fanta" data-name="Fanta" data-price="2.00" data-category="bebidas">
+                            Añadir
+                        </button>
+                    </div>
                 </div>
             </div>
 
