@@ -1,4389 +1,1723 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Cool Tacos CIB - Menú Interactivo</title>
-
+    <title>Cool Tacos CIB - Menú</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
-
     <style>
-
         * {
-
             margin: 0;
-
             padding: 0;
-
             box-sizing: border-box;
-
         }
-
- 
 
         body {
-
             font-family: 'Lato', sans-serif;
-
             background-color: #012022;
-
             color: #ffffff;
-
             line-height: 1.6;
-
             overflow-x: hidden;
-
-            padding-bottom: 100px;
-
         }
-
- 
 
         .container {
-
             max-width: 1200px;
-
             margin: 0 auto;
-
             padding: 0 20px;
-
         }
-
- 
 
         /* Header */
-
         .header {
-
             background: linear-gradient(135deg, #012022 0%, #1a1a1a 100%);
-
             padding: 30px 0;
-
             box-shadow: 0 4px 20px rgba(139, 195, 74, 0.15);
-
             position: relative;
-
         }
-
- 
 
         .header::before {
-
             content: '';
-
             position: absolute;
-
             top: 0;
-
             left: 0;
-
             right: 0;
-
             height: 2px;
-
             background: linear-gradient(90deg, transparent, #8BC34A, transparent);
-
         }
-
- 
 
         .logo {
-
             text-align: center;
-
             margin-bottom: 20px;
-
         }
-
- 
 
         .logo-circle {
-
             width: 120px;
-
             height: 120px;
-
             background: #012022;
-
             border-radius: 50%;
-
             margin: 0 auto 20px;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
-
             position: relative;
-
             overflow: hidden;
-
             border: 3px solid #8BC34A;
-
         }
 
- 
-
-        .logo-circle img {
-
-            width: 100px;
-
-            height: 100px;
-
-            object-fit: contain;
-
+        .logo-circle::before {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border: 2px solid rgba(139, 195, 74, 0.2);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
         }
 
- 
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8BC34A;
+            z-index: 1;
+        }
 
         .restaurant-name {
-
             font-family: 'Playfair Display', serif;
-
             font-size: 2.8rem;
-
             font-weight: 700;
-
             color: #ffffff;
-
             text-align: center;
-
             margin-bottom: 15px;
-
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-
             letter-spacing: 1px;
-
         }
 
- 
-
-        .tagline {
-
+        .restaurant-subtitle {
             font-size: 1.2rem;
-
             color: #8BC34A;
-
             text-align: center;
-
             font-weight: 300;
-
             letter-spacing: 3px;
-
             text-transform: uppercase;
-
+            margin-bottom: 10px;
         }
 
- 
-
-        /* Navigation */
-
-        .nav-container {
-
-            background: #1a1a1a;
-
-            padding: 15px 0;
-
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-
-            position: sticky;
-
-            top: 0;
-
-            z-index: 100;
-
+        .restaurant-tagline {
+            font-size: 0.9rem;
+            color: #cccccc;
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 20px;
         }
 
- 
-
-        .nav-menu {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            justify-content: center;
-
-            gap: 20px;
-
+        .decorative-line {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #8BC34A, #689F38);
+            margin: 0 auto;
+            position: relative;
+            border-radius: 2px;
         }
 
- 
-
-        .nav-item {
-
-            background: #012022;
-
-            color: #ffffff;
-
-            padding: 12px 25px;
-
-            border-radius: 8px;
-
-            text-decoration: none;
-
-            font-size: 1rem;
-
-            font-weight: 500;
-
-            transition: all 0.3s ease;
-
-            border: 2px solid transparent;
-
-            cursor: pointer;
-
-        }
-
- 
-
-        .nav-item:hover, .nav-item.active {
-
+        .decorative-line::before,
+        .decorative-line::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
             background: #8BC34A;
-
-            color: #012022;
-
-            border-color: #ffffff;
-
-            transform: translateY(-2px);
-
-            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
-
+            border-radius: 50%;
+            top: -2.5px;
         }
 
- 
+        .decorative-line::before {
+            left: -15px;
+        }
+
+        .decorative-line::after {
+            right: -15px;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 40px 0;
+            padding: 0 20px;
+        }
+
+        .nav-tab {
+            background: linear-gradient(135deg, #012022, #2a2a2a);
+            color: #ffffff;
+            border: 2px solid transparent;
+            padding: 14px 28px;
+            cursor: pointer;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 195, 74, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-tab:hover::before {
+            left: 100%;
+        }
+
+        .nav-tab:hover {
+            border-color: #8BC34A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.2);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            border-color: #8BC34A;
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
+        }
 
         /* Tab Content */
-
         .tab-content {
-
             display: none;
-
-            animation: fadeIn 0.5s ease-in;
-
+            animation: fadeIn 0.5s ease-in-out;
         }
-
- 
 
         .tab-content.active {
-
             display: block;
-
         }
-
- 
 
         @keyframes fadeIn {
-
-            from { opacity: 0; transform: translateY(10px); }
-
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
-
         }
-
- 
-
-        /* Section Titles */
 
         .section-title {
-
             font-family: 'Playfair Display', serif;
-
-            font-size: 2.5rem;
-
-            font-weight: 700;
-
+            font-size: 2.8rem;
+            font-weight: 600;
             color: #8BC34A;
-
             text-align: center;
-
-            margin: 40px 0 30px;
-
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-
+            margin-bottom: 40px;
+            position: relative;
         }
 
- 
-
-        /* Product Cards */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #8BC34A, #689F38);
+        }
 
         .menu-grid {
-
             display: grid;
-
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-
-            margin: 30px 0;
-
+            margin-bottom: 40px;
         }
-
- 
 
         .menu-item {
-
-            background: #1a1a1a;
-
-            border-radius: 15px;
-
+            background: linear-gradient(135deg, #012022, #2a2a2a);
             padding: 25px;
-
+            border-radius: 15px;
+            border: 1px solid rgba(139, 195, 74, 0.1);
             transition: all 0.3s ease;
-
-            border: 2px solid transparent;
-
             position: relative;
-
+            overflow: hidden;
         }
 
- 
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8BC34A, transparent);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            transform: translateX(0);
+        }
 
         .menu-item:hover {
-
-            border-color: #8BC34A;
-
             transform: translateY(-5px);
-
-            box-shadow: 0 10px 30px rgba(139, 195, 74, 0.2);
-
+            box-shadow: 0 10px 30px rgba(139, 195, 74, 0.1);
+            border-color: rgba(139, 195, 74, 0.3);
         }
-
- 
-
-        .item-image {
-
-            width: 100%;
-
-            height: 200px;
-
-            overflow: hidden;
-
-            border-radius: 10px;
-
-            margin-bottom: 20px;
-
-            background: #012022;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-        }
-
- 
-
-        .item-image img {
-
-            width: 100%;
-
-            height: 100%;
-
-            object-fit: cover;
-
-            transition: transform 0.3s ease;
-
-        }
-
- 
-
-        .menu-item:hover .item-image img {
-
-            transform: scale(1.1);
-
-        }
-
- 
-
-        .item-header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: start;
-
-            margin-bottom: 15px;
-
-        }
-
- 
 
         .item-name {
-
-            font-size: 1.4rem;
-
-            font-weight: 600;
-
-            color: #8BC34A;
-
-            flex: 1;
-
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
         }
 
- 
+        .item-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+            border: 2px solid rgba(139, 195, 74, 0.3);
+            flex-shrink: 0;
+        }
+
+        .item-name-with-icon {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
 
         .item-price {
-
+            color: #8BC34A;
+            font-weight: 600;
             font-size: 1.3rem;
-
-            font-weight: 700;
-
-            color: #ffffff;
-
-            background: linear-gradient(135deg, #8BC34A, #689F38);
-
-            padding: 5px 15px;
-
-            border-radius: 20px;
-
         }
-
- 
 
         .item-description {
-
             color: #cccccc;
-
-            font-size: 1rem;
-
-            line-height: 1.4;
-
-            margin-bottom: 15px;
-
-        }
-
- 
-
-        /* Customization Options */
-
-        .customization-section {
-
-            background: #0a0a0a;
-
-            border-radius: 10px;
-
-            padding: 20px;
-
-            margin-top: 15px;
-
-        }
-
- 
-
-        .customization-title {
-
-            font-size: 1.2rem;
-
-            font-weight: 600;
-
-            color: #8BC34A;
-
-            margin-bottom: 15px;
-
-        }
-
- 
-
-        .option-group {
-
-            margin-bottom: 20px;
-
-        }
-
- 
-
-        .option-label {
-
-            font-size: 1rem;
-
-            color: #ffffff;
-
-            margin-bottom: 10px;
-
-            display: block;
-
-        }
-
- 
-
-        .option-grid {
-
-            display: grid;
-
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-
-            gap: 10px;
-
-        }
-
- 
-
-        .option-item {
-
-            position: relative;
-
-        }
-
- 
-
-        .option-checkbox {
-
-            position: absolute;
-
-            opacity: 0;
-
-            cursor: pointer;
-
-        }
-
- 
-
-        .option-label-box {
-
-            display: block;
-
-            background: #1a1a1a;
-
-            padding: 10px;
-
-            border-radius: 8px;
-
-            text-align: center;
-
-            cursor: pointer;
-
-            transition: all 0.3s ease;
-
-            border: 2px solid transparent;
-
-        }
-
- 
-
-        .option-checkbox:checked + .option-label-box {
-
-            background: #8BC34A;
-
-            color: #012022;
-
-            border-color: #ffffff;
-
-        }
-
- 
-
-        .option-label-box:hover {
-
-            border-color: #8BC34A;
-
-        }
-
- 
-
-        .option-price {
-
-            font-size: 0.9rem;
-
-            color: #689F38;
-
-            display: block;
-
+            font-size: 1.05rem;
+            font-style: italic;
             margin-top: 5px;
-
         }
 
- 
-
-        /* Quantity and Add to Cart Controls */
-
-        .item-controls {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-top: 15px;
-
+        .item-subitems {
+            margin-top: 10px;
+            padding-left: 15px;
         }
 
- 
-
-        .quantity-control {
-
-            display: flex;
-
-            align-items: center;
-
-            background: #012022;
-
-            border-radius: 10px;
-
-            overflow: hidden;
-
-            border: 2px solid #8BC34A;
-
-        }
-
- 
-
-        .quantity-btn {
-
-            background: #8BC34A;
-
-            color: #012022;
-
-            border: none;
-
-            width: 35px;
-
-            height: 35px;
-
-            font-size: 1.2rem;
-
-            font-weight: 700;
-
-            cursor: pointer;
-
-            transition: all 0.3s ease;
-
-        }
-
- 
-
-        .quantity-btn:hover {
-
-            background: #689F38;
-
-        }
-
- 
-
-        .quantity-display {
-
-            padding: 0 20px;
-
-            font-weight: 600;
-
-            color: #ffffff;
-
-            min-width: 50px;
-
-            text-align: center;
-
-        }
-
- 
-
-        .add-to-cart-btn {
-
-            background: linear-gradient(135deg, #8BC34A, #689F38);
-
-            color: #ffffff;
-
-            border: none;
-
-            padding: 10px 25px;
-
-            border-radius: 10px;
-
-            font-size: 1rem;
-
-            font-weight: 600;
-
-            cursor: pointer;
-
-            transition: all 0.3s ease;
-
-        }
-
- 
-
-        .add-to-cart-btn:hover {
-
-            transform: scale(1.05);
-
-            box-shadow: 0 5px 20px rgba(139, 195, 74, 0.3);
-
-        }
-
- 
-
-        /* Floating Cart */
-
-        .floating-cart {
-
-            position: fixed;
-
-            bottom: 20px;
-
-            right: 20px;
-
-            background: linear-gradient(135deg, #8BC34A, #689F38);
-
-            border-radius: 50%;
-
-            width: 70px;
-
-            height: 70px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            cursor: pointer;
-
-            box-shadow: 0 5px 25px rgba(139, 195, 74, 0.4);
-
-            z-index: 1000;
-
-            transition: all 0.3s ease;
-
-        }
-
- 
-
-        .floating-cart:hover {
-
-            transform: scale(1.1);
-
-        }
-
- 
-
-        .cart-icon {
-
-            font-size: 2rem;
-
-            color: #ffffff;
-
-        }
-
- 
-
-        .cart-badge {
-
-            position: absolute;
-
-            top: -5px;
-
-            right: -5px;
-
-            background: #ff4444;
-
-            color: #ffffff;
-
-            border-radius: 50%;
-
-            width: 25px;
-
-            height: 25px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 0.9rem;
-
-            font-weight: 700;
-
-        }
-
- 
-
-        /* Cart Modal */
-
-        .cart-modal {
-
-            position: fixed;
-
-            top: 0;
-
-            left: 0;
-
-            right: 0;
-
-            bottom: 0;
-
-            background: rgba(0, 0, 0, 0.8);
-
-            display: none;
-
-            align-items: center;
-
-            justify-content: center;
-
-            z-index: 2000;
-
-            padding: 20px;
-
-        }
-
- 
-
-        .cart-modal.active {
-
-            display: flex;
-
-        }
-
- 
-
-        .cart-content {
-
-            background: #1a1a1a;
-
-            border-radius: 20px;
-
-            max-width: 600px;
-
-            width: 100%;
-
-            max-height: 80vh;
-
-            overflow-y: auto;
-
-            padding: 30px;
-
-            position: relative;
-
-        }
-
- 
-
-        .cart-header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-bottom: 25px;
-
-            padding-bottom: 15px;
-
-            border-bottom: 2px solid #8BC34A;
-
-        }
-
- 
-
-        .cart-title {
-
-            font-size: 1.8rem;
-
-            font-weight: 700;
-
-            color: #8BC34A;
-
-        }
-
- 
-
-        .close-cart {
-
-            background: none;
-
-            border: none;
-
-            color: #ffffff;
-
-            font-size: 2rem;
-
-            cursor: pointer;
-
-            transition: all 0.3s ease;
-
-        }
-
- 
-
-        .close-cart:hover {
-
-            color: #ff4444;
-
-            transform: rotate(90deg);
-
-        }
-
- 
-
-        .cart-items {
-
-            margin-bottom: 25px;
-
-        }
-
- 
-
-        .cart-item {
-
-            background: #012022;
-
-            border-radius: 10px;
-
-            padding: 15px;
-
-            margin-bottom: 15px;
-
-            border: 2px solid #2a2a2a;
-
-        }
-
- 
-
-        .cart-item-header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: start;
-
-            margin-bottom: 10px;
-
-        }
-
- 
-
-        .cart-item-name {
-
-            font-size: 1.2rem;
-
-            font-weight: 600;
-
-            color: #8BC34A;
-
-            flex: 1;
-
-        }
-
- 
-
-        .cart-item-price {
-
-            font-size: 1.1rem;
-
-            font-weight: 700;
-
-            color: #ffffff;
-
-        }
-
- 
-
-        .cart-item-details {
-
+        .subitem {
             color: #cccccc;
-
-            font-size: 0.95rem;
-
-            margin-bottom: 10px;
-
-        }
-
- 
-
-        .cart-item-controls {
-
+            font-size: 1.05rem;
+            margin: 5px 0;
             display: flex;
-
             justify-content: space-between;
-
-            align-items: center;
-
         }
 
- 
-
-        .remove-item {
-
-            background: #ff4444;
-
-            color: #ffffff;
-
-            border: none;
-
-            padding: 5px 15px;
-
-            border-radius: 5px;
-
-            cursor: pointer;
-
-            font-size: 0.9rem;
-
-            transition: all 0.3s ease;
-
-        }
-
- 
-
-        .remove-item:hover {
-
-            background: #cc0000;
-
-        }
-
- 
-
-        .cart-total {
-
-            background: linear-gradient(135deg, #8BC34A, #689F38);
-
-            border-radius: 10px;
-
-            padding: 20px;
-
-            margin-bottom: 20px;
-
-        }
-
- 
-
-        .total-label {
-
-            font-size: 1.2rem;
-
-            color: #012022;
-
-            margin-bottom: 5px;
-
-        }
-
- 
-
-        .total-amount {
-
-            font-size: 2rem;
-
-            font-weight: 700;
-
-            color: #ffffff;
-
-        }
-
- 
-
-        .order-info {
-
-            background: #012022;
-
-            border-radius: 10px;
-
-            padding: 15px;
-
-            margin-bottom: 20px;
-
-        }
-
- 
-
-        .order-number {
-
-            font-size: 1.1rem;
-
-            color: #8BC34A;
-
-            margin-bottom: 10px;
-
-        }
-
- 
-
-        .order-date {
-
-            font-size: 0.95rem;
-
-            color: #cccccc;
-
-        }
-
- 
-
-        .cart-actions {
-
-            display: flex;
-
-            gap: 15px;
-
-        }
-
- 
-
-        .btn {
-
-            flex: 1;
-
-            padding: 15px;
-
-            border: none;
-
-            border-radius: 10px;
-
-            font-size: 1.1rem;
-
-            font-weight: 600;
-
-            cursor: pointer;
-
-            transition: all 0.3s ease;
-
-        }
-
- 
-
-        .btn-whatsapp {
-
-            background: #25D366;
-
-            color: #ffffff;
-
-        }
-
- 
-
-        .btn-whatsapp:hover {
-
-            background: #128C7E;
-
-            transform: scale(1.05);
-
-        }
-
- 
-
-        .btn-copy {
-
-            background: #2a2a2a;
-
-            color: #ffffff;
-
-            border: 2px solid #8BC34A;
-
-        }
-
- 
-
-        .btn-copy:hover {
-
-            background: #8BC34A;
-
-            color: #012022;
-
-        }
-
- 
-
-        /* Toast Notification */
-
-        .toast {
-
-            position: fixed;
-
-            bottom: 100px;
-
-            left: 50%;
-
-            transform: translateX(-50%) translateY(100px);
-
-            background: linear-gradient(135deg, #8BC34A, #689F38);
-
-            color: #ffffff;
-
-            padding: 15px 30px;
-
-            border-radius: 10px;
-
-            font-weight: 600;
-
-            opacity: 0;
-
-            transition: all 0.3s ease;
-
-            z-index: 3000;
-
-        }
-
- 
-
-        .toast.show {
-
-            opacity: 1;
-
-            transform: translateX(-50%) translateY(0);
-
-        }
-
- 
-
-        /* Empty Cart Message */
-
-        .empty-cart {
-
-            text-align: center;
-
+        /* Personalización Tacos Section */
+        .personalizacion-section {
+            background: linear-gradient(135deg, #012022, #012022);
             padding: 40px 20px;
+            border-radius: 20px;
+            margin: 40px 0;
+            border: 2px solid rgba(139, 195, 74, 0.3);
+        }
 
+        .personalizacion-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #8BC34A;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .paso-section {
+            margin-bottom: 50px;
+        }
+
+        .paso-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .paso-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
+        }
+
+        .paso-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #8BC34A;
+        }
+
+        .tallas-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .talla-card {
+            background: linear-gradient(135deg, #2a2a2a, #012022);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid rgba(139, 195, 74, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 280px;
+            flex-shrink: 0;
+        }
+
+        .talla-card:hover {
+            border-color: #8BC34A;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 195, 74, 0.2);
+        }
+
+        .talla-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #012022;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            border: 3px solid rgba(139, 195, 74, 0.3);
+            overflow: hidden;
+            padding: 5px;
+        }
+
+        .talla-image img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .talla-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8BC34A;
+            margin-bottom: 12px;
+        }
+
+        .talla-description {
             color: #cccccc;
-
+            font-size: 1.1rem;
+            margin-bottom: 12px;
         }
 
- 
-
-        .empty-cart-icon {
-
-            font-size: 4rem;
-
-            margin-bottom: 20px;
-
-            opacity: 0.5;
-
+        .talla-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #8BC34A;
         }
 
- 
+        .ingredientes-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
 
-        .empty-cart-text {
+        .ingrediente-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+            width: 160px;
+        }
 
+        .ingrediente-item:hover {
+            transform: scale(1.05);
+        }
+
+        .ingrediente-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            border: 3px solid rgba(139, 195, 74, 0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            padding: 5px;
+        }
+
+        .ingrediente-item:hover .ingrediente-circle {
+            border-color: #8BC34A;
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
+        }
+
+        .ingrediente-circle img {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .ingrediente-name {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .precio-extra {
+            color: #8BC34A;
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        .base-info {
+            background: rgba(139, 195, 74, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #cccccc;
+            font-size: 1.1rem;
+        }
+
+        /* Tab Banner */
+        .tab-banner {
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(1,32,34,0.4), rgba(139, 195, 74, 0.2));
+            border-radius: 15px;
+        }
+
+        .banner-desktop {
+            display: block;
+        }
+
+        .banner-mobile {
+            display: none;
+        }
+
+        .menu-option {
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
+        }
+
+        .menu-option-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* Cool Kids Options Style */
+        .kids-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .kids-option-card {
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            padding: 15px 30px;
+            border-radius: 15px;
+            color: #ffffff;
             font-size: 1.2rem;
-
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
- 
+        .kids-option-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.5);
+            border-color: #ffffff;
+        }
 
-        /* Responsive */
+        .kids-section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #8BC34A;
+            text-align: center;
+            margin: 25px 0 15px 0;
+        }
 
+        .kids-includes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .kids-include-item {
+            background: rgba(139, 195, 74, 0.15);
+            padding: 12px 25px;
+            border-radius: 12px;
+            color: #8BC34A;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border: 2px solid rgba(139, 195, 74, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .kids-include-item:hover {
+            background: rgba(139, 195, 74, 0.25);
+            border-color: #8BC34A;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: #476f57;
+            padding: 40px 20px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(71, 111, 87, 0.3);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .contact-item {
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            filter: brightness(1.2);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 15px;
+            fill: #ffffff;
+        }
+
+        .contact-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.6);
+        }
+
+        .scroll-to-top svg {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #012022, #012022);
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(139, 195, 74, 0.2);
+        }
+
+        .footer-content {
+            text-align: center;
+            color: #cccccc;
+            font-size: 1rem;
+        }
+
+        .footer-content .highlight {
+            color: #8BC34A;
+            font-weight: 500;
+        }
+
+        /* Google Review Button */
+        .google-review-section {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(139, 195, 74, 0.2);
+        }
+
+        .google-review-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #ffffff, #f5f5f5);
+            color: #5f6368;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+        }
+
+        .google-review-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: #8BC34A;
+        }
+
+        .google-review-btn img {
+            width: 28px;
+            height: 28px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #012022, #2a2a2a);
+            border-radius: 50%;
+            border: 2px solid rgba(139, 195, 74, 0.2);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover::before {
+            transform: scale(1);
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
+            border-color: #8BC34A;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff;
+            z-index: 1;
+            position: relative;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
 
             .restaurant-name {
-
-                font-size: 2rem;
-
+                font-size: 2.2rem;
             }
 
- 
+            .personalizacion-title {
+                font-size: 2.2rem;
+            }
+
+            .paso-title {
+                font-size: 1.6rem;
+            }
+
+            .paso-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
 
             .section-title {
-
-                font-size: 2rem;
-
+                font-size: 2.2rem;
             }
 
- 
+            .ingredientes-grid {
+                gap: 15px;
+            }
+
+            .ingrediente-item {
+                width: 140px;
+            }
+
+            .ingrediente-circle {
+                width: 130px;
+                height: 130px;
+            }
+
+            .ingrediente-circle img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .ingrediente-circle {
+                width: 110px;
+                height: 110px;
+            }
+
+            .ingrediente-name {
+                font-size: 0.95rem;
+            }
+
+            .nav-tabs {
+                gap: 5px;
+                margin: 30px 0;
+            }
+
+            .nav-tab {
+                padding: 12px 20px;
+                font-size: 13px;
+            }
 
             .menu-grid {
-
                 grid-template-columns: 1fr;
-
                 gap: 20px;
-
             }
 
- 
-
-            .nav-menu {
-
-                gap: 10px;
-
+            .item-name {
+                font-size: 1.2rem;
             }
 
- 
-
-            .nav-item {
-
-                padding: 10px 15px;
-
-                font-size: 0.9rem;
-
+            .item-price {
+                font-size: 1.2rem;
             }
 
- 
-
-            .cart-content {
-
-                padding: 20px;
-
+            .item-description {
+                font-size: 1rem;
             }
 
- 
-
-            .cart-actions {
-
-                flex-direction: column;
-
+            .tab-banner {
+                height: 300px;
             }
 
- 
-
-            .floating-cart {
-
-                width: 60px;
-
-                height: 60px;
-
+            .banner-desktop {
+                display: none;
             }
 
+            .banner-mobile {
+                display: block;
+            }
+
+            .talla-name {
+                font-size: 2rem;
+            }
+
+            .talla-description {
+                font-size: 1rem;
+            }
+
+            .talla-price {
+                font-size: 1.5rem;
+            }
+
+            .contact-section {
+                padding: 30px 15px;
+            }
+
+            .contact-text {
+                font-size: 1rem;
+            }
+
+            .kids-option-card {
+                padding: 12px 20px;
+                font-size: 1.1rem;
+            }
+
+            .kids-include-item {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+
+            .kids-section-title {
+                font-size: 1.2rem;
+            }
         }
 
+        @media (max-width: 480px) {
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-tab {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+                padding: 14px 24px;
+                font-size: 14px;
+            }
+
+            .restaurant-name {
+                font-size: 1.8rem;
+            }
+
+            .personalizacion-title {
+                font-size: 1.8rem;
+            }
+
+            .paso-title {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .ingredientes-grid {
+                gap: 12px;
+            }
+
+            .ingrediente-item {
+                width: 120px;
+            }
+
+            .ingrediente-circle {
+                width: 115px;
+                height: 115px;
+            }
+
+            .ingrediente-circle img {
+                width: 105px;
+                height: 105px;
+            }
+
+            .ingrediente-circle {
+                width: 100px;
+                height: 100px;
+            }
+
+            .ingrediente-name {
+                font-size: 0.85rem;
+            }
+
+            .item-name {
+                font-size: 1.1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .item-price {
+                font-size: 1.1rem;
+            }
+
+            .item-description {
+                font-size: 0.95rem;
+            }
+
+            .tab-banner {
+                height: 250px;
+            }
+
+            .talla-card {
+                padding: 20px;
+                width: 240px;
+            }
+
+            .talla-name {
+                font-size: 1.8rem;
+            }
+
+            .talla-description {
+                font-size: 0.95rem;
+            }
+
+            .talla-price {
+                font-size: 1.3rem;
+            }
+
+            .talla-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .talla-image img {
+                width: 110px;
+                height: 110px;
+            }
+
+            .paso-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .paso-number {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .contact-icon {
+                width: 35px;
+                height: 35px;
+            }
+
+            .contact-text {
+                font-size: 0.95rem;
+            }
+
+            .scroll-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .scroll-to-top svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .kids-option-card {
+                padding: 10px 18px;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .kids-include-item {
+                padding: 8px 16px;
+                font-size: 0.95rem;
+            }
+
+            .kids-section-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .restaurant-name {
+                font-size: 1.5rem;
+            }
+
+            .personalizacion-title {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .ingredientes-grid {
+                gap: 10px;
+            }
+
+            .ingrediente-item {
+                width: 100px;
+            }
+
+            .ingrediente-circle {
+                width: 100px;
+                height: 100px;
+            }
+
+            .ingrediente-circle img {
+                width: 90px;
+                height: 90px;
+            }
+        }
     </style>
-
 </head>
-
 <body>
-
-    <!-- Header -->
-
-    <header class="header">
-
+    <div class="header">
         <div class="container">
-
             <div class="logo">
-
                 <div class="logo-circle">
-
-                    <img src="https://lh3.googleusercontent.com/pw/AP1GczP4OeLcshqBU3kpcEo6RdvM-JIMqwN5rgWOz-fpJQZgeLEVFFk7AIIGsfzNUSWvapJUC1SvJaiVMnpjIhYmDuXhV-1F-E8O78FN6F-Uwt8bCjyxWkZliQ4yfJjhVLGXe-j4dSfCR3qji_piuHlGKyg=w770-h744-s-no-gm?authuser=0" alt="Cool Tacos CIB Logo">
-
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczP4OeLcshqBU3kpcEo6RdvM-JIMqwN5rgWOz-fpJQZgeLEVFFk7AIIGsfzNUSWvapJUC1SvJaiVMnpjIhYmDuXhV-1F-E8O78FN6F-Uwt8bCjyxWkZliQ4yfJjhVLGXe-j4dSfCR3qji_piuHlGKyg=w770-h744-s-no-gm?authuser=0" alt="Cool Tacos CIB Logo" style="width: 100px; height: 100px; object-fit: contain;">
                 </div>
-
+                <h1 class="restaurant-name">Cool Tacos CTB</h1>
+                <p class="restaurant-subtitle">Original Taco Français</p>
+                <p class="restaurant-tagline">Since 2025</p>
+                <div class="decorative-line"></div>
             </div>
-
-            <h1 class="restaurant-name">Cool Tacos CIB</h1>
-
-            <p class="tagline">La Mejor Experiencia de Tacos Franceses</p>
-
         </div>
-
-    </header>
-
-
-
-    <!-- Banner Section -->
-
-    <div class="banner-section" style="width: 100%; max-height: 400px; overflow: hidden; position: relative;">
-
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczNPLtuqVcu38gPRrIQgRQwBtjbmTeD2eRfiPQeFLDHTwQirsGZHxhehS8cVHtjgmqv5aXdNJytLe3UdUad1z2xw_AUagz1s5aCHkYagtAbnIwO6WGrq8jtJwtKPyujK8lKh_D_dmAuW0qOGHbuQSBc=w1080-h400-s-no-gm?authuser=0" alt="Cool Tacos Banner" style="width: 100%; height: auto; object-fit: cover;">
-
     </div>
 
-
-
-    <!-- Navigation -->
-
-    <nav class="nav-container">
-
-        <div class="container">
-
-            <div class="nav-menu">
-
-                <button class="nav-item active" data-tab="tacos">🌮 Tacos</button>
-
-                <button class="nav-item" data-tab="entrantes">🥗 Entrantes</button>
-
-                <button class="nav-item" data-tab="patatas">🍟 Patatas</button>
-
-                <button class="nav-item" data-tab="hamburguesas">🍔 Hamburguesas</button>
-
-                <button class="nav-item" data-tab="bocadillos">🥖 Box & Bocadillos</button>
-
-                <button class="nav-item" data-tab="salsas">🌶️ Salsas</button>
-
-                <button class="nav-item" data-tab="bebidas">🥤 Bebidas</button>
-
-                <button class="nav-item" data-tab="kids">👶 Cool Kids</button>
-
-            </div>
-
+    <div class="container">
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('personaliza')">Personaliza tu Taco</button>
+            <button class="nav-tab" onclick="showTab('entrantes')">Entrantes</button>
+            <button class="nav-tab" onclick="showTab('patatas')">Patatas</button>
+            <button class="nav-tab" onclick="showTab('hamburguesas')">Hamburguesas</button>
+            <button class="nav-tab" onclick="showTab('otros')">Box & Bocadillos</button>
+            <button class="nav-tab" onclick="showTab('bebidas')">Bebidas & Postres</button>
+            <button class="nav-tab" onclick="showTab('kids')">Cool Kids</button>
         </div>
 
-    </nav>
+        <!-- Personaliza tu Taco Tab -->
+        <div id="personaliza" class="tab-content active">
+            <div class="personalizacion-section">
+                <h2 class="personalizacion-title">Personaliza tu Taco en 4 Pasos</h2>
 
- 
-
-    <!-- Main Content -->
-
-    <main class="container">
-
-        <!-- Tacos Tab -->
-
-        <div id="tacos" class="tab-content active">
-
-            <h2 class="section-title">🌮 Nuestros Tacos</h2>
-
- 
-
-            <div class="menu-grid">
-
-                <!-- Taco M -->
-
-                <div class="menu-item" data-category="tacos">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMF89AEO-t7IlatPIE5-VTqEP6YmWQdHkhuEHfshh0QZfiz3_94w1uzktFETCJH4qOSX7h4AzGnavcbqBhIPr828stB88uxZRaSWayjbLty_Ypu_PlTHb81oJj8ojXitWRUAEPI9XJejRc6DFlkvzo=w869-h869-s-no-gm?authuser=0" alt="Taco M">
-
+                <!-- Paso 1: Talla + Salsa -->
+                <div class="paso-section">
+                    <div class="paso-header">
+                        <div class="paso-number">1</div>
+                        <h3 class="paso-title">Talla + Salsa</h3>
                     </div>
 
-                    <div class="item-header">
-
-                        <h3 class="item-name">Tacos M</h3>
-
-                        <span class="item-price">7.90€</span>
-
+                    <div class="tallas-grid">
+                        <div class="talla-card">
+                            <div class="talla-image">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczMcovcyoTfTdX3lxhtUglav21BFbKpWnaQhgbIPSIAIzMgj0c-Rq8pSWelEa-0tnzkUJTIWlAj-kG8Rq1r1MzwxtwwaBRwhjLsnJddmG9aTs1azt3B6CqCT6D_VFNHoC7IEkO_96twz5BW6_3fFt9s=w869-h869-s-no-gm?authuser=0" alt="Taco XL">
+                            </div>
+                            <div class="talla-name">XL</div>
+                            <div class="talla-description">Triple carne</div>
+                            <div class="talla-price">11,90€</div>
+                        </div>
+                        <div class="talla-card">
+                            <div class="talla-image">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczPHCvSM88qJsta6perEkiZ8vQ7hQNG4BOzErUgZS0nS3q0awyY30TLQn9uchyx7U8qV00E_1opig1DUggT7BdbHYJk2U_d9_oVyoa5MlOeycQEOZksCUoFtjsdcoNdtoGuEc4dAwcvn2TktH8XD01Y=w869-h869-s-no-gm?authuser=0" alt="Taco L">
+                            </div>
+                            <div class="talla-name">L</div>
+                            <div class="talla-description">Doble carne</div>
+                            <div class="talla-price">9,90€</div>
+                        </div>
+                        <div class="talla-card">
+                            <div class="talla-image">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczMF89AEO-t7IlatPIE5-VTqEP6YmWQdHkhuEHfshh0QZfiz3_94w1uzktFETCJH4qOSX7h4AzGnavcbqBhIPr828stB88uxZRaSWayjbLty_Ypu_PlTHb81oJj8ojXitWRUAEPI9XJejRc6DFlkvzo=w869-h869-s-no-gm?authuser=0" alt="Taco M">
+                            </div>
+                            <div class="talla-name">M</div>
+                            <div class="talla-description">Carne simple</div>
+                            <div class="talla-price">7,90€</div>
+                        </div>
                     </div>
 
-                    <p class="item-description">Carne simple + Salsa fromagère casera + Patatas + Tu elección de salsas y extras</p>
-
- 
-
-                    <div class="customization-section">
-
-                        <h4 class="customization-title">Personaliza tu Tacos</h4>
-
- 
-
-                        <!-- Carnes -->
-
-                        <div class="option-group">
-
-                            <label class="option-label">Carne (Elige 1):</label>
-
-                            <div class="option-grid">
-
-                                <div class="option-item">
-
-                                    <input type="radio" class="option-checkbox carne-m" name="carne-m" id="carne-ternera-m" data-name="Ternera Picada">
-
-                                    <label class="option-label-box" for="carne-ternera-m">Ternera</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="radio" class="option-checkbox carne-m" name="carne-m" id="carne-pollo-m" data-name="Pechuga de Pollo">
-
-                                    <label class="option-label-box" for="carne-pollo-m">Pollo</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="radio" class="option-checkbox carne-m" name="carne-m" id="carne-cordon-m" data-name="Cordon Bleu">
-
-                                    <label class="option-label-box" for="carne-cordon-m">Cordon Bleu</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="radio" class="option-checkbox carne-m" name="carne-m" id="carne-tenders-m" data-name="Tenders">
-
-                                    <label class="option-label-box" for="carne-tenders-m">Tenders</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="radio" class="option-checkbox carne-m" name="carne-m" id="carne-nuggets-m" data-name="Nuggets">
-
-                                    <label class="option-label-box" for="carne-nuggets-m">Nuggets</label>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
- 
-
-                        <!-- Salsas -->
-
-                        <div class="option-group">
-
-                            <label class="option-label">Salsas (Elige hasta 2):</label>
-
-                            <div class="option-grid">
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-m" id="salsa-argelina-m" data-name="Argelina">
-
-                                    <label class="option-label-box" for="salsa-argelina-m">Argelina</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-m" id="salsa-biggy-m" data-name="Biggy">
-
-                                    <label class="option-label-box" for="salsa-biggy-m">Biggy</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-m" id="salsa-andaluza-m" data-name="Andaluza">
-
-                                    <label class="option-label-box" for="salsa-andaluza-m">Andaluza</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-m" id="salsa-bbq-m" data-name="Barbacoa">
-
-                                    <label class="option-label-box" for="salsa-bbq-m">Barbacoa</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-m" id="salsa-ketchup-m" data-name="Ketchup">
-
-                                    <label class="option-label-box" for="salsa-ketchup-m">Ketchup</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-m" id="salsa-mayo-m" data-name="Mayo">
-
-                                    <label class="option-label-box" for="salsa-mayo-m">Mayo</label>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
- 
-
-                        <!-- Extras -->
-
-                        <div class="option-group">
-
-                            <label class="option-label">Extras:</label>
-
-                            <div class="option-grid">
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-m" id="extra-cheddar-m" data-name="Cheddar" data-price="0.5">
-
-                                    <label class="option-label-box" for="extra-cheddar-m">
-
-                                        Cheddar
-
-                                        <span class="option-price">+0.50€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-m" id="extra-emmental-m" data-name="Emmental" data-price="0.5">
-
-                                    <label class="option-label-box" for="extra-emmental-m">
-
-                                        Emmental
-
-                                        <span class="option-price">+0.50€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-m" id="extra-salsa-cheddar-m" data-name="Salsa Cheddar" data-price="0.5">
-
-                                    <label class="option-label-box" for="extra-salsa-cheddar-m">
-
-                                        Salsa Cheddar
-
-                                        <span class="option-price">+0.50€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-m" id="extra-bacon-m" data-name="Bacon" data-price="0.9">
-
-                                    <label class="option-label-box" for="extra-bacon-m">
-
-                                        Bacon
-
-                                        <span class="option-price">+0.90€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-m" id="extra-fromagere-m" data-name="Salsa Fromagère Casera" data-price="0.5">
-
-                                    <label class="option-label-box" for="extra-fromagere-m">
-
-                                        Salsa Fromagère
-
-                                        <span class="option-price">+0.50€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-m" id="extra-lardon-m" data-name="Lardon" data-price="0.9">
-
-                                    <label class="option-label-box" for="extra-lardon-m">
-
-                                        Lardon
-
-                                        <span class="option-price">+0.90€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-m" id="extra-boursin-m" data-name="Boursin" data-price="0.9">
-
-                                    <label class="option-label-box" for="extra-boursin-m">
-
-                                        Boursin
-
-                                        <span class="option-price">+0.90€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-m" id="extra-huevo-m" data-name="Huevo" data-price="0.9">
-
-                                    <label class="option-label-box" for="extra-huevo-m">
-
-                                        Huevo
-
-                                        <span class="option-price">+0.90€</span>
-
-                                    </label>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
- 
-
-                        <!-- Gratinado -->
-
-                        <div class="option-group">
-
-                            <label class="option-label">Gratinado:</label>
-
-                            <div class="option-grid">
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox gratinado-m" id="gratinado-si-m" data-name="Gratinado" data-price="1">
-
-                                    <label class="option-label-box" for="gratinado-si-m">
-
-                                        Sí, Gratinado
-
-                                        <span class="option-price">+1.00€</span>
-
-                                    </label>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
+                    <div class="base-info">
+                        <strong>Base del taco:</strong> Salsa fromagère casera + patatas
                     </div>
 
- 
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="tacos-m">−</button>
-
-                            <span class="quantity-display" id="qty-tacos-m">1</span>
-
-                            <button class="quantity-btn plus" data-item="tacos-m">+</button>
-
+                    <h4 style="color: #8BC34A; font-size: 1.3rem; margin-bottom: 15px; text-align: center;">Elige tu Salsa</h4>
+                    <div class="ingredientes-grid">
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczMgq3-QbirVZVwsgpnXKQPysJtFfcj8VA6DO3xnJoSaQD95tODdmle55FAGzSBFntiQ0SEuIus7UQDl6POGUp4nNcw7lRdbSBDLD7giOmz7bYP1fBGLas5vvv6vzBMgXsx2EJb1_kpECP4gDTySTi0=w869-h869-s-no-gm?authuser=0" alt="Argelina">
+                            </div>
+                            <div class="ingrediente-name">Argelina</div>
                         </div>
-
-                        <button class="add-to-cart-btn" data-item="tacos-m" data-name="Tacos M" data-price="7.90" data-category="tacos">
-
-                            Añadir al Carrito
-
-                        </button>
-
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczNeQ4FJidHKpMFuyJrFJGpGmrcR4mOVqSWx-30mi6x1Gj0qLEvODfb20UvYLXvTYii9pdcodDSL5zVsxyeMWbYP5w1T6b7_drH4z0mxumURVsEa7clsOKJ1d-2F2Z7Jlv-G_4pX7n7FdqAXc8apwXE=w869-h869-s-no-gm?authuser=0" alt="Biggy">
+                            </div>
+                            <div class="ingrediente-name">Biggy</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczP6VG6vBhGZdhjyVGIGGMFg19LmdpHhdtetTaRIXhVaIDddZizf3lQlun0jcQXnaquBwdM6b7enpvfsFIGbPtQfVYlP1FD6amfWKM2r_AwLnOjUNf_TB-ICQsWmQK4KAXlnl4x1velazi1sd_IQ7D0=w869-h869-s-no-gm?authuser=0" alt="Andaluza">
+                            </div>
+                            <div class="ingrediente-name">Andaluza</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczNamy_NvWeV2WgNchWMxHedPJeWj3hBkYjJDMucWnYcueDuQJpnwJpCVOJ0k4YKXastVtJpRXQD2twPwinMX-trP4xw2sQVg34MZJuAXmsHo6N90kR3jSIICyAC0BIClqmz9wI3pASg5DEdhqbpL0Q=w869-h869-s-no-gm?authuser=0" alt="Brasil">
+                            </div>
+                            <div class="ingrediente-name">Brasil</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczPS23e75dn0lWga0AY8Sxu5WV1UkedFb1jYnxIxdTrQFZBdTlNXva-HMEAsM8dJkBugiLcA64JdXX9Tr2lg7s5o4ZzIC9zpdzh-x_tTlDxz9HFgPzESLZ7dh6TRQJZZj1oDYqi3Sx42KmheSn9xUYU=w869-h869-s-no-gm?authuser=0" alt="Chili Thai">
+                            </div>
+                            <div class="ingrediente-name">Chili Thai</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczMkoVl3ytEaPirRD7IHPnLDiN32XC7lETXriVfs8arsCfkXlixZkW8Z2kHSjU9RryDZd1K7IXBQlfQDCoMYuq5pMniqJy6UfeXD9FXGiiGrO6Siu6UbVvaj5DdvYv-BUb7Rv8pyvbe0ffOEzxOOSLs=w869-h869-s-no-gm?authuser=0" alt="Barbacoa">
+                            </div>
+                            <div class="ingrediente-name">Barbacoa</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczMk0AoimUQ3TS9njfGnkc-P0woSl35a0wlhQ_PlAuw656-x3owADGDQcUoMwJuHJurW9tqPGMetTEKC0CpJf7ZqPH7EmPIu9CbbrYHror4I3DPgNy4ZXEzTB1enA9z_CHQ4Uc2e7SiLZsJIN51GFac=w869-h869-s-no-gm?authuser=0" alt="Samurai">
+                            </div>
+                            <div class="ingrediente-name">Samurai</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczPqhGFZ_qjCNsUJlfkvw-jjI-t6-wBRm499ySC6JeVw2Z9P6U_w_29zmfcp0PsIsb5DcCmdYwy8Yo7jzLPMdZHFKhzUfV5TW4-K0aiX1LLeRyI9eAAqk0Fc6feddPG4l25HBig1pbEkq18tq72R9A0=w869-h869-s-no-gm?authuser=0" alt="Ketchup">
+                            </div>
+                            <div class="ingrediente-name">Ketchup</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczMzsqeYhw3Aaom6P1geXVV96QfvDjRVwdDT7gV8zkC8w36ZoxyV3wqrWajKyecBe5fWWih2icuzsgta9Xq6BYK7H9j9w5aFOGtCmAYUTx3tHKQFeC487WKCgZWFF-ErtYcYWl38mjBuvoBGWQFHXLc=w869-h869-s-no-gm?authuser=0" alt="Curry">
+                            </div>
+                            <div class="ingrediente-name">Curry</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczNH6n-RV-N03KyFr6GDPzTFQEbCpqOA14WvxXhp13HraF1lghtMHbRIBgF2bxuCG5HWTER7jCANmIL0aSQmd2WRY_9rq7jpRhe2oAyNAsZ3nSvOm5sEx-MAgyPEihVWqQaK9MNXgH6A-BXctzurIi8=w869-h869-s-no-gm?authuser=0" alt="Mayo">
+                            </div>
+                            <div class="ingrediente-name">Mayo</div>
+                        </div>
                     </div>
-
                 </div>
 
- 
-
-                <!-- Taco L -->
-
-                <div class="menu-item" data-category="tacos">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczPHCvSM88qJsta6perEkiZ8vQ7hQNG4BOzErUgZS0nS3q0awyY30TLQn9uchyx7U8qV00E_1opig1DUggT7BdbHYJk2U_d9_oVyoa5MlOeycQEOZksCUoFtjsdcoNdtoGuEc4dAwcvn2TktH8XD01Y=w869-h869-s-no-gm?authuser=0" alt="Taco L">
-
+                <!-- Paso 2: Carne -->
+                <div class="paso-section">
+                    <div class="paso-header">
+                        <div class="paso-number">2</div>
+                        <h3 class="paso-title">Carne</h3>
                     </div>
 
-                    <div class="item-header">
-
-                        <h3 class="item-name">Tacos L</h3>
-
-                        <span class="item-price">9.90€</span>
-
+                    <div class="ingredientes-grid">
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczMTmLDDaiOA5ow0RAI78WtyRk_lD0I_Bo50tb7y6RnD37MOXTKUB9W1trzt3pLsPW_Pd2WyI67tQgzfbYF89b3gKZWxKUTG3oWcv8c_WENrr-nrnnrEx-Ps6RfpZZMuYblLicjvEcdDRSjTACGArJA=w869-h869-s-no-gm?authuser=0" alt="Ternera Picada">
+                            </div>
+                            <div class="ingrediente-name">Ternera Picada</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczO8SRLCNwWpClCLdWcDRGD_RZ2273zSk_pIvW2tQHtb23lGG5Cv2AxQhjh88PEhuPFTjgnU9x3hBgrCbxAdAhn2JWRPGMFdL2b94Rzgfs6NDSVx4q9hrDnpo9ut5d8CTMZLpy1RQW_moJXY__3LUgQ=w869-h869-s-no-gm?authuser=0" alt="Pechuga de Pollo">
+                            </div>
+                            <div class="ingrediente-name">Pechuga de Pollo</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczPnUC_iAhXit5ok1ep6sV4C3mwnIqAn2-OU9mHmXlwG0U0kegmQtrSHWVwohu-wkY1KE0yKrtP1ockYWULsPpR9gqJEvZgVifhQU0p6Xh1--szOGlKNoxi1OiIGMsWJau9M3hOjLdxysxyeIpLTC0c=w869-h869-s-no-gm?authuser=0" alt="Cordon Bleu">
+                            </div>
+                            <div class="ingrediente-name">Cordon Bleu</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczN6cmMlsTYTIlHsZ4FDVL2Q1oMKaeeT7_Nzladiz_EkVrlNJpbxCWCIdZn3eS2EapHKQE8VFbl1txJViGb1JUJvqkfZ0H7kDYvcXDmUZ0h7rGXk-ofYpdQDqtbBXlnvXSJq7Zw0J0Bl1S2wV_WiP4M=w869-h869-s-no-gm?authuser=0" alt="Tenders">
+                            </div>
+                            <div class="ingrediente-name">Tenders</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczOHi61Oad2dMvN_ZC7zDM6yW34_j9O_374xLPeyogYAaT4de1bjB2qqL4Q86zh1vM214Ezhcjiqd-ysuwScbBy_Z4MP_WKvEfYKNIYkFW5hzFAvn_Td-oy_Y282talxcP3YIPskH1FdL6XFWO5_xkE=w869-h869-s-no-gm?authuser=0" alt="Nuggets">
+                            </div>
+                            <div class="ingrediente-name">Nuggets</div>
+                        </div>
                     </div>
-
-                    <p class="item-description">Doble carne + Salsa fromagère casera + Patatas + Tu elección de salsas y extras</p>
-
- 
-
-                    <div class="customization-section">
-
-                        <h4 class="customization-title">Personaliza tu Tacos</h4>
-
- 
-
-                        <!-- Carnes -->
-
-                        <div class="option-group">
-
-                            <label class="option-label">Carnes (Elige hasta 2):</label>
-
-                            <div class="option-grid">
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox carne-l" id="carne-ternera-l" data-name="Ternera Picada">
-
-                                    <label class="option-label-box" for="carne-ternera-l">Ternera</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox carne-l" id="carne-pollo-l" data-name="Pechuga de Pollo">
-
-                                    <label class="option-label-box" for="carne-pollo-l">Pollo</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox carne-l" id="carne-cordon-l" data-name="Cordon Bleu">
-
-                                    <label class="option-label-box" for="carne-cordon-l">Cordon Bleu</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox carne-l" id="carne-tenders-l" data-name="Tenders">
-
-                                    <label class="option-label-box" for="carne-tenders-l">Tenders</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox carne-l" id="carne-nuggets-l" data-name="Nuggets">
-
-                                    <label class="option-label-box" for="carne-nuggets-l">Nuggets</label>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
- 
-
-                        <!-- Salsas -->
-
-                        <div class="option-group">
-
-                            <label class="option-label">Salsas (Elige hasta 3):</label>
-
-                            <div class="option-grid">
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-l" id="salsa-argelina-l" data-name="Argelina">
-
-                                    <label class="option-label-box" for="salsa-argelina-l">Argelina</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-l" id="salsa-biggy-l" data-name="Biggy">
-
-                                    <label class="option-label-box" for="salsa-biggy-l">Biggy</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-l" id="salsa-andaluza-l" data-name="Andaluza">
-
-                                    <label class="option-label-box" for="salsa-andaluza-l">Andaluza</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-l" id="salsa-bbq-l" data-name="Barbacoa">
-
-                                    <label class="option-label-box" for="salsa-bbq-l">Barbacoa</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-l" id="salsa-ketchup-l" data-name="Ketchup">
-
-                                    <label class="option-label-box" for="salsa-ketchup-l">Ketchup</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-l" id="salsa-mayo-l" data-name="Mayo">
-
-                                    <label class="option-label-box" for="salsa-mayo-l">Mayo</label>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
- 
-
-                        <!-- Extras -->
-
-                        <div class="option-group">
-
-                            <label class="option-label">Extras:</label>
-
-                            <div class="option-grid">
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-l" id="extra-cheddar-l" data-name="Cheddar" data-price="0.5">
-
-                                    <label class="option-label-box" for="extra-cheddar-l">
-
-                                        Cheddar
-
-                                        <span class="option-price">+0.50€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-l" id="extra-emmental-l" data-name="Emmental" data-price="0.5">
-
-                                    <label class="option-label-box" for="extra-emmental-l">
-
-                                        Emmental
-
-                                        <span class="option-price">+0.50€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-l" id="extra-salsa-cheddar-l" data-name="Salsa Cheddar" data-price="0.5">
-
-                                    <label class="option-label-box" for="extra-salsa-cheddar-l">
-
-                                        Salsa Cheddar
-
-                                        <span class="option-price">+0.50€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-l" id="extra-bacon-l" data-name="Bacon" data-price="0.9">
-
-                                    <label class="option-label-box" for="extra-bacon-l">
-
-                                        Bacon
-
-                                        <span class="option-price">+0.90€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-l" id="extra-fromagere-l" data-name="Salsa Fromagère Casera" data-price="0.5">
-
-                                    <label class="option-label-box" for="extra-fromagere-l">
-
-                                        Salsa Fromagère
-
-                                        <span class="option-price">+0.50€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-l" id="extra-lardon-l" data-name="Lardon" data-price="0.9">
-
-                                    <label class="option-label-box" for="extra-lardon-l">
-
-                                        Lardon
-
-                                        <span class="option-price">+0.90€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-l" id="extra-boursin-l" data-name="Boursin" data-price="0.9">
-
-                                    <label class="option-label-box" for="extra-boursin-l">
-
-                                        Boursin
-
-                                        <span class="option-price">+0.90€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-l" id="extra-huevo-l" data-name="Huevo" data-price="0.9">
-
-                                    <label class="option-label-box" for="extra-huevo-l">
-
-                                        Huevo
-
-                                        <span class="option-price">+0.90€</span>
-
-                                    </label>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
- 
-
-                        <!-- Gratinado -->
-
-                        <div class="option-group">
-
-                            <label class="option-label">Gratinado:</label>
-
-                            <div class="option-grid">
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox gratinado-l" id="gratinado-si-l" data-name="Gratinado" data-price="1">
-
-                                    <label class="option-label-box" for="gratinado-si-l">
-
-                                        Sí, Gratinado
-
-                                        <span class="option-price">+1.00€</span>
-
-                                    </label>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
- 
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="tacos-l">−</button>
-
-                            <span class="quantity-display" id="qty-tacos-l">1</span>
-
-                            <button class="quantity-btn plus" data-item="tacos-l">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="tacos-l" data-name="Tacos L" data-price="9.90" data-category="tacos">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
                 </div>
 
- 
-
-                <!-- Taco XL -->
-
-                <div class="menu-item" data-category="tacos">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMcovcyoTfTdX3lxhtUglav21BFbKpWnaQhgbIPSIAIzMgj0c-Rq8pSWelEa-0tnzkUJTIWlAj-kG8Rq1r1MzwxtwwaBRwhjLsnJddmG9aTs1azt3B6CqCT6D_VFNHoC7IEkO_96twz5BW6_3fFt9s=w869-h869-s-no-gm?authuser=0" alt="Taco XL">
-
+                <!-- Paso 3: Extras -->
+                <div class="paso-section">
+                    <div class="paso-header">
+                        <div class="paso-number">3</div>
+                        <h3 class="paso-title">Extras</h3>
+                    </div>
+                    
+                    <div class="precio-extra" style="text-align: center; font-size: 1.1rem; margin-bottom: 15px;">+ 0,50€</div>
+                    <div class="ingredientes-grid">
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczPizw07rNrZiqEuWlyf0J3LVevkjMog2KoQHhpDJdqg5rYmyyigOGBFhUsiK4szJde4xno3efaoVlDFw3lBXHpOtHFT1oKz-1XaUtRZ82EuiuaaW19SrBYHdb0Pd1LKcLqSmHVD0gW6h1XrCcYCqi0=w869-h869-s-no-gm?authuser=0" alt="Cheddar">
+                            </div>
+                            <div class="ingrediente-name">Cheddar</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczO3qvSJQMsrkVa0NO1tjcjkHNtTOV1zBfapmyvevIIxumZ3ltQGngg7-C75kc5f0g9JJt5Hrv-QCUCmHftw4MtfTXcnvy_1GcObz4-UhI9KZkCk0zHeS-SndO-XqrGgyO0zlX1H9ydMXFUPvlNHkZM=w869-h869-s-no-gm?authuser=0" alt="La Vaca Que Ríe">
+                            </div>
+                            <div class="ingrediente-name">La Vaca Que Ríe</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczPlxJCmddngOOF-i8A0BWNanaBGXGzADfR3WQR8liDHXjYXkRgThvDmcLQi0_IK0g20IrfTTDWW1uVahcagTCA97UpwIGRJ-eE-HyiNz88FPmGLvrP-fGlRaAxtQCEeTifm63KLgjhlf5Ox9qf472E=w869-h869-s-no-gm?authuser=0" alt="Emmental">
+                            </div>
+                            <div class="ingrediente-name">Emmental</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczPxHF_FKkaWVGzNZwM6zkPLSn1P9OtobxtC4jKPfAhVqojSqxRf2CQhyjvAtmrNBz_6_P-H1XLvPTXHQeDhb9rD9pnE27PqmNOOIKliM_HyX8N8B1ix6qD_Ce0VxKNmtHWCMQ7cHb31Pvv4PxEdld0=w869-h869-s-no-gm?authuser=0" alt="Cebolla Crispy">
+                            </div>
+                            <div class="ingrediente-name">Cebolla Crispy</div>
+                        </div>
                     </div>
 
-                    <div class="item-header">
-
-                        <h3 class="item-name">Tacos XL</h3>
-
-                        <span class="item-price">11.90€</span>
-
+                    <div class="precio-extra" style="text-align: center; font-size: 1.1rem; margin: 30px 0 15px 0;">+ 0,90€</div>
+                    <div class="ingredientes-grid">
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczMFIRnZ_pMztK_ssWgGUVxt86rJCjyA0Xc-6yBb64VBi-WBxLWV-QkFiErA6jegwTMf6Asdyjto4Gga1u54GX_Vx3uHoVXa5mFTpc_7p826KOiYKVifkZxCkGHHdLGdEZLjB_mxIS3-S38bNJ8W46w=w860-h573-s-no-gm?authuser=0" alt="Boursin">
+                            </div>
+                            <div class="ingrediente-name">Boursin</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczNYTR93ZpIJFlQobvMQZeFSfzAqbKw21Vod1tiBjqAElosEspUaaFpBLkHIj1tYw521fSAollM0des1C7ZAxd8q4tDo21tMdlTjj51RUnVUvVYEHk4gSVfC_iwPKLYVPTMdewNF5BL3P1EJjepF_BI=w869-h869-s-no-gm?authuser=0" alt="Cabra">
+                            </div>
+                            <div class="ingrediente-name">Cabra</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczOTkwRT5W9U69plA0pzNzo41rxja2QudFQszGt08iFfy5tpMa_dXucc4AIZEgkOTQQ5GD5z9v2LTtrmf7mdotGe-__xETrq88rLkGW8YFnxXf1H09ci83QKTxynkZMULkcOWEXpWl_Tr-kRZ3ANlNk=w869-h869-s-no-gm?authuser=0" alt="Mozzarella">
+                            </div>
+                            <div class="ingrediente-name">Mozzarella</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczOAyo-PlskzQKfiNZtw6Y_OPmpT9BYRGIdQigbyFffNC6tV64ul3e05IGH_qs-B1Ob-55GL6IwmtrCjyZWOU8ZsdgcQxx2CdfO2jkQu28tclgHoVoziG8_WI1eegGX3JWvtihAOQm86cr4pYrxdw2g=w869-h869-s-no-gm?authuser=0" alt="Huevo">
+                            </div>
+                            <div class="ingrediente-name">Huevo</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczNg73n0qtutbvYzKOf9idA6jPajCG0mLSJd0l8EpVaDLuFwzrM2sBiZ0ZRy7QdObbgGT4JAOQ48LIZm7Mqt98-C2YWtwCOctL4XjyV-ALc72y03kLP2waa05s-Gl_f39Twom_lIz0ARGSRMpY48yRA=w869-h869-s-no-gm?authuser=0" alt="Cebolla Caramelizada">
+                            </div>
+                            <div class="ingrediente-name">Cebolla Caramelizada</div>
+                        </div>
                     </div>
-
-                    <p class="item-description">Triple carne + Salsa fromagère casera + Patatas + Tu elección de salsas y extras</p>
-
- 
-
-                    <div class="customization-section">
-
-                        <h4 class="customization-title">Personaliza tu Tacos</h4>
-
- 
-
-                        <!-- Carnes -->
-
-                        <div class="option-group">
-
-                            <label class="option-label">Carnes (Elige hasta 3):</label>
-
-                            <div class="option-grid">
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox carne-xl" id="carne-ternera-xl" data-name="Ternera Picada">
-
-                                    <label class="option-label-box" for="carne-ternera-xl">Ternera</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox carne-xl" id="carne-pollo-xl" data-name="Pechuga de Pollo">
-
-                                    <label class="option-label-box" for="carne-pollo-xl">Pollo</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox carne-xl" id="carne-cordon-xl" data-name="Cordon Bleu">
-
-                                    <label class="option-label-box" for="carne-cordon-xl">Cordon Bleu</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox carne-xl" id="carne-tenders-xl" data-name="Tenders">
-
-                                    <label class="option-label-box" for="carne-tenders-xl">Tenders</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox carne-xl" id="carne-nuggets-xl" data-name="Nuggets">
-
-                                    <label class="option-label-box" for="carne-nuggets-xl">Nuggets</label>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
- 
-
-                        <!-- Salsas -->
-
-                        <div class="option-group">
-
-                            <label class="option-label">Salsas (Elige hasta 4):</label>
-
-                            <div class="option-grid">
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-argelina-xl" data-name="Argelina">
-
-                                    <label class="option-label-box" for="salsa-argelina-xl">Argelina</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-biggy-xl" data-name="Biggy">
-
-                                    <label class="option-label-box" for="salsa-biggy-xl">Biggy</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-andaluza-xl" data-name="Andaluza">
-
-                                    <label class="option-label-box" for="salsa-andaluza-xl">Andaluza</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-brasil-xl" data-name="Brasil">
-
-                                    <label class="option-label-box" for="salsa-brasil-xl">Brasil</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-bbq-xl" data-name="Barbacoa">
-
-                                    <label class="option-label-box" for="salsa-bbq-xl">Barbacoa</label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-samurai-xl" data-name="Samurai">
-
-                                    <label class="option-label-box" for="salsa-samurai-xl">Samurai</label>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
- 
-
-                        <!-- Extras -->
-
-                        <div class="option-group">
-
-                            <label class="option-label">Extras:</label>
-
-                            <div class="option-grid">
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-xl" id="extra-cheddar-xl" data-name="Cheddar" data-price="0.5">
-
-                                    <label class="option-label-box" for="extra-cheddar-xl">
-
-                                        Cheddar
-
-                                        <span class="option-price">+0.50€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-xl" id="extra-emmental-xl" data-name="Emmental" data-price="0.5">
-
-                                    <label class="option-label-box" for="extra-emmental-xl">
-
-                                        Emmental
-
-                                        <span class="option-price">+0.50€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-xl" id="extra-salsa-cheddar-xl" data-name="Salsa Cheddar" data-price="0.5">
-
-                                    <label class="option-label-box" for="extra-salsa-cheddar-xl">
-
-                                        Salsa Cheddar
-
-                                        <span class="option-price">+0.50€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-xl" id="extra-bacon-xl" data-name="Bacon" data-price="0.9">
-
-                                    <label class="option-label-box" for="extra-bacon-xl">
-
-                                        Bacon
-
-                                        <span class="option-price">+0.90€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-xl" id="extra-fromagere-xl" data-name="Salsa Fromagère Casera" data-price="0.5">
-
-                                    <label class="option-label-box" for="extra-fromagere-xl">
-
-                                        Salsa Fromagère
-
-                                        <span class="option-price">+0.50€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-xl" id="extra-lardon-xl" data-name="Lardon" data-price="0.9">
-
-                                    <label class="option-label-box" for="extra-lardon-xl">
-
-                                        Lardon
-
-                                        <span class="option-price">+0.90€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-xl" id="extra-boursin-xl" data-name="Boursin" data-price="0.9">
-
-                                    <label class="option-label-box" for="extra-boursin-xl">
-
-                                        Boursin
-
-                                        <span class="option-price">+0.90€</span>
-
-                                    </label>
-
-                                </div>
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox extra-xl" id="extra-mozzarella-xl" data-name="Mozzarella" data-price="0.9">
-
-                                    <label class="option-label-box" for="extra-mozzarella-xl">
-
-                                        Mozzarella
-
-                                        <span class="option-price">+0.90€</span>
-
-                                    </label>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
- 
-
-                        <!-- Gratinado -->
-
-                        <div class="option-group">
-
-                            <label class="option-label">Gratinado:</label>
-
-                            <div class="option-grid">
-
-                                <div class="option-item">
-
-                                    <input type="checkbox" class="option-checkbox gratinado-xl" id="gratinado-si-xl" data-name="Gratinado" data-price="1">
-
-                                    <label class="option-label-box" for="gratinado-si-xl">
-
-                                        Sí, Gratinado
-
-                                        <span class="option-price">+1.00€</span>
-
-                                    </label>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
- 
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="tacos-xl">−</button>
-
-                            <span class="quantity-display" id="qty-tacos-xl">1</span>
-
-                            <button class="quantity-btn plus" data-item="tacos-xl">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="tacos-xl" data-name="Tacos XL" data-price="11.90" data-category="tacos">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
                 </div>
 
+                <!-- Paso 4: Gratinado -->
+                <div class="paso-section">
+                    <div class="paso-header">
+                        <div class="paso-number">4</div>
+                        <h3 class="paso-title">Gratinado</h3>
+                    </div>
+                    <div class="precio-extra" style="text-align: center; font-size: 1.1rem; margin-bottom: 15px;">+ 1,00€</div>
+
+                    <div class="ingredientes-grid">
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczPizw07rNrZiqEuWlyf0J3LVevkjMog2KoQHhpDJdqg5rYmyyigOGBFhUsiK4szJde4xno3efaoVlDFw3lBXHpOtHFT1oKz-1XaUtRZ82EuiuaaW19SrBYHdb0Pd1LKcLqSmHVD0gW6h1XrCcYCqi0=w869-h869-s-no-gm?authuser=0" alt="Cheddar">
+                            </div>
+                            <div class="ingrediente-name">Cheddar</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczNYTR93ZpIJFlQobvMQZeFSfzAqbKw21Vod1tiBjqAElosEspUaaFpBLkHIj1tYw521fSAollM0des1C7ZAxd8q4tDo21tMdlTjj51RUnVUvVYEHk4gSVfC_iwPKLYVPTMdewNF5BL3P1EJjepF_BI=w869-h869-s-no-gm?authuser=0" alt="Cabra Miel">
+                            </div>
+                            <div class="ingrediente-name">Cabra Miel</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczPlxJCmddngOOF-i8A0BWNanaBGXGzADfR3WQR8liDHXjYXkRgThvDmcLQi0_IK0g20IrfTTDWW1uVahcagTCA97UpwIGRJ-eE-HyiNz88FPmGLvrP-fGlRaAxtQCEeTifm63KLgjhlf5Ox9qf472E=w869-h869-s-no-gm?authuser=0" alt="Emmental">
+                            </div>
+                            <div class="ingrediente-name">Emmental</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczOTkwRT5W9U69plA0pzNzo41rxja2QudFQszGt08iFfy5tpMa_dXucc4AIZEgkOTQQ5GD5z9v2LTtrmf7mdotGe-__xETrq88rLkGW8YFnxXf1H09ci83QKTxynkZMULkcOWEXpWl_Tr-kRZ3ANlNk=w869-h869-s-no-gm?authuser=0" alt="Mozzarella">
+                            </div>
+                            <div class="ingrediente-name">Mozzarella</div>
+                        </div>
+                        <div class="ingrediente-item">
+                            <div class="ingrediente-circle">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczPsjacGQ8SiERXcmSXlG9I3sIago3j-tst5kzQyUaF0LpgUDFn3h6LT_fEOVgPXtvgzd8F97St9zfoMVznhLipGajsYW10oIDJOp4FH2oMiLOE5vhD8TawawhbNQx4bCR9BeWeYMvlGFGa4H14UcvU=w869-h869-s-no-gm?authuser=0" alt="Emmental Lardon">
+                            </div>
+                            <div class="ingrediente-name">Emmental Lardon</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-option">
+                    <div class="menu-option-text">Hazlo menú + 3,00€</div>
+                    <div style="font-size: 1rem; margin-top: 5px;">Bebida + Patatas</div>
+                </div>
             </div>
-
         </div>
-
- 
 
         <!-- Entrantes Tab -->
-
         <div id="entrantes" class="tab-content">
-
-            <h2 class="section-title">🥗 Entrantes</h2>
-
- 
-
+            <div class="tab-banner banner-desktop" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczNPLtuqVcu38gPRrIQgRQwBtjbmTeD2eRfiPQeFLDHTwQirsGZHxhehS8cVHtjgmqv5aXdNJytLe3UdUad1z2xw_AUagz1s5aCHkYagtAbnIwO6WGrq8jtJwtKPyujK8lKh_D_dmAuW0qOGHbuQSBc=w1080-h400-s-no-gm?authuser=0');"></div>
+            <div class="tab-banner banner-mobile" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczNeE0NNvp5RQhH0os4GkyHkEFnLhEACsohsj70HMpqGCuPijELq_k2Ll0n3I7Gswrcj6InsGmjPTGzCnV6HQiQHwQE7mEN2zVO1Z-CN-3OnB8g_2JcLz0qbYn5R2eY8ysPecEz8OzIfhMmmjR4kXc8=w492-h400-s-no-gm?authuser=0');"></div>
+            <h2 class="section-title">Entrantes</h2>
             <div class="menu-grid">
-
-                <div class="menu-item" data-category="entrantes">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczNPLtuqVcu38gPRrIQgRQwBtjbmTeD2eRfiPQeFLDHTwQirsGZHxhehS8cVHtjgmqv5aXdNJytLe3UdUad1z2xw_AUagz1s5aCHkYagtAbnIwO6WGrq8jtJwtKPyujK8lKh_D_dmAuW0qOGHbuQSBc=w1080-h400-s-no-gm?authuser=0" alt="Camembert">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Camembert (5 unidades)</h3>
-
-                        <span class="item-price">3.00€</span>
-
-                    </div>
-
-                    <p class="item-description">Delicioso queso Camembert empanizado y frito</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="camembert">−</button>
-
-                            <span class="quantity-display" id="qty-camembert">1</span>
-
-                            <button class="quantity-btn plus" data-item="camembert">+</button>
-
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczNPLtuqVcu38gPRrIQgRQwBtjbmTeD2eRfiPQeFLDHTwQirsGZHxhehS8cVHtjgmqv5aXdNJytLe3UdUad1z2xw_AUagz1s5aCHkYagtAbnIwO6WGrq8jtJwtKPyujK8lKh_D_dmAuW0qOGHbuQSBc=w1080-h400-s-no-gm?authuser=0" alt="Camembert" class="item-icon">
+                            Camembert
                         </div>
-
-                        <button class="add-to-cart-btn" data-item="camembert" data-name="Camembert (5 unidades)" data-price="3.00" data-category="entrantes">
-
-                            Añadir al Carrito
-
-                        </button>
-
+                        <span class="item-price">3,00€</span>
                     </div>
-
+                    <div class="item-description">5 unidades</div>
                 </div>
-
- 
-
-                <div class="menu-item" data-category="entrantes">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczNv3EcVuHrml0LL8RYJw_F8HJ6nrlunVa-SmpUVfGCLwysy4-jvXspVkzmJmB9tF-HHFL5pWhC0VfEnuOYdP87NcvfNahFhLnG3xeUkraFVEV_DH9hmP0_m5_2hMqCY_bpYviZXVtGCZvBGoqYWuaA=w869-h869-s-no-gm?authuser=0" alt="Mozza Sticks">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Mozza Sticks (5 unidades)</h3>
-
-                        <span class="item-price">3.00€</span>
-
-                    </div>
-
-                    <p class="item-description">Palitos de mozzarella crujientes con salsa</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="mozza-sticks">−</button>
-
-                            <span class="quantity-display" id="qty-mozza-sticks">1</span>
-
-                            <button class="quantity-btn plus" data-item="mozza-sticks">+</button>
-
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczNv3EcVuHrml0LL8RYJw_F8HJ6nrlunVa-SmpUVfGCLwysy4-jvXspVkzmJmB9tF-HHFL5pWhC0VfEnuOYdP87NcvfNahFhLnG3xeUkraFVEV_DH9hmP0_m5_2hMqCY_bpYviZXVtGCZvBGoqYWuaA=w869-h869-s-no-gm?authuser=0" alt="Mozza Sticks" class="item-icon">
+                            Mozza Sticks
                         </div>
-
-                        <button class="add-to-cart-btn" data-item="mozza-sticks" data-name="Mozza Sticks (5 unidades)" data-price="3.00" data-category="entrantes">
-
-                            Añadir al Carrito
-
-                        </button>
-
+                        <span class="item-price">3,00€</span>
                     </div>
-
+                    <div class="item-description">5 unidades</div>
                 </div>
-
- 
-
-                <div class="menu-item" data-category="entrantes">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczOAVU4rn87OSZ_es9GWBWbEO2kbjIrMAc7_BspgpO9YkKsevqNfvx2Mhin70PkHQNe_UEISLt7FR5ZmJJj4Akf98SD8tSvRYZwj21uMkcJ4GA4KN4GBkREDAv6P_f5PL1NOWms_olhMrhCSDWk2960=w869-h869-s-no-gm?authuser=0" alt="Onion Rings">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Onion Rings (7 unidades)</h3>
-
-                        <span class="item-price">3.00€</span>
-
-                    </div>
-
-                    <p class="item-description">Aros de cebolla dorados y crujientes</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="onion-rings">−</button>
-
-                            <span class="quantity-display" id="qty-onion-rings">1</span>
-
-                            <button class="quantity-btn plus" data-item="onion-rings">+</button>
-
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczOAVU4rn87OSZ_es9GWBWbEO2kbjIrMAc7_BspgpO9YkKsevqNfvx2Mhin70PkHQNe_UEISLt7FR5ZmJJj4Akf98SD8tSvRYZwj21uMkcJ4GA4KN4GBkREDAv6P_f5PL1NOWms_olhMrhCSDWk2960=w869-h869-s-no-gm?authuser=0" alt="Onion Rings" class="item-icon">
+                            Onion Rings
                         </div>
-
-                        <button class="add-to-cart-btn" data-item="onion-rings" data-name="Onion Rings (7 unidades)" data-price="3.00" data-category="entrantes">
-
-                            Añadir al Carrito
-
-                        </button>
-
+                        <span class="item-price">3,00€</span>
                     </div>
-
+                    <div class="item-description">7 unidades</div>
                 </div>
-
- 
-
-                <div class="menu-item" data-category="entrantes">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczN6cmMlsTYTIlHsZ4FDVL2Q1oMKaeeT7_Nzladiz_EkVrlNJpbxCWCIdZn3eS2EapHKQE8VFbl1txJViGb1JUJvqkfZ0H7kDYvcXDmUZ0h7rGXk-ofYpdQDqtbBXlnvXSJq7Zw0J0Bl1S2wV_WiP4M=w869-h869-s-no-gm?authuser=0" alt="Tenders">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Tenders (5 unidades)</h3>
-
-                        <span class="item-price">6.50€</span>
-
-                    </div>
-
-                    <p class="item-description">Tiras de pollo empanizadas tiernas y crujientes</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="tenders-5">−</button>
-
-                            <span class="quantity-display" id="qty-tenders-5">1</span>
-
-                            <button class="quantity-btn plus" data-item="tenders-5">+</button>
-
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczN6cmMlsTYTIlHsZ4FDVL2Q1oMKaeeT7_Nzladiz_EkVrlNJpbxCWCIdZn3eS2EapHKQE8VFbl1txJViGb1JUJvqkfZ0H7kDYvcXDmUZ0h7rGXk-ofYpdQDqtbBXlnvXSJq7Zw0J0Bl1S2wV_WiP4M=w869-h869-s-no-gm?authuser=0" alt="Tenders" class="item-icon">
+                            Tenders
                         </div>
-
-                        <button class="add-to-cart-btn" data-item="tenders-5" data-name="Tenders (5 unidades)" data-price="6.50" data-category="entrantes">
-
-                            Añadir al Carrito
-
-                        </button>
-
                     </div>
-
+                    <div class="item-subitems">
+                        <div class="subitem"><span>3 unidades</span><span class="item-price">4,00€</span></div>
+                        <div class="subitem"><span>5 unidades</span><span class="item-price">6,50€</span></div>
+                        <div class="subitem"><span>7 unidades</span><span class="item-price">8,00€</span></div>
+                    </div>
                 </div>
-
- 
-
-                <div class="menu-item" data-category="entrantes">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczOHi61Oad2dMvN_ZC7zDM6yW34_j9O_374xLPeyogYAaT4de1bjB2qqL4Q86zh1vM214Ezhcjiqd-ysuwScbBy_Z4MP_WKvEfYKNIYkFW5hzFAvn_Td-oy_Y282talxcP3YIPskH1FdL6XFWO5_xkE=w869-h869-s-no-gm?authuser=0" alt="Nuggets">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Nuggets (7 unidades)</h3>
-
-                        <span class="item-price">5.00€</span>
-
-                    </div>
-
-                    <p class="item-description">Nuggets de pollo dorados y crujientes</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="nuggets-7">−</button>
-
-                            <span class="quantity-display" id="qty-nuggets-7">1</span>
-
-                            <button class="quantity-btn plus" data-item="nuggets-7">+</button>
-
+                <div class="menu-item">
+                    <div class="item-name">
+                        <div class="item-name-with-icon">
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczOHi61Oad2dMvN_ZC7zDM6yW34_j9O_374xLPeyogYAaT4de1bjB2qqL4Q86zh1vM214Ezhcjiqd-ysuwScbBy_Z4MP_WKvEfYKNIYkFW5hzFAvn_Td-oy_Y282talxcP3YIPskH1FdL6XFWO5_xkE=w869-h869-s-no-gm?authuser=0" alt="Nuggets" class="item-icon">
+                            Nuggets
                         </div>
-
-                        <button class="add-to-cart-btn" data-item="nuggets-7" data-name="Nuggets (7 unidades)" data-price="5.00" data-category="entrantes">
-
-                            Añadir al Carrito
-
-                        </button>
-
                     </div>
-
+                    <div class="item-subitems">
+                        <div class="subitem"><span>5 unidades</span><span class="item-price">3,00€</span></div>
+                        <div class="subitem"><span>7 unidades</span><span class="item-price">5,00€</span></div>
+                    </div>
                 </div>
-
             </div>
-
         </div>
-
- 
 
         <!-- Patatas Tab -->
-
         <div id="patatas" class="tab-content">
-
-            <h2 class="section-title">🍟 Patatas</h2>
-
- 
-
+            <div class="tab-banner banner-desktop" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczN_5HqUAf4PCXarwBk319iruaq78TqtPojdazJ235NI4o1XkndkBb0yYcnpjS54UJsO4Ltnab_L6PN7920jN08gOHA0b5UrJO3gGiVeAP4IGPE8eshdrr7OB9Sgm-0vUNlkqlVgy4hnHYCvKl4d4Jw=w1080-h400-s-no-gm?authuser=0');"></div>
+            <div class="tab-banner banner-mobile" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczN00RSboqTWkaiiY7L5gj8VMjzKJVELG5wNosxt7aWZN5qZUeX4T9SzsSdaOmNxrKQpgDUPAoSV46ySuy_RCx2NAOkGIRSvqAj8jljjmzItS3PqMmQttALzWkuf0WWYzwSCt92poOc_ZYvWb5_QlVw=w492-h400-s-no-gm?authuser=0');"></div>
+            <h2 class="section-title">Patatas</h2>
             <div class="menu-grid">
-
-                <div class="menu-item" data-category="patatas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMpQTsLeYQjB_cSGJrrhBSx0z4qxLRuIHC-9EQFtCYLuLhWkJdRKPOg4q7g2mEW7BdN6WqNvOdp9SsPf7uIGp64KmQ5D5IiCrMX8o4VHWJuCL1bU3kZbUdlnhvnpMQ9gL1v7fSQ1ZxQPfEjOcD5SLc=w869-h869-s-no-gm?authuser=0" alt="Patatas">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Patatas Pequeñas</h3>
-
-                        <span class="item-price">2.00€</span>
-
-                    </div>
-
-                    <p class="item-description">Porción pequeña de patatas fritas doradas y crujientes</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="patatas-pequenas">−</button>
-
-                            <span class="quantity-display" id="qty-patatas-pequenas">1</span>
-
-                            <button class="quantity-btn plus" data-item="patatas-pequenas">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="patatas-pequenas" data-name="Patatas Pequeñas" data-price="2.00" data-category="patatas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
+                <div class="menu-item">
+                    <div class="item-name">Pequeñas <span class="item-price">2,00€</span></div>
                 </div>
-
-
-
-                <div class="menu-item" data-category="patatas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMpQTsLeYQjB_cSGJrrhBSx0z4qxLRuIHC-9EQFtCYLuLhWkJdRKPOg4q7g2mEW7BdN6WqNvOdp9SsPf7uIGp64KmQ5D5IiCrMX8o4VHWJuCL1bU3kZbUdlnhvnpMQ9gL1v7fSQ1ZxQPfEjOcD5SLc=w869-h869-s-no-gm?authuser=0" alt="Patatas">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Patatas Grandes</h3>
-
-                        <span class="item-price">5.00€</span>
-
-                    </div>
-
-                    <p class="item-description">Porción grande de patatas fritas doradas y crujientes</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="patatas-grandes">−</button>
-
-                            <span class="quantity-display" id="qty-patatas-grandes">1</span>
-
-                            <button class="quantity-btn plus" data-item="patatas-grandes">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="patatas-grandes" data-name="Patatas Grandes" data-price="5.00" data-category="patatas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
+                <div class="menu-item">
+                    <div class="item-name">Grandes <span class="item-price">5,00€</span></div>
                 </div>
-
+                <div class="menu-item">
+                    <div class="item-name">Extras</div>
+                    <div class="item-description">Salsa cheddar / Bacon / Salsa Fromagère casera / Lardon</div>
+                </div>
             </div>
-
         </div>
-
- 
 
         <!-- Hamburguesas Tab -->
-
         <div id="hamburguesas" class="tab-content">
-
-            <h2 class="section-title">🍔 Hamburguesas</h2>
-
- 
-
+            <div class="tab-banner banner-desktop" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczPaczVxSLxqm7O5wFBzk7KsMfHBnP_LhSO4QlciQRE3HWkWRzgTFHctJdduxTs3oFNnT1i-6u7Jf16AtrHec_1SA1LUrmlJclOzZCQeWSO9KC6sgHX84ZL6ojhYCdKjjWURUEWfIJ9tswEL3SVSjBI=w1080-h400-s-no-gm?authuser=0');"></div>
+            <div class="tab-banner banner-mobile" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczNBUPyrFtEuqsQtDLtuDTZKDczc2gADPS8MRIGr58S5FhJ19bgfWtuH_cvDj-p8DPq4v8knT08Nz5zSJvGVR5LSZwAY-qnRPkqI2b2IQ8HD2y1kOtYYiN4VAuJ0wWlpYFdd4wv1z8JtK6bi8lOi3M4=w492-h400-s-no-gm?authuser=0');"></div>
+            <h2 class="section-title">Hamburguesas</h2>
             <div class="menu-grid">
-
-                <div class="menu-item" data-category="hamburguesas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczNqaR_Uu7EcxZO-WECHbWNXlvLyC8YmYp4Y0E87-VhR6J0BwEzJhCQEe-JdXZGOI1rz7m-pT_zKW-BbcEGJmBVLqp0UqKh5h2E_eDUzJKGfKGvZL8Y9D6KqHnRz9X5oY1XrKvRqvTpX7gL2fXL8NKY=w869-h869-s-no-gm?authuser=0" alt="Classic Burger">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Classic</h3>
-
-                        <span class="item-price">8.90€</span>
-
-                    </div>
-
-                    <p class="item-description">120gr carne de res, cheddar, salsa biggy, lechuga, tomate, cebolla</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="hamburguesa-classic">−</button>
-
-                            <span class="quantity-display" id="qty-hamburguesa-classic">1</span>
-
-                            <button class="quantity-btn plus" data-item="hamburguesa-classic">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="hamburguesa-classic" data-name="Hamburguesa Classic" data-price="8.90" data-category="hamburguesas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
+                <div class="menu-item">
+                    <div class="item-name">La Picosa <span class="item-price">9,90€</span></div>
+                    <div class="item-description">2x90gr de carne smashenda, cheddar, salsa ardiente, lechuga, tomate y cebolla</div>
                 </div>
-
-
-
-                <div class="menu-item" data-category="hamburguesas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczOqKQY3zxL7YhBVpN6E8gL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZpQE8L6RqXyL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZpQE8L6RqXyL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9=w869-h869-s-no-gm?authuser=0" alt="La Picosa">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">La Picosa</h3>
-
-                        <span class="item-price">9.90€</span>
-
-                    </div>
-
-                    <p class="item-description">2x90gr smashed beef, cheddar, salsa picante, lechuga, tomate, cebolla</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="hamburguesa-picosa">−</button>
-
-                            <span class="quantity-display" id="qty-hamburguesa-picosa">1</span>
-
-                            <button class="quantity-btn plus" data-item="hamburguesa-picosa">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="hamburguesa-picosa" data-name="Hamburguesa La Picosa" data-price="9.90" data-category="hamburguesas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
+                <div class="menu-item">
+                    <div class="item-name">Pecado Dulce <span class="item-price">9,90€</span></div>
+                    <div class="item-description">2x90gr de carne smashenda, cheddar, salsa delicia, lechuga, tomate y cebolla</div>
                 </div>
-
-
-
-                <div class="menu-item" data-category="hamburguesas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMK7E8hQKv9L6RqXyL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZpQE8L6RqXyL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZpQE8L6RqXyL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZ=w869-h869-s-no-gm?authuser=0" alt="Chicken Burger">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Chicken</h3>
-
-                        <span class="item-price">9.90€</span>
-
-                    </div>
-
-                    <p class="item-description">2 tenders crujientes, cheddar, salsa biggy & fromagère, lechuga, tomate, cebolla</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="hamburguesa-chicken">−</button>
-
-                            <span class="quantity-display" id="qty-hamburguesa-chicken">1</span>
-
-                            <button class="quantity-btn plus" data-item="hamburguesa-chicken">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="hamburguesa-chicken" data-name="Hamburguesa Chicken" data-price="9.90" data-category="hamburguesas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
+                <div class="menu-item">
+                    <div class="item-name">Chicken <span class="item-price">9,90€</span></div>
+                    <div class="item-description">2 tenders crujientes, cheddar, salsas biggy y fromager, lechuga, tomate y cebolla</div>
                 </div>
-
-
-
-                <div class="menu-item" data-category="hamburguesas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczPL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZpQE8L6RqXyL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZpQE8L6RqXyL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZpQE8L6RqXyL9RkW=w869-h869-s-no-gm?authuser=0" alt="Big Cool">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Big Cool</h3>
-
-                        <span class="item-price">10.90€</span>
-
-                    </div>
-
-                    <p class="item-description">180gr carne de res, cheddar, salsa a elegir, huevo, lechuga, tomate</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="hamburguesa-big-cool">−</button>
-
-                            <span class="quantity-display" id="qty-hamburguesa-big-cool">1</span>
-
-                            <button class="quantity-btn plus" data-item="hamburguesa-big-cool">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="hamburguesa-big-cool" data-name="Hamburguesa Big Cool" data-price="10.90" data-category="hamburguesas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
+                <div class="menu-item">
+                    <div class="item-name">Classic <span class="item-price">8,90€</span></div>
+                    <div class="item-description">120gr de carne, cheddar, salsa biggy, lechuga, tomate y cebolla</div>
                 </div>
-
+                <div class="menu-item">
+                    <div class="item-name">Beef and Bacon <span class="item-price">9,90€</span></div>
+                    <div class="item-description">170gr de carne, cheddar, salsa smoky, bacon, lechuga y tomate</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Big Cool <span class="item-price">10,90€</span></div>
+                    <div class="item-description">180gr de carne, cheddar, salsa a elegir, huevo, lechuga y tomate</div>
+                </div>
             </div>
-
         </div>
 
- 
-
-        <!-- Bocadillos Tab -->
-
-        <div id="bocadillos" class="tab-content">
-
-            <h2 class="section-title">🥖 Box & Bocadillos</h2>
-
- 
-
+        <!-- Otros Tab -->
+        <div id="otros" class="tab-content">
+            <div class="tab-banner banner-desktop" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczNax1GVS1hoqo2ZIhd0juNQ0PzBENvbboLTbMPH8PwEBkeq0KZUP1u9MUPniDvkgUah0TZQFqTY9kZgYft70x3_aYwKc83N3ibb6rTtBvZvDDRienfxwb7uRwduLd819NOZb7RtSm420DA6__lH6n0=w1080-h400-s-no-gm?authuser=0');"></div>
+            <div class="tab-banner banner-mobile" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczOSycxn55MgiDr679uT8AG3lSL-WlDDFthP8L76i11VnO3Hi3iPJGvAaQpKuz7alDbclnI81_9iZNrYWbJZOB-kHNYuqV-qvT-nft-QOs3_IzcfTXs9DPzX6kn9YYJHrC97mqXLi-zNUowhkJu_Wp0=w492-h400-s-no-gm?authuser=0');"></div>
+            <h2 class="section-title">Box & Bocadillos</h2>
             <div class="menu-grid">
-
-                <div class="menu-item" data-category="bocadillos">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczO8yL5fH9KvZpQE8L6RqXyL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZpQE8L6RqXyL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZpQE8L6RqXyL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9=w869-h869-s-no-gm?authuser=0" alt="Box">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Box</h3>
-
-                        <span class="item-price">8.50€</span>
-
-                    </div>
-
-                    <p class="item-description">Tu elección de carne, patatas fritas, salsa a elegir, salsa fromagère casera</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="box">−</button>
-
-                            <span class="quantity-display" id="qty-box">1</span>
-
-                            <button class="quantity-btn plus" data-item="box">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="box" data-name="Box" data-price="8.50" data-category="bocadillos">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
+                <div class="menu-item">
+                    <div class="item-name">Box <span class="item-price">8,50€</span></div>
+                    <div class="item-description">Carne a elegir, Patatas fritas, Salsa a elegir, Salsa Fromagère casera</div>
                 </div>
-
-
-
-                <div class="menu-item" data-category="bocadillos">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMVfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZpQE8L6RqXyL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZpQE8L6RqXyL9RkWq2VfZL3K8yQE5hNvTpL6RqX8yL5fH9KvZpQE8L6RqXyL9RkWq2VfZL3K=w869-h869-s-no-gm?authuser=0" alt="Bocadillo">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Bocadillo</h3>
-
-                        <span class="item-price">8.50€</span>
-
-                    </div>
-
-                    <p class="item-description">Carne de res o pollo, lechuga, tomate, cebolla, salsa a elegir, cheddar</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="bocadillo">−</button>
-
-                            <span class="quantity-display" id="qty-bocadillo">1</span>
-
-                            <button class="quantity-btn plus" data-item="bocadillo">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="bocadillo" data-name="Bocadillo" data-price="8.50" data-category="bocadillos">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
+                <div class="menu-item">
+                    <div class="item-name">Bocadillos <span class="item-price">8,50€</span></div>
+                    <div class="item-description">Ternera / Pollo, Base: lechuga, tomate, cebolla, salsa a elegir y cheddar</div>
                 </div>
-
             </div>
-
         </div>
-
-
-
-        <!-- Salsas Tab -->
-
-        <div id="salsas" class="tab-content">
-
-            <h2 class="section-title">🌶️ Salsas Especiales</h2>
-
-
-
-            <div class="menu-grid">
-
-                <div class="menu-item" data-category="salsas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMF89AEO-t7IlatPIE5-VTqEP6YmWQdHkhuEHfshh0QZfiz3_94w1uzktFETCJH4qOSX7h4AzGnavcbqBhIPr828stB88uxZRaSWayjbLty_Ypu_PlTHb81oJj8ojXitWRUAEPI9XJejRc6DFlkvzo=w869-h869-s-no-gm?authuser=0" alt="Salsa Fromagère Casera">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Salsa Fromagère Casera</h3>
-
-                        <span class="item-price">0.50€</span>
-
-                    </div>
-
-                    <p class="item-description">Nuestra famosa salsa de queso casera</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="salsa-fromagere">−</button>
-
-                            <span class="quantity-display" id="qty-salsa-fromagere">1</span>
-
-                            <button class="quantity-btn plus" data-item="salsa-fromagere">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="salsa-fromagere" data-name="Salsa Fromagère Casera" data-price="0.50" data-category="salsas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="menu-item" data-category="salsas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczPHCvSM88qJsta6perEkiZ8vQ7hQNG4BOzErUgZS0nS3q0awyY30TLQn9uchyx7U8qV00E_1opig1DUggT7BdbHYJk2U_d9_oVyoa5MlOeycQEOZksCUoFtjsdcoNdtoGuEc4dAwcvn2TktH8XD01Y=w869-h869-s-no-gm?authuser=0" alt="Salsa Cheddar">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Salsa Cheddar</h3>
-
-                        <span class="item-price">0.50€</span>
-
-                    </div>
-
-                    <p class="item-description">Deliciosa salsa de queso cheddar</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="salsa-cheddar">−</button>
-
-                            <span class="quantity-display" id="qty-salsa-cheddar">1</span>
-
-                            <button class="quantity-btn plus" data-item="salsa-cheddar">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="salsa-cheddar" data-name="Salsa Cheddar" data-price="0.50" data-category="salsas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="menu-item" data-category="salsas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMcovcyoTfTdX3lxhtUglav21BFbKpWnaQhgbIPSIAIzMgj0c-Rq8pSWelEa-0tnzkUJTIWlAj-kG8Rq1r1MzwxtwwaBRwhjLsnJddmG9aTs1azt3B6CqCT6D_VFNHoC7IEkO_96twz5BW6_3fFt9s=w869-h869-s-no-gm?authuser=0" alt="Salsa Argelina">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Salsa Argelina</h3>
-
-                        <span class="item-price">0.30€</span>
-
-                    </div>
-
-                    <p class="item-description">Salsa picante estilo argelino</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="salsa-argelina">−</button>
-
-                            <span class="quantity-display" id="qty-salsa-argelina">1</span>
-
-                            <button class="quantity-btn plus" data-item="salsa-argelina">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="salsa-argelina" data-name="Salsa Argelina" data-price="0.30" data-category="salsas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="menu-item" data-category="salsas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczNv3EcVuHrml0LL8RYJw_F8HJ6nrlunVa-SmpUVfGCLwysy4-jvXspVkzmJmB9tF-HHFL5pWhC0VfEnuOYdP87NcvfNahFhLnG3xeUkraFVEV_DH9hmP0_m5_2hMqCY_bpYviZXVtGCZvBGoqYWuaA=w869-h869-s-no-gm?authuser=0" alt="Salsa Biggy">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Salsa Biggy</h3>
-
-                        <span class="item-price">0.30€</span>
-
-                    </div>
-
-                    <p class="item-description">Nuestra salsa especial Biggy</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="salsa-biggy">−</button>
-
-                            <span class="quantity-display" id="qty-salsa-biggy">1</span>
-
-                            <button class="quantity-btn plus" data-item="salsa-biggy">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="salsa-biggy" data-name="Salsa Biggy" data-price="0.30" data-category="salsas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="menu-item" data-category="salsas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczOAVU4rn87OSZ_es9GWBWbEO2kbjIrMAc7_BspgpO9YkKsevqNfvx2Mhin70PkHQNe_UEISLt7FR5ZmJJj4Akf98SD8tSvRYZwj21uMkcJ4GA4KN4GBkREDAv6P_f5PL1NOWms_olhMrhCSDWk2960=w869-h869-s-no-gm?authuser=0" alt="Salsa Andaluza">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Salsa Andaluza</h3>
-
-                        <span class="item-price">0.30€</span>
-
-                    </div>
-
-                    <p class="item-description">Salsa estilo andaluz</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="salsa-andaluza">−</button>
-
-                            <span class="quantity-display" id="qty-salsa-andaluza">1</span>
-
-                            <button class="quantity-btn plus" data-item="salsa-andaluza">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="salsa-andaluza" data-name="Salsa Andaluza" data-price="0.30" data-category="salsas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="menu-item" data-category="salsas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczN6cmMlsTYTIlHsZ4FDVL2Q1oMKaeeT7_Nzladiz_EkVrlNJpbxCWCIdZn3eS2EapHKQE8VFbl1txJViGb1JUJvqkfZ0H7kDYvcXDmUZ0h7rGXk-ofYpdQDqtbBXlnvXSJq7Zw0J0Bl1S2wV_WiP4M=w869-h869-s-no-gm?authuser=0" alt="Salsa Barbacoa">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Salsa Barbacoa</h3>
-
-                        <span class="item-price">0.30€</span>
-
-                    </div>
-
-                    <p class="item-description">Salsa BBQ ahumada</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="salsa-barbacoa">−</button>
-
-                            <span class="quantity-display" id="qty-salsa-barbacoa">1</span>
-
-                            <button class="quantity-btn plus" data-item="salsa-barbacoa">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="salsa-barbacoa" data-name="Salsa Barbacoa" data-price="0.30" data-category="salsas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="menu-item" data-category="salsas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczOHi61Oad2dMvN_ZC7zDM6yW34_j9O_374xLPeyogYAaT4de1bjB2qqL4Q86zh1vM214Ezhcjiqd-ysuwScbBy_Z4MP_WKvEfYKNIYkFW5hzFAvn_Td-oy_Y282talxcP3YIPskH1FdL6XFWO5_xkE=w869-h869-s-no-gm?authuser=0" alt="Salsa Samurai">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Salsa Samurai</h3>
-
-                        <span class="item-price">0.30€</span>
-
-                    </div>
-
-                    <p class="item-description">Salsa picante estilo samurai</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="salsa-samurai">−</button>
-
-                            <span class="quantity-display" id="qty-salsa-samurai">1</span>
-
-                            <button class="quantity-btn plus" data-item="salsa-samurai">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="salsa-samurai" data-name="Salsa Samurai" data-price="0.30" data-category="salsas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="menu-item" data-category="salsas">
-
-                    <div class="item-image">
-
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMpQTsLeYQjB_cSGJrrhBSx0z4qxLRuIHC-9EQFtCYLuLhWkJdRKPOg4q7g2mEW7BdN6WqNvOdp9SsPf7uIGp64KmQ5D5IiCrMX8o4VHWJuCL1bU3kZbUdlnhvnpMQ9gL1v7fSQ1ZxQPfEjOcD5SLc=w869-h869-s-no-gm?authuser=0" alt="Salsa Brasil">
-
-                    </div>
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Salsa Brasil</h3>
-
-                        <span class="item-price">0.30€</span>
-
-                    </div>
-
-                    <p class="item-description">Salsa tropical Brasil</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="salsa-brasil">−</button>
-
-                            <span class="quantity-display" id="qty-salsa-brasil">1</span>
-
-                            <button class="quantity-btn plus" data-item="salsa-brasil">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="salsa-brasil" data-name="Salsa Brasil" data-price="0.30" data-category="salsas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
 
         <!-- Bebidas Tab -->
-
         <div id="bebidas" class="tab-content">
-
-            <h2 class="section-title">🥤 Bebidas & Postres</h2>
-
- 
-
+            <div class="tab-banner banner-desktop" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczPXz_Vv5oRhtcCbxsb7WuoQF25ZFgc3EUIiFcmjpQdgPdGdFr3ZfbW2uuL5rZrXP8qSkI_uVoxJaAV0wScdgZ64BnmBuXRet9Rjeslc7vSWY2af5FbgCu3H-sHI11LJMrlOzbC0UjWu9s-x06784Xc=w1080-h400-s-no-gm?authuser=0');"></div>
+            <div class="tab-banner banner-mobile" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczMb5OITwAe7pCGkwFOkdoiifqJ-xRijCi6i9kM5J_tDak39V7A6ZzGxtf9v9FqqekmZGCv8SWOYUv1HwUFNdtp-6f38ufSA4mQlcuwvzZ-ToMfSZ92Rbjp8UDmN8VpVf7TnVtwFhkzaTwcpsQ-H6Xo=w492-h400-s-no-gm?authuser=0');"></div>
+            <h2 class="section-title">Bebidas</h2>
             <div class="menu-grid">
-
-                <div class="menu-item" data-category="bebidas">
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Coca-Cola</h3>
-
-                        <span class="item-price">2.00€</span>
-
-                    </div>
-
-                    <p class="item-description">Lata 330ml</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="coca-cola">−</button>
-
-                            <span class="quantity-display" id="qty-coca-cola">1</span>
-
-                            <button class="quantity-btn plus" data-item="coca-cola">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="coca-cola" data-name="Coca-Cola" data-price="2.00" data-category="bebidas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
+                <div class="menu-item">
+                    <div class="item-name">Bebidas <span class="item-price">2,00€</span></div>
+                    <div class="item-description">Oasis, Capri Sun, Schweppes, Tropico, Lipton, Coca-cola, Orangina, 7up, Aquarius, Fanta</div>
                 </div>
-
- 
-
-                <div class="menu-item" data-category="bebidas">
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Fanta</h3>
-
-                        <span class="item-price">2.00€</span>
-
-                    </div>
-
-                    <p class="item-description">Lata 330ml</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="fanta">−</button>
-
-                            <span class="quantity-display" id="qty-fanta">1</span>
-
-                            <button class="quantity-btn plus" data-item="fanta">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="fanta" data-name="Fanta" data-price="2.00" data-category="bebidas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
-                </div>
-
- 
-
-                <div class="menu-item" data-category="bebidas">
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Agua Mineral</h3>
-
-                        <span class="item-price">1.50€</span>
-
-                    </div>
-
-                    <p class="item-description">Botella 500ml</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="agua">−</button>
-
-                            <span class="quantity-display" id="qty-agua">1</span>
-
-                            <button class="quantity-btn plus" data-item="agua">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="agua" data-name="Agua Mineral" data-price="1.50" data-category="bebidas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
-                </div>
-
- 
-
-                <div class="menu-item" data-category="bebidas">
-
-                    <div class="item-header">
-
-                        <h3 class="item-name">Tiramisú</h3>
-
-                        <span class="item-price">3.00€</span>
-
-                    </div>
-
-                    <p class="item-description">Delicioso postre italiano</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="tiramisu">−</button>
-
-                            <span class="quantity-display" id="qty-tiramisu">1</span>
-
-                            <button class="quantity-btn plus" data-item="tiramisu">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="tiramisu" data-name="Tiramisú" data-price="3.00" data-category="bebidas">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
-                </div>
-
             </div>
 
+            <h2 class="section-title" style="margin-top: 40px;">Postres</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">Tiramisú <span class="item-price">3,00€</span></div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">Tarta de Chocolate <span class="item-price">3,00€</span></div>
+                </div>
+            </div>
         </div>
-
- 
 
         <!-- Cool Kids Tab -->
-
         <div id="kids" class="tab-content">
+            <div class="tab-banner banner-desktop" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczN2pA4khxGU_CWrBcLnNcLoKmTL7j2KIwc9eaMRZ62gbTVmmed279xciJ6XwkQhQipNW4I7sMcEqvPMjmsfjbe2uKVJPcabZx6qAhgQuuzk2dcCPYrkl3AvEASGQs8_VYiO7kSW-RIhSGLai7boV5k=w1080-h400-s-no-gm?authuser=0');"></div>
+            <div class="tab-banner banner-mobile" style="background-image: url('https://lh3.googleusercontent.com/pw/AP1GczPDwMdqSgz3tu7cw1AkD6wNuSzAbmD3YHaCHBmx62es8X-qQ0-6L2t3wWb0i_p3cckiZ2aZL1katu7QFfqmOLET7vq8-3oqCCfdC1qhh1vFX8_yQm-7dU5gfykpFU0769Rtq25CodAcBo5gWQy7Q2M=w492-h400-s-no-gm?authuser=0');"></div>
+            <h2 class="section-title">Cool Kids</h2>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+                <div style="font-size: 2rem; font-weight: 700; color: #8BC34A; margin-bottom: 10px;">6,50€</div>
+                <div style="font-size: 1.2rem; color: #cccccc;">Menú completo para niños</div>
+            </div>
 
-            <h2 class="section-title">👶 Cool Kids Menú</h2>
+            <div class="kids-section-title">🍽️ Elige tu plato principal:</div>
+            <div class="kids-options">
+                <div class="kids-option-card">🌮 Taco S</div>
+                <div class="kids-option-card">🍔 Cheese Burger</div>
+                <div class="kids-option-card">🍗 5 Nuggets</div>
+            </div>
 
- 
+            <div class="kids-section-title">➕ Incluye:</div>
+            <div class="kids-includes">
+                <div class="kids-include-item">🍟 Patatas fritas</div>
+                <div class="kids-include-item">🧃 Capri Sun</div>
+                <div class="kids-include-item">🎁 Juguete</div>
+            </div>
+        </div>
 
-            <div class="menu-grid">
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <div class="contact-grid">
+                <a href="https://maps.app.goo.gl/YRXHLdzBbrtNRNxZ8" target="_blank" rel="noopener noreferrer" class="contact-item" style="text-decoration: none; color: inherit; cursor: pointer; transition: all 0.3s ease;">
+                    <svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <div class="contact-text">C/ Alhelíes, 1<br>30009 Murcia</div>
+                </a>
+                <a href="https://wa.me/34634341293" target="_blank" rel="noopener noreferrer" class="contact-item" style="text-decoration: none; color: inherit; cursor: pointer; transition: all 0.3s ease;">
+                    <svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                    <div class="contact-text">634.34.12.93</div>
+                </a>
+                <a href="https://www.instagram.com/cooltacoss" target="_blank" rel="noopener noreferrer" class="contact-item" style="text-decoration: none; color: inherit; cursor: pointer; transition: all 0.3s ease;">
+                    <svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    <div class="contact-text">@cooltacoss</div>
+                </a>
+            </div>
+        </div>
 
-                <div class="menu-item" data-category="kids">
+        <!-- Scroll to Top Button -->
+        <div class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+            </svg>
+        </div>
+    </div>
 
-                    <div class="item-header">
-
-                        <h3 class="item-name">Menú Cool Kids</h3>
-
-                        <span class="item-price">6.50€</span>
-
-                    </div>
-
-                    <p class="item-description">Taco S, Cheese Burger o 5 Nuggets + Patatas fritas + Capri Sun + Juguete</p>
-
-                    <div class="item-controls">
-
-                        <div class="quantity-control">
-
-                            <button class="quantity-btn minus" data-item="menu-kids">−</button>
-
-                            <span class="quantity-display" id="qty-menu-kids">1</span>
-
-                            <button class="quantity-btn plus" data-item="menu-kids">+</button>
-
-                        </div>
-
-                        <button class="add-to-cart-btn" data-item="menu-kids" data-name="Menú Cool Kids" data-price="6.50" data-category="kids">
-
-                            Añadir al Carrito
-
-                        </button>
-
-                    </div>
-
+    <div class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p><span class="highlight">Cool Tacos CTB</span> - Original Taco Français</p>
+                <p style="margin-top: 10px; font-size: 0.85rem;">Since 2025</p>
+                
+                <!-- Google Review Button -->
+                <div class="google-review-section">
+                    <a href="https://resenas-five.vercel.app" target="_blank" rel="noopener noreferrer" class="google-review-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/800px-Google_Favicon_2025.svg.png" alt="Google">
+                        <span>Déjanos una reseña en Google</span>
+                    </a>
                 </div>
 
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/cooltacoss" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <svg class="social-icon" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
-
         </div>
-
-    </main>
-
- 
-
-    <!-- Floating Cart Button -->
-
-    <div class="floating-cart" onclick="toggleCart()">
-
-        <span class="cart-icon">🛒</span>
-
-        <span class="cart-badge" id="cart-badge">0</span>
-
     </div>
-
- 
-
-    <!-- Cart Modal -->
-
-    <div class="cart-modal" id="cart-modal">
-
-        <div class="cart-content">
-
-            <div class="cart-header">
-
-                <h2 class="cart-title">Tu Pedido</h2>
-
-                <button class="close-cart" onclick="toggleCart()">×</button>
-
-            </div>
-
- 
-
-            <div class="cart-items" id="cart-items">
-
-                <!-- Cart items will be dynamically inserted here -->
-
-            </div>
-
- 
-
-            <div class="cart-total">
-
-                <div class="total-label">Total del Pedido:</div>
-
-                <div class="total-amount" id="total-amount">0.00€</div>
-
-            </div>
-
- 
-
-            <div class="order-info">
-
-                <div class="order-number" id="order-number">Número de Pedido: -</div>
-
-                <div class="order-date" id="order-date">Fecha: -</div>
-
-            </div>
-
- 
-
-            <div class="cart-actions">
-
-                <button class="btn btn-whatsapp" onclick="sendToWhatsApp()">
-
-                    📱 Enviar por WhatsApp
-
-                </button>
-
-                <button class="btn btn-copy" onclick="copyOrder()">
-
-                    📋 Copiar Pedido
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
- 
-
-    <!-- Toast Notification -->
-
-    <div class="toast" id="toast"></div>
-
- 
 
     <script>
-
-        // Cart Management System
-
-        let cart = [];
-
-        let orderNumber = '';
-
- 
-
-        // Initialize
-
-        document.addEventListener('DOMContentLoaded', function() {
-
-            initializeTabs();
-
-            initializeQuantityControls();
-
-            initializeAddToCartButtons();
-
-            initializeCustomizationLimits();
-
-            generateOrderNumber();
-
-            updateOrderDate();
-
-        });
-
- 
-
-        // Tab Navigation
-
-        function initializeTabs() {
-
-            const navItems = document.querySelectorAll('.nav-item');
-
-            navItems.forEach(item => {
-
-                item.addEventListener('click', function() {
-
-                    const targetTab = this.getAttribute('data-tab');
-
- 
-
-                    // Update nav
-
-                    navItems.forEach(nav => nav.classList.remove('active'));
-
-                    this.classList.add('active');
-
- 
-
-                    // Update content
-
-                    document.querySelectorAll('.tab-content').forEach(tab => {
-
-                        tab.classList.remove('active');
-
-                    });
-
-                    document.getElementById(targetTab).classList.add('active');
-
-                });
-
+        // Show tab and scroll to top of menu
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
             });
 
-        }
-
- 
-
-        // Quantity Controls
-
-        function initializeQuantityControls() {
-
-            document.querySelectorAll('.quantity-btn').forEach(btn => {
-
-                btn.addEventListener('click', function() {
-
-                    const itemId = this.getAttribute('data-item');
-
-                    const quantityDisplay = document.getElementById('qty-' + itemId);
-
-                    let currentQty = parseInt(quantityDisplay.textContent);
-
- 
-
-                    if (this.classList.contains('plus')) {
-
-                        currentQty++;
-
-                    } else if (this.classList.contains('minus') && currentQty > 1) {
-
-                        currentQty--;
-
-                    }
-
- 
-
-                    quantityDisplay.textContent = currentQty;
-
-                });
-
+            // Remove active class from all nav buttons
+            const navButtons = document.querySelectorAll('.nav-tab');
+            navButtons.forEach(button => {
+                button.classList.remove('active');
             });
 
-        }
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
 
- 
+            // Add active class to clicked button
+            event.target.classList.add('active');
 
-        // Add to Cart
-
-        function initializeAddToCartButtons() {
-
-            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-
-                btn.addEventListener('click', function() {
-
-                    const itemId = this.getAttribute('data-item');
-
-                    const itemName = this.getAttribute('data-name');
-
-                    const basePrice = parseFloat(this.getAttribute('data-price'));
-
-                    const category = this.getAttribute('data-category');
-
-                    const quantity = parseInt(document.getElementById('qty-' + itemId).textContent);
-
- 
-
-                    // Get customizations for tacos
-
-                    let customizations = [];
-
-                    let extraPrice = 0;
-
- 
-
-                    if (category === 'tacos') {
-
-                        const size = itemId.split('-')[1]; // m, l, or xl
-
- 
-
-                        // Get selected carnes
-
-                        const carnes = [];
-
-                        document.querySelectorAll(`.carne-${size}:checked`).forEach(checkbox => {
-
-                            carnes.push(checkbox.getAttribute('data-name'));
-
-                        });
-
-                        if (carnes.length > 0) {
-
-                            customizations.push(`Carne: ${carnes.join(', ')}`);
-
-                        }
-
- 
-
-                        // Get selected salsas
-
-                        const salsas = [];
-
-                        document.querySelectorAll(`.salsa-${size}:checked`).forEach(checkbox => {
-
-                            salsas.push(checkbox.getAttribute('data-name'));
-
-                        });
-
-                        if (salsas.length > 0) {
-
-                            customizations.push(`Salsas: ${salsas.join(', ')}`);
-
-                        }
-
- 
-
-                        // Get extras
-
-                        const extras = [];
-
-                        document.querySelectorAll(`.extra-${size}:checked`).forEach(checkbox => {
-
-                            extras.push(checkbox.getAttribute('data-name'));
-
-                            extraPrice += parseFloat(checkbox.getAttribute('data-price'));
-
-                        });
-
-                        if (extras.length > 0) {
-
-                            customizations.push(`Extras: ${extras.join(', ')}`);
-
-                        }
-
- 
-
-                        // Check gratinado
-
-                        const gratinadoCheckbox = document.querySelector(`.gratinado-${size}:checked`);
-
-                        if (gratinadoCheckbox) {
-
-                            customizations.push('Gratinado');
-
-                            extraPrice += parseFloat(gratinadoCheckbox.getAttribute('data-price'));
-
-                        }
-
-                    }
-
- 
-
-                    const totalItemPrice = (basePrice + extraPrice) * quantity;
-
- 
-
-                    // Add to cart
-
-                    const cartItem = {
-
-                        id: itemId + Date.now(), // Unique ID
-
-                        itemId: itemId,
-
-                        name: itemName,
-
-                        category: category,
-
-                        basePrice: basePrice,
-
-                        extraPrice: extraPrice,
-
-                        quantity: quantity,
-
-                        totalPrice: totalItemPrice,
-
-                        customizations: customizations
-
-                    };
-
- 
-
-                    cart.push(cartItem);
-
- 
-
-                    // Reset form
-
-                    document.getElementById('qty-' + itemId).textContent = '1';
-
-                    if (category === 'tacos') {
-
-                        const size = itemId.split('-')[1];
-
-                        document.querySelectorAll(`input[type="checkbox"][class*="${size}"]`).forEach(cb => {
-
-                            cb.checked = false;
-
-                        });
-
-                        document.querySelectorAll(`input[type="radio"][class*="${size}"]`).forEach(rb => {
-
-                            rb.checked = false;
-
-                        });
-
-                    }
-
- 
-
-                    // Update UI
-
-                    updateCartBadge();
-
-                    showToast('Añadido al carrito ✓');
-
-                });
-
-            });
-
-        }
-
- 
-
-        // Customization Limits
-
-        function initializeCustomizationLimits() {
-
-            // Limit salsas selection for M
-
-            limitCheckboxSelection('.salsa-m', 2);
-
- 
-
-            // Limit salsas selection for L
-
-            limitCheckboxSelection('.salsa-l', 3);
-
- 
-
-            // Limit salsas selection for XL
-
-            limitCheckboxSelection('.salsa-xl', 4);
-
- 
-
-            // Limit carnes selection for L
-
-            limitCheckboxSelection('.carne-l', 2);
-
- 
-
-            // Limit carnes selection for XL
-
-            limitCheckboxSelection('.carne-xl', 3);
-
-        }
-
- 
-
-        function limitCheckboxSelection(selector, maxSelections) {
-
-            const checkboxes = document.querySelectorAll(selector);
-
- 
-
-            checkboxes.forEach(checkbox => {
-
-                checkbox.addEventListener('change', function() {
-
-                    const checked = document.querySelectorAll(`${selector}:checked`);
-
-                    if (checked.length >= maxSelections) {
-
-                        checkboxes.forEach(cb => {
-
-                            if (!cb.checked) cb.disabled = true;
-
-                        });
-
-                    } else {
-
-                        checkboxes.forEach(cb => {
-
-                            cb.disabled = false;
-
-                        });
-
-                    }
-
-                });
-
-            });
-
-        }
-
- 
-
-        // Cart UI Functions
-
-        function toggleCart() {
-
-            const modal = document.getElementById('cart-modal');
-
-            modal.classList.toggle('active');
-
- 
-
-            if (modal.classList.contains('active')) {
-
-                renderCart();
-
-            }
-
-        }
-
- 
-
-        function updateCartBadge() {
-
-            const badge = document.getElementById('cart-badge');
-
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-            badge.textContent = totalItems;
-
-        }
-
- 
-
-        function renderCart() {
-
-            const cartItemsContainer = document.getElementById('cart-items');
-
-            const totalAmountElement = document.getElementById('total-amount');
-
- 
-
-            if (cart.length === 0) {
-
-                cartItemsContainer.innerHTML = `
-
-                    <div class="empty-cart">
-
-                        <div class="empty-cart-icon">🛒</div>
-
-                        <div class="empty-cart-text">Tu carrito está vacío</div>
-
-                    </div>
-
-                `;
-
-                totalAmountElement.textContent = '0.00€';
-
-                return;
-
-            }
-
- 
-
-            let html = '';
-
-            let total = 0;
-
- 
-
-            cart.forEach(item => {
-
-                html += `
-
-                    <div class="cart-item">
-
-                        <div class="cart-item-header">
-
-                            <div class="cart-item-name">${item.name} x${item.quantity}</div>
-
-                            <div class="cart-item-price">${item.totalPrice.toFixed(2)}€</div>
-
-                        </div>
-
-                        ${item.customizations.length > 0 ? `
-
-                            <div class="cart-item-details">
-
-                                ${item.customizations.join('<br>')}
-
-                            </div>
-
-                        ` : ''}
-
-                        <div class="cart-item-controls">
-
-                            <button class="remove-item" onclick="removeFromCart('${item.id}')">
-
-                                Eliminar
-
-                            </button>
-
-                            <div class="quantity-control">
-
-                                <button class="quantity-btn minus" onclick="updateCartItemQuantity('${item.id}', -1)">−</button>
-
-                                <span class="quantity-display">${item.quantity}</span>
-
-                                <button class="quantity-btn plus" onclick="updateCartItemQuantity('${item.id}', 1)">+</button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-                total += item.totalPrice;
-
-            });
-
- 
-
-            cartItemsContainer.innerHTML = html;
-
-            totalAmountElement.textContent = total.toFixed(2) + '€';
-
-        }
-
- 
-
-        function removeFromCart(itemId) {
-
-            cart = cart.filter(item => item.id !== itemId);
-
-            updateCartBadge();
-
-            renderCart();
-
-            showToast('Producto eliminado');
-
-        }
-
- 
-
-        function updateCartItemQuantity(itemId, change) {
-
-            const item = cart.find(item => item.id === itemId);
-
-            if (item) {
-
-                item.quantity += change;
-
-                if (item.quantity <= 0) {
-
-                    removeFromCart(itemId);
-
-                } else {
-
-                    item.totalPrice = (item.basePrice + item.extraPrice) * item.quantity;
-
-                    renderCart();
-
-                    updateCartBadge();
-
-                }
-
-            }
-
-        }
-
- 
-
-        // Order Functions
-
-        function generateOrderNumber() {
-
-            const date = new Date();
-
-            const dateStr = date.getFullYear().toString().substr(-2) +
-
-                          (date.getMonth() + 1).toString().padStart(2, '0') +
-
-                          date.getDate().toString().padStart(2, '0');
-
-            const randomStr = Math.random().toString(36).substr(2, 4).toUpperCase();
-
-            orderNumber = `CT-${dateStr}-${randomStr}`;
-
-            document.getElementById('order-number').textContent = `Número de Pedido: ${orderNumber}`;
-
-        }
-
- 
-
-        function updateOrderDate() {
-
-            const now = new Date();
-
-            const dateStr = now.toLocaleDateString('es-ES') + ' ' + now.toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'});
-
-            document.getElementById('order-date').textContent = `Fecha: ${dateStr}`;
-
-        }
-
- 
-
-        function formatOrderForWhatsApp() {
-
-            if (cart.length === 0) return '';
-
- 
-
-            let message = `🌮 *PEDIDO COOL TACOS CIB* 🌮\n`;
-
-            message += `📋 Nº Pedido: ${orderNumber}\n`;
-
-            message += `📅 Fecha: ${new Date().toLocaleDateString('es-ES')} ${new Date().toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'})}\n`;
-
-            message += `━━━━━━━━━━━━━━━\n\n`;
-
- 
-
-            // Group items by category
-
-            const categories = {
-
-                'tacos': '🌮 TACOS',
-
-                'entrantes': '🥗 ENTRANTES',
-
-                'patatas': '🍟 PATATAS',
-
-                'hamburguesas': '🍔 HAMBURGUESAS',
-
-                'bocadillos': '🥖 BOX & BOCADILLOS',
-
-                'salsas': '🌶️ SALSAS',
-
-                'bebidas': '🥤 BEBIDAS & POSTRES',
-
-                'kids': '👶 COOL KIDS'
-
-            };
-
- 
-
-            Object.keys(categories).forEach(category => {
-
-                const categoryItems = cart.filter(item => item.category === category);
-
-                if (categoryItems.length > 0) {
-
-                    message += `*${categories[category]}*\n`;
-
-                    categoryItems.forEach(item => {
-
-                        message += `▪️ ${item.name} x${item.quantity} - ${item.totalPrice.toFixed(2)}€\n`;
-
-                        if (item.customizations.length > 0) {
-
-                            item.customizations.forEach(custom => {
-
-                                message += `   • ${custom}\n`;
-
-                            });
-
-                        }
-
-                    });
-
-                    message += '\n';
-
-                }
-
-            });
-
- 
-
-            const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
-
-            message += `━━━━━━━━━━━━━━━\n`;
-
-            message += `💰 *TOTAL: ${total.toFixed(2)}€*\n`;
-
-            message += `━━━━━━━━━━━━━━━\n\n`;
-
-            message += `📍 Dirección de entrega:\n`;
-
-            message += `📞 Teléfono:\n`;
-
-            message += `💳 Método de pago:\n`;
-
-            message += `📝 Notas adicionales:`;
-
- 
-
-            return message;
-
-        }
-
- 
-
-        function sendToWhatsApp() {
-
-            if (cart.length === 0) {
-
-                showToast('El carrito está vacío');
-
-                return;
-
-            }
-
- 
-
-            const message = formatOrderForWhatsApp();
-
-            const phoneNumber = '34613947550';
-
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-            window.open(whatsappUrl, '_blank');
-
-        }
-
- 
-
-        function copyOrder() {
-
-            if (cart.length === 0) {
-
-                showToast('El carrito está vacío');
-
-                return;
-
-            }
-
- 
-
-            const message = formatOrderForWhatsApp();
-
-            navigator.clipboard.writeText(message).then(() => {
-
-                showToast('Pedido copiado al portapapeles ✓');
-
-            }).catch(() => {
-
-                showToast('Error al copiar el pedido');
-
-            });
-
-        }
-
- 
-
-        function showToast(message) {
-
-            const toast = document.getElementById('toast');
-
-            toast.textContent = message;
-
-            toast.classList.add('show');
-
- 
-
+            // Scroll to section title - different offset for mobile vs desktop
             setTimeout(() => {
+                const activeTab = document.getElementById(tabName);
+                // Try to find section-title or personalizacion-title
+                let sectionTitle = activeTab.querySelector('.section-title');
+                
+                // For "Personaliza tu Taco" section, use personalizacion-title
+                if (!sectionTitle && tabName === 'personaliza') {
+                    sectionTitle = activeTab.querySelector('.personalizacion-title');
+                }
+                
+                if (sectionTitle) {
+                    const isMobile = window.innerWidth <= 768;
+                    // Mobile needs more offset to account for smaller screens
+                    const offset = isMobile ? 10 : 20;
+                    
+                    const elementPosition = sectionTitle.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-                toast.classList.remove('show');
-
-            }, 3000);
-
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 100); // Small delay to ensure tab content is rendered
         }
 
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
     </script>
-
 </body>
-
 </html>
