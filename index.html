@@ -3,9 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cool Tacos CIB - Menú</title>
+    <title>Cool Tacos CTB - Menú</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+
+        /* CSS Variables for consistency */
+        :root {
+            --primary-green: #8BC34A;
+            --dark-green: #689F38;
+            --dark-bg: #012022;
+            --light-bg: #1a1a1a;
+            --border-green: rgba(139, 195, 74, 0.3);
+            --text-white: #ffffff;
+            --text-gray: #cccccc;
+            --text-dark-gray: #aaaaaa;
+            --red-error: #ff4444;
+            --border-radius-sm: 8px;
+            --border-radius-md: 10px;
+            --border-radius-lg: 15px;
+            --border-radius-xl: 20px;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.4s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -1178,10 +1199,10 @@
         /* Quantity and Add to Cart Controls */
         .item-controls {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column; /* Boutons sur lignes séparées */
+            align-items: stretch;
             margin-top: 15px;
-            gap: 10px;
+            gap: 12px;
         }
 
         .quantity-control {
@@ -1191,15 +1212,16 @@
             border-radius: 10px;
             overflow: hidden;
             border: 2px solid #8BC34A;
+            justify-content: center;
         }
 
         .quantity-btn {
             background: #8BC34A;
             color: #012022;
             border: none;
-            width: 35px;
-            height: 35px;
-            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            font-size: 1.3rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1210,29 +1232,43 @@
         }
 
         .quantity-display {
-            padding: 0 20px;
+            padding: 0 25px;
             font-weight: 600;
             color: #ffffff;
-            min-width: 50px;
+            min-width: 60px;
             text-align: center;
+            font-size: 1.1rem;
         }
 
         .add-to-cart-btn {
             background: linear-gradient(135deg, #8BC34A, #689F38);
             color: #ffffff;
             border: none;
-            padding: 10px 25px;
+            padding: 14px 25px;
             border-radius: 10px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            flex: 1;
+            width: 100%; /* Pleine largeur */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Icône cart avec background */
+        .add-to-cart-btn::before {
+            content: '🛒';
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 1.2rem;
         }
 
         .add-to-cart-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(139, 195, 74, 0.3);
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(139, 195, 74, 0.4);
         }
 
         /* Customization Options for Cart */
@@ -1448,23 +1484,32 @@
 
         .cart-item-controls {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .cart-item-controls .quantity-control {
+            width: 100%;
+            justify-content: center;
         }
 
         .remove-item {
             background: #ff4444;
             color: #ffffff;
             border: none;
-            padding: 5px 15px;
-            border-radius: 5px;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: 600;
             transition: all 0.3s ease;
+            width: 100%;
         }
 
         .remove-item:hover {
             background: #cc0000;
+            transform: scale(1.02);
         }
 
         .cart-total {
@@ -1863,7 +1908,7 @@
         <div class="container">
             <div class="logo">
                 <div class="logo-circle">
-                    <img src="https://lh3.googleusercontent.com/pw/AP1GczP4OeLcshqBU3kpcEo6RdvM-JIMqwN5rgWOz-fpJQZgeLEVFFk7AIIGsfzNUSWvapJUC1SvJaiVMnpjIhYmDuXhV-1F-E8O78FN6F-Uwt8bCjyxWkZliQ4yfJjhVLGXe-j4dSfCR3qji_piuHlGKyg=w770-h744-s-no-gm?authuser=0" alt="Cool Tacos CIB Logo" style="width: 100px; height: 100px; object-fit: contain;">
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczP4OeLcshqBU3kpcEo6RdvM-JIMqwN5rgWOz-fpJQZgeLEVFFk7AIIGsfzNUSWvapJUC1SvJaiVMnpjIhYmDuXhV-1F-E8O78FN6F-Uwt8bCjyxWkZliQ4yfJjhVLGXe-j4dSfCR3qji_piuHlGKyg=w770-h744-s-no-gm?authuser=0" alt="Cool Tacos CTB Logo" style="width: 100px; height: 100px; object-fit: contain;">
                 </div>
                 <h1 class="restaurant-name">Cool Tacos CTB</h1>
                 <p class="restaurant-subtitle">Original Taco Français</p>
@@ -2165,7 +2210,7 @@
                             <button class="quantity-btn plus" id="taco-qty-plus">+</button>
                         </div>
                         <button class="add-to-cart-btn" id="add-taco-to-cart" style="flex: 2;">
-                            🛒 Añadir al Carrito
+                            Añadir al Carrito
                         </button>
                     </div>
 
@@ -2203,7 +2248,7 @@
                             <button class="quantity-btn plus" data-item="camembert">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="camembert" data-name="Camembert" data-price="3.00" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2224,7 +2269,7 @@
                             <button class="quantity-btn plus" data-item="mozza-sticks">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="mozza-sticks" data-name="Mozza Sticks" data-price="3.00" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2245,7 +2290,7 @@
                             <button class="quantity-btn plus" data-item="onion-rings">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="onion-rings" data-name="Onion Rings" data-price="3.00" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2312,7 +2357,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="2.00" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2326,7 +2371,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="5.00" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2353,7 +2398,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2368,7 +2413,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2383,7 +2428,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2398,7 +2443,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.90" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2413,7 +2458,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2428,7 +2473,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="10.90" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2452,7 +2497,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.50" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2467,7 +2512,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.50" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2491,7 +2536,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="2.00" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2510,7 +2555,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="3.00" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2524,7 +2569,7 @@
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
                         <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="3.00" data-category="general">
-                            🛒 Añadir
+                            Añadir
                         </button>
                     </div>
                 </div>
@@ -2566,7 +2611,7 @@
                         <button class="quantity-btn plus" data-item="cool-kids-menu">+</button>
                     </div>
                     <button class="add-to-cart-btn" data-item="cool-kids-menu" data-name="Cool Kids Menu" data-price="6.50" data-category="kids" style="flex: 2;">
-                        🛒 Añadir al Carrito
+                        Añadir al Carrito
                     </button>
                 </div>
                 <div style="text-align: center; margin-top: 15px; color: #aaaaaa; font-size: 0.9rem;">
@@ -2634,7 +2679,7 @@
 
     <!-- Floating Cart Button -->
     <div class="floating-cart" onclick="toggleCart()">
-        <span class="cart-icon">🛒</span>
+        <span class="cart-icon"></span>
         <span class="cart-badge" id="cart-badge">0</span>
     </div>
 
@@ -2708,7 +2753,7 @@
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = `
                     <div class="empty-cart">
-                        <div class="empty-cart-icon">🛒</div>
+                        <div class="empty-cart-icon"></div>
                         <div class="empty-cart-text">Tu carrito está vacío</div>
                     </div>
                 `;
@@ -2788,13 +2833,13 @@
             document.getElementById('order-date').textContent = `Fecha: ${dateStr}`;
         }
 
-        function formatOrderForWhatsApp() {
+        function formatOrderForWhatsApp(clientInfo) {
             if (cart.length === 0) return '';
 
-            let message = `🌮 *PEDIDO COOL TACOS CIB* 🌮\n`;
+            let message = `🌮 *PEDIDO COOL TACOS CTB* 🌮\n`;
             message += `📋 Nº Pedido: ${orderNumber}\n`;
             message += `📅 Fecha: ${new Date().toLocaleDateString('es-ES')} ${new Date().toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'})}\n`;
-            message += `━━━━━━━━━━━━━━━\n\n`;
+            message += `${'─'.repeat(30)}\n\n`;
 
             // Group items by category
             const categories = {
@@ -2824,13 +2869,19 @@
             });
 
             const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
-            message += `━━━━━━━━━━━━━━━\n`;
+            message += `${'─'.repeat(30)}\n`;
             message += `💰 *TOTAL: ${total.toFixed(2)}€*\n`;
-            message += `━━━━━━━━━━━━━━━\n\n`;
-            message += `📍 Dirección de entrega:\n`;
-            message += `📞 Teléfono:\n`;
-            message += `💳 Método de pago:\n`;
-            message += `📝 Notas adicionales:`;
+            message += `${'─'.repeat(30)}\n\n`;
+
+            // Informations client
+            if (clientInfo) {
+                message += `📍 *Dirección:* ${clientInfo.address}\n`;
+                message += `📞 *Teléfono:* ${clientInfo.phone}\n`;
+                message += `💳 *Método de pago:* ${clientInfo.payment}\n`;
+                if (clientInfo.notes) {
+                    message += `📝 *Notas:* ${clientInfo.notes}\n`;
+                }
+            }
 
             return message;
         }
@@ -2841,10 +2892,96 @@
                 return;
             }
 
-            const message = formatOrderForWhatsApp();
-            const phoneNumber = '34613947550';
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
+            // Ouvrir le modal pour collecter les infos client
+            showClientInfoModal();
+        }
+
+        // Modal pour collecter les infos client
+        function showClientInfoModal() {
+            // Créer le modal s'il n'existe pas
+            let modal = document.getElementById('client-info-modal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'client-info-modal';
+                modal.className = 'cart-modal active';
+                modal.innerHTML = `
+                    <div class="cart-content" style="max-width: 500px;">
+                        <div class="cart-header">
+                            <h2 class="cart-title">Datos de Entrega</h2>
+                            <button class="close-cart" onclick="closeClientInfoModal()">×</button>
+                        </div>
+
+                        <form id="client-info-form" style="display: flex; flex-direction: column; gap: 15px;">
+                            <div>
+                                <label style="display: block; color: #8BC34A; margin-bottom: 5px; font-weight: 600;">📍 Dirección de entrega *</label>
+                                <input type="text" id="client-address" required
+                                    style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #8BC34A; background: #1a1a1a; color: #fff; font-size: 1rem;"
+                                    placeholder="Calle, número, piso...">
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #8BC34A; margin-bottom: 5px; font-weight: 600;">📞 Teléfono *</label>
+                                <input type="tel" id="client-phone" required
+                                    style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #8BC34A; background: #1a1a1a; color: #fff; font-size: 1rem;"
+                                    placeholder="Ej: 612345678">
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #8BC34A; margin-bottom: 5px; font-weight: 600;">💳 Método de pago *</label>
+                                <select id="client-payment" required
+                                    style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #8BC34A; background: #1a1a1a; color: #fff; font-size: 1rem;">
+                                    <option value="">Selecciona...</option>
+                                    <option value="Efectivo">Efectivo</option>
+                                    <option value="Tarjeta">Tarjeta</option>
+                                    <option value="Bizum">Bizum</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #8BC34A; margin-bottom: 5px; font-weight: 600;">📝 Notas adicionales</label>
+                                <textarea id="client-notes" rows="3"
+                                    style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #8BC34A; background: #1a1a1a; color: #fff; font-size: 1rem;"
+                                    placeholder="Timbre, preferencias, alergias..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-whatsapp" style="margin-top: 10px;">
+                                📱 Enviar Pedido por WhatsApp
+                            </button>
+                        </form>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+
+                // Event listener pour le formulaire
+                document.getElementById('client-info-form').addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const clientInfo = {
+                        address: document.getElementById('client-address').value,
+                        phone: document.getElementById('client-phone').value,
+                        payment: document.getElementById('client-payment').value,
+                        notes: document.getElementById('client-notes').value
+                    };
+
+                    // Fermer le modal
+                    closeClientInfoModal();
+
+                    // Envoyer le message
+                    const message = formatOrderForWhatsApp(clientInfo);
+                    const phoneNumber = '34613947550';
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                });
+            } else {
+                modal.classList.add('active');
+            }
+        }
+
+        function closeClientInfoModal() {
+            const modal = document.getElementById('client-info-modal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
         }
 
         function copyOrder() {
