@@ -1594,6 +1594,267 @@
                 height: 60px;
                 bottom: 90px;
             }
+
+            /* ==================== OPTIMISATION MOBILE COMPLÈTE ==================== */
+
+            /* Menu Items - Meilleure adaptation mobile */
+            .menu-item {
+                padding: 15px;
+            }
+
+            .item-name {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .item-name-with-icon {
+                width: 100%;
+            }
+
+            .item-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .item-price {
+                font-size: 1.2rem;
+            }
+
+            /* Item Controls - Correction débordement */
+            .item-controls {
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 12px;
+            }
+
+            .quantity-control {
+                flex: 0 0 auto;
+                min-width: 110px;
+            }
+
+            .quantity-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 1.1rem;
+            }
+
+            .quantity-display {
+                padding: 0 15px;
+                font-size: 1rem;
+            }
+
+            .add-to-cart-btn {
+                flex: 1 1 100%;
+                min-width: 100%;
+                padding: 12px 20px;
+                font-size: 1rem;
+                margin-top: 8px;
+            }
+
+            /* Subitems - Meilleure disposition mobile */
+            .subitem {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 10px;
+            }
+
+            .subitem .add-to-cart-btn {
+                width: 100%;
+                margin: 8px 0 0 0 !important;
+                padding: 10px !important;
+            }
+
+            /* Menu Grid - Optimisation mobile */
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0 10px;
+            }
+
+            /* Tallas Grid - Scroll horizontal sur mobile */
+            .tallas-grid {
+                display: flex;
+                overflow-x: auto;
+                gap: 15px;
+                padding: 10px 5px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .talla-card {
+                flex: 0 0 240px;
+                scroll-snap-align: center;
+            }
+
+            /* Ingredientes Grid - Meilleure disposition mobile */
+            .ingredientes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 12px;
+                padding: 0 10px;
+            }
+
+            .ingrediente-item {
+                width: 100%;
+            }
+
+            .ingrediente-circle {
+                width: 110px;
+                height: 110px;
+            }
+
+            .ingrediente-circle img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .ingrediente-name {
+                font-size: 0.95rem;
+            }
+
+            /* Section Titles - Plus compact sur mobile */
+            .section-title {
+                font-size: 2rem;
+                padding: 15px 10px;
+            }
+
+            .personalizacion-title {
+                font-size: 2rem;
+                padding: 20px 10px;
+            }
+
+            /* Paso sections - Meilleur espacement mobile */
+            .paso-section {
+                padding: 20px 10px;
+            }
+
+            .paso-title {
+                font-size: 1.5rem;
+            }
+
+            /* Prix affiché - Plus visible sur mobile */
+            #total-price-display {
+                font-size: 2.5rem !important;
+            }
+
+            #total-taco-price {
+                font-size: 2.5rem;
+            }
+
+            /* Kids Section - Optimisation mobile */
+            .kids-option-card {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+
+            .kids-includes {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            /* Contact Section - Meilleure disposition mobile */
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            /* Banners - Affichage optimisé */
+            .banner-desktop {
+                display: none !important;
+            }
+
+            .banner-mobile {
+                display: block !important;
+                min-height: 200px;
+            }
+        }
+
+        /* Très petits écrans (< 400px) */
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .item-controls {
+                flex-direction: column;
+            }
+
+            .quantity-control {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .add-to-cart-btn {
+                width: 100%;
+                padding: 14px;
+            }
+
+            .ingredientes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .menu-grid {
+                padding: 0 5px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            /* Taille des cartes tacos pour très petits écrans */
+            .talla-card {
+                flex: 0 0 200px;
+                padding: 20px;
+            }
+
+            .talla-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .talla-image img {
+                width: 110px;
+                height: 110px;
+            }
+
+            /* Floating cart - Position ajustée */
+            .floating-cart {
+                width: 55px;
+                height: 55px;
+                bottom: 80px;
+                right: 15px;
+            }
+
+            .cart-icon {
+                font-size: 1.7rem;
+            }
+
+            .cart-badge {
+                width: 22px;
+                height: 22px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Optimisation tablette (768px - 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ingredientes-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .item-controls {
+                gap: 12px;
+            }
+
+            .add-to-cart-btn {
+                flex: 1;
+                min-width: 150px;
+            }
         }
     </style>
 </head>
@@ -2294,6 +2555,23 @@
                 <div class="kids-include-item">🍟 Patatas fritas</div>
                 <div class="kids-include-item">🧃 Capri Sun</div>
                 <div class="kids-include-item">🎁 Juguete</div>
+            </div>
+
+            <!-- Bouton d'ajout au panier pour Cool Kids -->
+            <div style="margin-top: 40px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                <div class="item-controls">
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" data-item="cool-kids-menu">−</button>
+                        <span class="quantity-display" id="qty-cool-kids-menu">1</span>
+                        <button class="quantity-btn plus" data-item="cool-kids-menu">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" data-item="cool-kids-menu" data-name="Cool Kids Menu" data-price="6.50" data-category="kids" style="flex: 2;">
+                        🛒 Añadir al Carrito
+                    </button>
+                </div>
+                <div style="text-align: center; margin-top: 15px; color: #aaaaaa; font-size: 0.9rem;">
+                    * Selecciona el plato principal al realizar el pedido
+                </div>
             </div>
         </div>
 
