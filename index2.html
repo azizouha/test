@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Tacos CIB - Menú Interactivo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #012022;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #012022 0%, #1a1a1a 100%);
+            padding: 30px 0;
+            box-shadow: 0 4px 20px rgba(139, 195, 74, 0.15);
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8BC34A, transparent);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            background: #012022;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #8BC34A;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8BC34A;
+            z-index: 1;
+        }
+
+        .restaurant-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #8BC34A;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: #1a1a1a;
+            padding: 15px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .nav-item {
+            background: #012022;
+            color: #ffffff;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: #8BC34A;
+            color: #012022;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8BC34A;
+            text-align: center;
+            margin: 40px 0 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subsection-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #8BC34A;
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+
+        /* Product Cards */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .menu-item {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            border-color: #8BC34A;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 195, 74, 0.2);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .item-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #8BC34A;
+            flex: 1;
+        }
+
+        .item-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .item-description {
+            color: #cccccc;
+            font-size: 1rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        /* Quantity and Add to Cart Controls */
+        .item-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            background: #012022;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #8BC34A;
+        }
+
+        .quantity-btn {
+            background: #8BC34A;
+            color: #012022;
+            border: none;
+            width: 35px;
+            height: 35px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #689F38;
+        }
+
+        .quantity-display {
+            padding: 0 20px;
+            font-weight: 600;
+            color: #ffffff;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            color: #ffffff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(139, 195, 74, 0.3);
+        }
+
+        /* Customization Options */
+        .customization-section {
+            background: #0a0a0a;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .customization-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #8BC34A;
+            margin-bottom: 15px;
+        }
+
+        .option-group {
+            margin-bottom: 20px;
+        }
+
+        .option-label {
+            font-size: 1rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .option-item {
+            position: relative;
+        }
+
+        .option-checkbox {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .option-label-box {
+            display: block;
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .option-checkbox:checked + .option-label-box {
+            background: #8BC34A;
+            color: #012022;
+            border-color: #ffffff;
+        }
+
+        .option-label-box:hover {
+            border-color: #8BC34A;
+        }
+
+        .option-price {
+            font-size: 0.9rem;
+            color: #689F38;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Floating Cart */
+        .floating-cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 25px rgba(139, 195, 74, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-icon {
+            font-size: 2rem;
+            color: #ffffff;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4444;
+            color: #ffffff;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .cart-modal.active {
+            display: flex;
+        }
+
+        .cart-content {
+            background: #1a1a1a;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #8BC34A;
+        }
+
+        .cart-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #8BC34A;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-cart:hover {
+            color: #ff4444;
+            transform: rotate(90deg);
+        }
+
+        .cart-items {
+            margin-bottom: 25px;
+        }
+
+        .cart-item {
+            background: #012022;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #2a2a2a;
+        }
+
+        .cart-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #8BC34A;
+            flex: 1;
+        }
+
+        .cart-item-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .cart-item-details {
+            color: #cccccc;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remove-item {
+            background: #ff4444;
+            color: #ffffff;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-item:hover {
+            background: #cc0000;
+        }
+
+        .cart-total {
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .total-label {
+            font-size: 1.2rem;
+            color: #012022;
+            margin-bottom: 5px;
+        }
+
+        .total-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .order-info {
+            background: #012022;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .order-number {
+            font-size: 1.1rem;
+            color: #8BC34A;
+            margin-bottom: 10px;
+        }
+
+        .order-date {
+            font-size: 0.95rem;
+            color: #cccccc;
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: #ffffff;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            transform: scale(1.05);
+        }
+
+        .btn-copy {
+            background: #2a2a2a;
+            color: #ffffff;
+            border: 2px solid #8BC34A;
+        }
+
+        .btn-copy:hover {
+            background: #8BC34A;
+            color: #012022;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            color: #ffffff;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 3000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Empty Cart Message */
+        .empty-cart {
+            text-align: center;
+            padding: 40px 20px;
+            color: #cccccc;
+        }
+
+        .empty-cart-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-cart-text {
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .restaurant-name {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                gap: 10px;
+            }
+            
+            .nav-item {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .cart-content {
+                padding: 20px;
+            }
+            
+            .cart-actions {
+                flex-direction: column;
+            }
+            
+            .floating-cart {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-circle">
+                    <span class="logo-text">CT</span>
+                </div>
+            </div>
+            <h1 class="restaurant-name">Cool Tacos CIB</h1>
+            <p class="tagline">La Mejor Experiencia de Tacos Franceses</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="container">
+            <div class="nav-menu">
+                <button class="nav-item active" data-tab="tacos">🌮 Tacos</button>
+                <button class="nav-item" data-tab="entrantes">🥗 Entrantes</button>
+                <button class="nav-item" data-tab="patatas">🍟 Patatas</button>
+                <button class="nav-item" data-tab="hamburguesas">🍔 Hamburguesas</button>
+                <button class="nav-item" data-tab="bocadillos">🥖 Bocadillos</button>
+                <button class="nav-item" data-tab="bebidas">🥤 Bebidas</button>
+                <button class="nav-item" data-tab="kids">👶 Cool Kids</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Tacos Tab -->
+        <div id="tacos" class="tab-content active">
+            <h2 class="section-title">🌮 Nuestros Tacos</h2>
+            
+            <div class="menu-grid">
+                <!-- Taco M -->
+                <div class="menu-item" data-category="tacos">
+                    <div class="item-header">
+                        <h3 class="item-name">Tacos M</h3>
+                        <span class="item-price">7.50€</span>
+                    </div>
+                    <p class="item-description">Tacos mediano con tu elección de ingredientes</p>
+                    
+                    <div class="customization-section">
+                        <h4 class="customization-title">Personaliza tu Tacos</h4>
+                        
+                        <!-- Salsas -->
+                        <div class="option-group">
+                            <label class="option-label">Salsas (Elige hasta 3):</label>
+                            <div class="option-grid">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-m" id="salsa-algerienne-m" data-name="Algerienne">
+                                    <label class="option-label-box" for="salsa-algerienne-m">Algerienne</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-m" id="salsa-biggy-m" data-name="Biggy">
+                                    <label class="option-label-box" for="salsa-biggy-m">Biggy</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-m" id="salsa-ketchup-m" data-name="Ketchup">
+                                    <label class="option-label-box" for="salsa-ketchup-m">Ketchup</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-m" id="salsa-mayo-m" data-name="Mayo">
+                                    <label class="option-label-box" for="salsa-mayo-m">Mayo</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-m" id="salsa-harissa-m" data-name="Harissa">
+                                    <label class="option-label-box" for="salsa-harissa-m">Harissa</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-m" id="salsa-bbq-m" data-name="BBQ">
+                                    <label class="option-label-box" for="salsa-bbq-m">BBQ</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Carnes -->
+                        <div class="option-group">
+                            <label class="option-label">Carnes (Elige hasta 3):</label>
+                            <div class="option-grid">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-m" id="carne-poulet-m" data-name="Poulet">
+                                    <label class="option-label-box" for="carne-poulet-m">Poulet</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-m" id="carne-viande-m" data-name="Viande Hachée">
+                                    <label class="option-label-box" for="carne-viande-m">Viande Hachée</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-m" id="carne-nuggets-m" data-name="Nuggets">
+                                    <label class="option-label-box" for="carne-nuggets-m">Nuggets</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-m" id="carne-cordon-m" data-name="Cordon Bleu">
+                                    <label class="option-label-box" for="carne-cordon-m">Cordon Bleu</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-m" id="carne-tenders-m" data-name="Tenders">
+                                    <label class="option-label-box" for="carne-tenders-m">Tenders</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Extras -->
+                        <div class="option-group">
+                            <label class="option-label">Extras:</label>
+                            <div class="option-grid">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox extra-m" id="extra-bacon-m" data-name="Bacon" data-price="0.5">
+                                    <label class="option-label-box" for="extra-bacon-m">
+                                        Bacon
+                                        <span class="option-price">+0.50€</span>
+                                    </label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox extra-m" id="extra-cheddar-m" data-name="Cheddar" data-price="0.5">
+                                    <label class="option-label-box" for="extra-cheddar-m">
+                                        Cheddar
+                                        <span class="option-price">+0.50€</span>
+                                    </label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox extra-m" id="extra-egg-m" data-name="Huevo" data-price="0.5">
+                                    <label class="option-label-box" for="extra-egg-m">
+                                        Huevo
+                                        <span class="option-price">+0.50€</span>
+                                    </label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox extra-m" id="extra-jalapenos-m" data-name="Jalapeños" data-price="0.5">
+                                    <label class="option-label-box" for="extra-jalapenos-m">
+                                        Jalapeños
+                                        <span class="option-price">+0.50€</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Gratinado -->
+                        <div class="option-group">
+                            <label class="option-label">Gratinado:</label>
+                            <div class="option-grid">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox gratinado-m" id="gratinado-si-m" data-name="Gratinado" data-price="1">
+                                    <label class="option-label-box" for="gratinado-si-m">
+                                        Sí, Gratinado
+                                        <span class="option-price">+1.00€</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="tacos-m">−</button>
+                            <span class="quantity-display" id="qty-tacos-m">1</span>
+                            <button class="quantity-btn plus" data-item="tacos-m">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="tacos-m" data-name="Tacos M" data-price="7.50" data-category="tacos">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Taco L -->
+                <div class="menu-item" data-category="tacos">
+                    <div class="item-header">
+                        <h3 class="item-name">Tacos L</h3>
+                        <span class="item-price">8.50€</span>
+                    </div>
+                    <p class="item-description">Tacos grande con tu elección de ingredientes</p>
+                    
+                    <div class="customization-section">
+                        <h4 class="customization-title">Personaliza tu Tacos</h4>
+                        
+                        <!-- Salsas -->
+                        <div class="option-group">
+                            <label class="option-label">Salsas (Elige hasta 3):</label>
+                            <div class="option-grid">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-l" id="salsa-algerienne-l" data-name="Algerienne">
+                                    <label class="option-label-box" for="salsa-algerienne-l">Algerienne</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-l" id="salsa-biggy-l" data-name="Biggy">
+                                    <label class="option-label-box" for="salsa-biggy-l">Biggy</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-l" id="salsa-ketchup-l" data-name="Ketchup">
+                                    <label class="option-label-box" for="salsa-ketchup-l">Ketchup</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-l" id="salsa-mayo-l" data-name="Mayo">
+                                    <label class="option-label-box" for="salsa-mayo-l">Mayo</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-l" id="salsa-harissa-l" data-name="Harissa">
+                                    <label class="option-label-box" for="salsa-harissa-l">Harissa</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-l" id="salsa-bbq-l" data-name="BBQ">
+                                    <label class="option-label-box" for="salsa-bbq-l">BBQ</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Carnes -->
+                        <div class="option-group">
+                            <label class="option-label">Carnes (Elige hasta 3):</label>
+                            <div class="option-grid">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-l" id="carne-poulet-l" data-name="Poulet">
+                                    <label class="option-label-box" for="carne-poulet-l">Poulet</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-l" id="carne-viande-l" data-name="Viande Hachée">
+                                    <label class="option-label-box" for="carne-viande-l">Viande Hachée</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-l" id="carne-nuggets-l" data-name="Nuggets">
+                                    <label class="option-label-box" for="carne-nuggets-l">Nuggets</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-l" id="carne-cordon-l" data-name="Cordon Bleu">
+                                    <label class="option-label-box" for="carne-cordon-l">Cordon Bleu</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-l" id="carne-tenders-l" data-name="Tenders">
+                                    <label class="option-label-box" for="carne-tenders-l">Tenders</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Extras -->
+                        <div class="option-group">
+                            <label class="option-label">Extras:</label>
+                            <div class="option-grid">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox extra-l" id="extra-bacon-l" data-name="Bacon" data-price="0.5">
+                                    <label class="option-label-box" for="extra-bacon-l">
+                                        Bacon
+                                        <span class="option-price">+0.50€</span>
+                                    </label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox extra-l" id="extra-cheddar-l" data-name="Cheddar" data-price="0.5">
+                                    <label class="option-label-box" for="extra-cheddar-l">
+                                        Cheddar
+                                        <span class="option-price">+0.50€</span>
+                                    </label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox extra-l" id="extra-egg-l" data-name="Huevo" data-price="0.5">
+                                    <label class="option-label-box" for="extra-egg-l">
+                                        Huevo
+                                        <span class="option-price">+0.50€</span>
+                                    </label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox extra-l" id="extra-jalapenos-l" data-name="Jalapeños" data-price="0.5">
+                                    <label class="option-label-box" for="extra-jalapenos-l">
+                                        Jalapeños
+                                        <span class="option-price">+0.50€</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Gratinado -->
+                        <div class="option-group">
+                            <label class="option-label">Gratinado:</label>
+                            <div class="option-grid">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox gratinado-l" id="gratinado-si-l" data-name="Gratinado" data-price="1">
+                                    <label class="option-label-box" for="gratinado-si-l">
+                                        Sí, Gratinado
+                                        <span class="option-price">+1.00€</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="tacos-l">−</button>
+                            <span class="quantity-display" id="qty-tacos-l">1</span>
+                            <button class="quantity-btn plus" data-item="tacos-l">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="tacos-l" data-name="Tacos L" data-price="8.50" data-category="tacos">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Taco XL -->
+                <div class="menu-item" data-category="tacos">
+                    <div class="item-header">
+                        <h3 class="item-name">Tacos XL</h3>
+                        <span class="item-price">10.00€</span>
+                    </div>
+                    <p class="item-description">Tacos extra grande con tu elección de ingredientes</p>
+                    
+                    <div class="customization-section">
+                        <h4 class="customization-title">Personaliza tu Tacos</h4>
+                        
+                        <!-- Salsas -->
+                        <div class="option-group">
+                            <label class="option-label">Salsas (Elige hasta 4):</label>
+                            <div class="option-grid">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-algerienne-xl" data-name="Algerienne">
+                                    <label class="option-label-box" for="salsa-algerienne-xl">Algerienne</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-biggy-xl" data-name="Biggy">
+                                    <label class="option-label-box" for="salsa-biggy-xl">Biggy</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-ketchup-xl" data-name="Ketchup">
+                                    <label class="option-label-box" for="salsa-ketchup-xl">Ketchup</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-mayo-xl" data-name="Mayo">
+                                    <label class="option-label-box" for="salsa-mayo-xl">Mayo</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-harissa-xl" data-name="Harissa">
+                                    <label class="option-label-box" for="salsa-harissa-xl">Harissa</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-bbq-xl" data-name="BBQ">
+                                    <label class="option-label-box" for="salsa-bbq-xl">BBQ</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Carnes -->
+                        <div class="option-group">
+                            <label class="option-label">Carnes (Elige hasta 4):</label>
+                            <div class="option-grid">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-xl" id="carne-poulet-xl" data-name="Poulet">
+                                    <label class="option-label-box" for="carne-poulet-xl">Poulet</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-xl" id="carne-viande-xl" data-name="Viande Hachée">
+                                    <label class="option-label-box" for="carne-viande-xl">Viande Hachée</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-xl" id="carne-nuggets-xl" data-name="Nuggets">
+                                    <label class="option-label-box" for="carne-nuggets-xl">Nuggets</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-xl" id="carne-cordon-xl" data-name="Cordon Bleu">
+                                    <label class="option-label-box" for="carne-cordon-xl">Cordon Bleu</label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox carne-xl" id="carne-tenders-xl" data-name="Tenders">
+                                    <label class="option-label-box" for="carne-tenders-xl">Tenders</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Extras -->
+                        <div class="option-group">
+                            <label class="option-label">Extras:</label>
+                            <div class="option-grid">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox extra-xl" id="extra-bacon-xl" data-name="Bacon" data-price="0.5">
+                                    <label class="option-label-box" for="extra-bacon-xl">
+                                        Bacon
+                                        <span class="option-price">+0.50€</span>
+                                    </label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox extra-xl" id="extra-cheddar-xl" data-name="Cheddar" data-price="0.5">
+                                    <label class="option-label-box" for="extra-cheddar-xl">
+                                        Cheddar
+                                        <span class="option-price">+0.50€</span>
+                                    </label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox extra-xl" id="extra-egg-xl" data-name="Huevo" data-price="0.5">
+                                    <label class="option-label-box" for="extra-egg-xl">
+                                        Huevo
+                                        <span class="option-price">+0.50€</span>
+                                    </label>
+                                </div>
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox extra-xl" id="extra-jalapenos-xl" data-name="Jalapeños" data-price="0.5">
+                                    <label class="option-label-box" for="extra-jalapenos-xl">
+                                        Jalapeños
+                                        <span class="option-price">+0.50€</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Gratinado -->
+                        <div class="option-group">
+                            <label class="option-label">Gratinado:</label>
+                            <div class="option-grid">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox gratinado-xl" id="gratinado-si-xl" data-name="Gratinado" data-price="1">
+                                    <label class="option-label-box" for="gratinado-si-xl">
+                                        Sí, Gratinado
+                                        <span class="option-price">+1.00€</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="tacos-xl">−</button>
+                            <span class="quantity-display" id="qty-tacos-xl">1</span>
+                            <button class="quantity-btn plus" data-item="tacos-xl">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="tacos-xl" data-name="Tacos XL" data-price="10.00" data-category="tacos">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Entrantes Tab -->
+        <div id="entrantes" class="tab-content">
+            <h2 class="section-title">🥗 Entrantes</h2>
+            
+            <div class="menu-grid">
+                <div class="menu-item" data-category="entrantes">
+                    <div class="item-header">
+                        <h3 class="item-name">Nuggets (6 pcs)</h3>
+                        <span class="item-price">4.50€</span>
+                    </div>
+                    <p class="item-description">6 piezas de nuggets crujientes</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="nuggets-6">−</button>
+                            <span class="quantity-display" id="qty-nuggets-6">1</span>
+                            <button class="quantity-btn plus" data-item="nuggets-6">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="nuggets-6" data-name="Nuggets (6 pcs)" data-price="4.50" data-category="entrantes">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="entrantes">
+                    <div class="item-header">
+                        <h3 class="item-name">Tenders (4 pcs)</h3>
+                        <span class="item-price">5.00€</span>
+                    </div>
+                    <p class="item-description">4 tiras de pollo empanizadas</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="tenders-4">−</button>
+                            <span class="quantity-display" id="qty-tenders-4">1</span>
+                            <button class="quantity-btn plus" data-item="tenders-4">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="tenders-4" data-name="Tenders (4 pcs)" data-price="5.00" data-category="entrantes">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="entrantes">
+                    <div class="item-header">
+                        <h3 class="item-name">Alitas de Pollo (6 pcs)</h3>
+                        <span class="item-price">6.00€</span>
+                    </div>
+                    <p class="item-description">6 alitas de pollo marinadas</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="alitas-6">−</button>
+                            <span class="quantity-display" id="qty-alitas-6">1</span>
+                            <button class="quantity-btn plus" data-item="alitas-6">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="alitas-6" data-name="Alitas de Pollo (6 pcs)" data-price="6.00" data-category="entrantes">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Patatas Tab -->
+        <div id="patatas" class="tab-content">
+            <h2 class="section-title">🍟 Patatas</h2>
+            
+            <div class="menu-grid">
+                <div class="menu-item" data-category="patatas">
+                    <div class="item-header">
+                        <h3 class="item-name">Patatas Fritas</h3>
+                        <span class="item-price">3.50€</span>
+                    </div>
+                    <p class="item-description">Patatas fritas clásicas doradas y crujientes</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="patatas-fritas">−</button>
+                            <span class="quantity-display" id="qty-patatas-fritas">1</span>
+                            <button class="quantity-btn plus" data-item="patatas-fritas">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="patatas-fritas" data-name="Patatas Fritas" data-price="3.50" data-category="patatas">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="patatas">
+                    <div class="item-header">
+                        <h3 class="item-name">Patatas con Cheddar y Bacon</h3>
+                        <span class="item-price">5.50€</span>
+                    </div>
+                    <p class="item-description">Patatas cubiertas con queso cheddar derretido y bacon crujiente</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="patatas-cheddar-bacon">−</button>
+                            <span class="quantity-display" id="qty-patatas-cheddar-bacon">1</span>
+                            <button class="quantity-btn plus" data-item="patatas-cheddar-bacon">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="patatas-cheddar-bacon" data-name="Patatas con Cheddar y Bacon" data-price="5.50" data-category="patatas">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="patatas">
+                    <div class="item-header">
+                        <h3 class="item-name">Patatas Bravas</h3>
+                        <span class="item-price">4.50€</span>
+                    </div>
+                    <p class="item-description">Patatas con salsa brava picante</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="patatas-bravas">−</button>
+                            <span class="quantity-display" id="qty-patatas-bravas">1</span>
+                            <button class="quantity-btn plus" data-item="patatas-bravas">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="patatas-bravas" data-name="Patatas Bravas" data-price="4.50" data-category="patatas">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hamburguesas Tab -->
+        <div id="hamburguesas" class="tab-content">
+            <h2 class="section-title">🍔 Hamburguesas</h2>
+            
+            <div class="menu-grid">
+                <div class="menu-item" data-category="hamburguesas">
+                    <div class="item-header">
+                        <h3 class="item-name">Hamburguesa Clásica</h3>
+                        <span class="item-price">8.00€</span>
+                    </div>
+                    <p class="item-description">Carne de res, lechuga, tomate, cebolla, pepinillos y salsa especial</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="hamburguesa-clasica">−</button>
+                            <span class="quantity-display" id="qty-hamburguesa-clasica">1</span>
+                            <button class="quantity-btn plus" data-item="hamburguesa-clasica">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="hamburguesa-clasica" data-name="Hamburguesa Clásica" data-price="8.00" data-category="hamburguesas">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="hamburguesas">
+                    <div class="item-header">
+                        <h3 class="item-name">Hamburguesa BBQ</h3>
+                        <span class="item-price">9.00€</span>
+                    </div>
+                    <p class="item-description">Carne de res, bacon, cebolla caramelizada, queso cheddar y salsa BBQ</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="hamburguesa-bbq">−</button>
+                            <span class="quantity-display" id="qty-hamburguesa-bbq">1</span>
+                            <button class="quantity-btn plus" data-item="hamburguesa-bbq">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="hamburguesa-bbq" data-name="Hamburguesa BBQ" data-price="9.00" data-category="hamburguesas">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="hamburguesas">
+                    <div class="item-header">
+                        <h3 class="item-name">Hamburguesa Doble</h3>
+                        <span class="item-price">11.00€</span>
+                    </div>
+                    <p class="item-description">Doble carne de res, doble queso, lechuga, tomate y salsa especial</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="hamburguesa-doble">−</button>
+                            <span class="quantity-display" id="qty-hamburguesa-doble">1</span>
+                            <button class="quantity-btn plus" data-item="hamburguesa-doble">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="hamburguesa-doble" data-name="Hamburguesa Doble" data-price="11.00" data-category="hamburguesas">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bocadillos Tab -->
+        <div id="bocadillos" class="tab-content">
+            <h2 class="section-title">🥖 Bocadillos</h2>
+            
+            <div class="menu-grid">
+                <div class="menu-item" data-category="bocadillos">
+                    <div class="item-header">
+                        <h3 class="item-name">Bocadillo de Pollo</h3>
+                        <span class="item-price">6.50€</span>
+                    </div>
+                    <p class="item-description">Pan francés con pollo a la plancha, lechuga, tomate y mayonesa</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="bocadillo-pollo">−</button>
+                            <span class="quantity-display" id="qty-bocadillo-pollo">1</span>
+                            <button class="quantity-btn plus" data-item="bocadillo-pollo">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="bocadillo-pollo" data-name="Bocadillo de Pollo" data-price="6.50" data-category="bocadillos">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="bocadillos">
+                    <div class="item-header">
+                        <h3 class="item-name">Bocadillo Mixto</h3>
+                        <span class="item-price">7.00€</span>
+                    </div>
+                    <p class="item-description">Pan francés con carne de res y pollo, queso, lechuga y salsas</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="bocadillo-mixto">−</button>
+                            <span class="quantity-display" id="qty-bocadillo-mixto">1</span>
+                            <button class="quantity-btn plus" data-item="bocadillo-mixto">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="bocadillo-mixto" data-name="Bocadillo Mixto" data-price="7.00" data-category="bocadillos">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="bocadillos">
+                    <div class="item-header">
+                        <h3 class="item-name">Bocadillo Vegetariano</h3>
+                        <span class="item-price">5.50€</span>
+                    </div>
+                    <p class="item-description">Pan francés con verduras asadas, queso fresco y pesto</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="bocadillo-vegetariano">−</button>
+                            <span class="quantity-display" id="qty-bocadillo-vegetariano">1</span>
+                            <button class="quantity-btn plus" data-item="bocadillo-vegetariano">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="bocadillo-vegetariano" data-name="Bocadillo Vegetariano" data-price="5.50" data-category="bocadillos">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bebidas Tab -->
+        <div id="bebidas" class="tab-content">
+            <h2 class="section-title">🥤 Bebidas</h2>
+            
+            <div class="menu-grid">
+                <div class="menu-item" data-category="bebidas">
+                    <div class="item-header">
+                        <h3 class="item-name">Coca-Cola</h3>
+                        <span class="item-price">2.50€</span>
+                    </div>
+                    <p class="item-description">Lata 330ml</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="coca-cola">−</button>
+                            <span class="quantity-display" id="qty-coca-cola">1</span>
+                            <button class="quantity-btn plus" data-item="coca-cola">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="coca-cola" data-name="Coca-Cola" data-price="2.50" data-category="bebidas">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="bebidas">
+                    <div class="item-header">
+                        <h3 class="item-name">Fanta Naranja</h3>
+                        <span class="item-price">2.50€</span>
+                    </div>
+                    <p class="item-description">Lata 330ml</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="fanta-naranja">−</button>
+                            <span class="quantity-display" id="qty-fanta-naranja">1</span>
+                            <button class="quantity-btn plus" data-item="fanta-naranja">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="fanta-naranja" data-name="Fanta Naranja" data-price="2.50" data-category="bebidas">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="bebidas">
+                    <div class="item-header">
+                        <h3 class="item-name">Agua Mineral</h3>
+                        <span class="item-price">1.50€</span>
+                    </div>
+                    <p class="item-description">Botella 500ml</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="agua-mineral">−</button>
+                            <span class="quantity-display" id="qty-agua-mineral">1</span>
+                            <button class="quantity-btn plus" data-item="agua-mineral">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="agua-mineral" data-name="Agua Mineral" data-price="1.50" data-category="bebidas">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="bebidas">
+                    <div class="item-header">
+                        <h3 class="item-name">Nestea</h3>
+                        <span class="item-price">2.50€</span>
+                    </div>
+                    <p class="item-description">Lata 330ml</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="nestea">−</button>
+                            <span class="quantity-display" id="qty-nestea">1</span>
+                            <button class="quantity-btn plus" data-item="nestea">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="nestea" data-name="Nestea" data-price="2.50" data-category="bebidas">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cool Kids Tab -->
+        <div id="kids" class="tab-content">
+            <h2 class="section-title">👶 Cool Kids Menú</h2>
+            
+            <div class="menu-grid">
+                <div class="menu-item" data-category="kids">
+                    <div class="item-header">
+                        <h3 class="item-name">Menú Nuggets Kids</h3>
+                        <span class="item-price">6.50€</span>
+                    </div>
+                    <p class="item-description">4 Nuggets + Patatas pequeñas + Bebida + Juguete</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="menu-nuggets-kids">−</button>
+                            <span class="quantity-display" id="qty-menu-nuggets-kids">1</span>
+                            <button class="quantity-btn plus" data-item="menu-nuggets-kids">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="menu-nuggets-kids" data-name="Menú Nuggets Kids" data-price="6.50" data-category="kids">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="kids">
+                    <div class="item-header">
+                        <h3 class="item-name">Menú Mini Hamburguesa</h3>
+                        <span class="item-price">7.00€</span>
+                    </div>
+                    <p class="item-description">Mini hamburguesa + Patatas pequeñas + Bebida + Juguete</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="menu-mini-hamburguesa">−</button>
+                            <span class="quantity-display" id="qty-menu-mini-hamburguesa">1</span>
+                            <button class="quantity-btn plus" data-item="menu-mini-hamburguesa">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="menu-mini-hamburguesa" data-name="Menú Mini Hamburguesa" data-price="7.00" data-category="kids">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="kids">
+                    <div class="item-header">
+                        <h3 class="item-name">Menú Mini Tacos</h3>
+                        <span class="item-price">6.00€</span>
+                    </div>
+                    <p class="item-description">Mini tacos + Patatas pequeñas + Bebida + Juguete</p>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="menu-mini-tacos">−</button>
+                            <span class="quantity-display" id="qty-menu-mini-tacos">1</span>
+                            <button class="quantity-btn plus" data-item="menu-mini-tacos">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="menu-mini-tacos" data-name="Menú Mini Tacos" data-price="6.00" data-category="kids">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Cart Button -->
+    <div class="floating-cart" onclick="toggleCart()">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-badge" id="cart-badge">0</span>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2 class="cart-title">Tu Pedido</h2>
+                <button class="close-cart" onclick="toggleCart()">×</button>
+            </div>
+            
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be dynamically inserted here -->
+            </div>
+            
+            <div class="cart-total">
+                <div class="total-label">Total del Pedido:</div>
+                <div class="total-amount" id="total-amount">0.00€</div>
+            </div>
+            
+            <div class="order-info">
+                <div class="order-number" id="order-number">Número de Pedido: -</div>
+                <div class="order-date" id="order-date">Fecha: -</div>
+            </div>
+            
+            <div class="cart-actions">
+                <button class="btn btn-whatsapp" onclick="sendToWhatsApp()">
+                    📱 Enviar por WhatsApp
+                </button>
+                <button class="btn btn-copy" onclick="copyOrder()">
+                    📋 Copiar Pedido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Cart Management System
+        let cart = [];
+        let orderNumber = '';
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTabs();
+            initializeQuantityControls();
+            initializeAddToCartButtons();
+            initializeCustomizationLimits();
+            generateOrderNumber();
+            updateOrderDate();
+        });
+        
+        // Tab Navigation
+        function initializeTabs() {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // Update nav
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update content
+                    document.querySelectorAll('.tab-content').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+        }
+        
+        // Quantity Controls
+        function initializeQuantityControls() {
+            document.querySelectorAll('.quantity-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-item');
+                    const quantityDisplay = document.getElementById('qty-' + itemId);
+                    let currentQty = parseInt(quantityDisplay.textContent);
+                    
+                    if (this.classList.contains('plus')) {
+                        currentQty++;
+                    } else if (this.classList.contains('minus') && currentQty > 1) {
+                        currentQty--;
+                    }
+                    
+                    quantityDisplay.textContent = currentQty;
+                });
+            });
+        }
+        
+        // Add to Cart
+        function initializeAddToCartButtons() {
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-item');
+                    const itemName = this.getAttribute('data-name');
+                    const basePrice = parseFloat(this.getAttribute('data-price'));
+                    const category = this.getAttribute('data-category');
+                    const quantity = parseInt(document.getElementById('qty-' + itemId).textContent);
+                    
+                    // Get customizations for tacos
+                    let customizations = [];
+                    let extraPrice = 0;
+                    
+                    if (category === 'tacos') {
+                        // Get selected salsas
+                        const salsas = [];
+                        document.querySelectorAll(`.salsa-${itemId.split('-')[1]}:checked`).forEach(checkbox => {
+                            salsas.push(checkbox.getAttribute('data-name'));
+                        });
+                        if (salsas.length > 0) {
+                            customizations.push(`Salsas: ${salsas.join(', ')}`);
+                        }
+                        
+                        // Get selected carnes
+                        const carnes = [];
+                        document.querySelectorAll(`.carne-${itemId.split('-')[1]}:checked`).forEach(checkbox => {
+                            carnes.push(checkbox.getAttribute('data-name'));
+                        });
+                        if (carnes.length > 0) {
+                            customizations.push(`Carnes: ${carnes.join(', ')}`);
+                        }
+                        
+                        // Get extras
+                        const extras = [];
+                        document.querySelectorAll(`.extra-${itemId.split('-')[1]}:checked`).forEach(checkbox => {
+                            extras.push(checkbox.getAttribute('data-name'));
+                            extraPrice += parseFloat(checkbox.getAttribute('data-price'));
+                        });
+                        if (extras.length > 0) {
+                            customizations.push(`Extras: ${extras.join(', ')}`);
+                        }
+                        
+                        // Check gratinado
+                        const gratinadoCheckbox = document.querySelector(`.gratinado-${itemId.split('-')[1]}:checked`);
+                        if (gratinadoCheckbox) {
+                            customizations.push('Gratinado');
+                            extraPrice += parseFloat(gratinadoCheckbox.getAttribute('data-price'));
+                        }
+                    }
+                    
+                    const totalItemPrice = (basePrice + extraPrice) * quantity;
+                    
+                    // Add to cart
+                    const cartItem = {
+                        id: itemId + Date.now(), // Unique ID
+                        itemId: itemId,
+                        name: itemName,
+                        category: category,
+                        basePrice: basePrice,
+                        extraPrice: extraPrice,
+                        quantity: quantity,
+                        totalPrice: totalItemPrice,
+                        customizations: customizations
+                    };
+                    
+                    cart.push(cartItem);
+                    
+                    // Reset form
+                    document.getElementById('qty-' + itemId).textContent = '1';
+                    document.querySelectorAll(`input[type="checkbox"][id*="${itemId.split('-')[1]}"]`).forEach(cb => {
+                        cb.checked = false;
+                    });
+                    
+                    // Update UI
+                    updateCartBadge();
+                    showToast('Añadido al carrito ✓');
+                });
+            });
+        }
+        
+        // Customization Limits
+        function initializeCustomizationLimits() {
+            // Limit salsas selection
+            ['m', 'l', 'xl'].forEach(size => {
+                const maxSalsas = size === 'xl' ? 4 : 3;
+                const salsaCheckboxes = document.querySelectorAll(`.salsa-${size}`);
+                
+                salsaCheckboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const checkedSalsas = document.querySelectorAll(`.salsa-${size}:checked`);
+                        if (checkedSalsas.length >= maxSalsas) {
+                            salsaCheckboxes.forEach(cb => {
+                                if (!cb.checked) cb.disabled = true;
+                            });
+                        } else {
+                            salsaCheckboxes.forEach(cb => {
+                                cb.disabled = false;
+                            });
+                        }
+                    });
+                });
+                
+                // Limit carnes selection
+                const maxCarnes = size === 'xl' ? 4 : 3;
+                const carneCheckboxes = document.querySelectorAll(`.carne-${size}`);
+                
+                carneCheckboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const checkedCarnes = document.querySelectorAll(`.carne-${size}:checked`);
+                        if (checkedCarnes.length >= maxCarnes) {
+                            carneCheckboxes.forEach(cb => {
+                                if (!cb.checked) cb.disabled = true;
+                            });
+                        } else {
+                            carneCheckboxes.forEach(cb => {
+                                cb.disabled = false;
+                            });
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Cart UI Functions
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('active');
+            
+            if (modal.classList.contains('active')) {
+                renderCart();
+            }
+        }
+        
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.textContent = totalItems;
+        }
+        
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalAmountElement = document.getElementById('total-amount');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <div class="empty-cart-text">Tu carrito está vacío</div>
+                    </div>
+                `;
+                totalAmountElement.textContent = '0.00€';
+                return;
+            }
+            
+            let html = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-header">
+                            <div class="cart-item-name">${item.name} x${item.quantity}</div>
+                            <div class="cart-item-price">${item.totalPrice.toFixed(2)}€</div>
+                        </div>
+                        ${item.customizations.length > 0 ? `
+                            <div class="cart-item-details">
+                                ${item.customizations.join('<br>')}
+                            </div>
+                        ` : ''}
+                        <div class="cart-item-controls">
+                            <button class="remove-item" onclick="removeFromCart('${item.id}')">
+                                Eliminar
+                            </button>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus" onclick="updateCartItemQuantity('${item.id}', -1)">−</button>
+                                <span class="quantity-display">${item.quantity}</span>
+                                <button class="quantity-btn plus" onclick="updateCartItemQuantity('${item.id}', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                total += item.totalPrice;
+            });
+            
+            cartItemsContainer.innerHTML = html;
+            totalAmountElement.textContent = total.toFixed(2) + '€';
+        }
+        
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCartBadge();
+            renderCart();
+            showToast('Producto eliminado');
+        }
+        
+        function updateCartItemQuantity(itemId, change) {
+            const item = cart.find(item => item.id === itemId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(itemId);
+                } else {
+                    item.totalPrice = (item.basePrice + item.extraPrice) * item.quantity;
+                    renderCart();
+                    updateCartBadge();
+                }
+            }
+        }
+        
+        // Order Functions
+        function generateOrderNumber() {
+            const date = new Date();
+            const dateStr = date.getFullYear().toString().substr(-2) + 
+                          (date.getMonth() + 1).toString().padStart(2, '0') + 
+                          date.getDate().toString().padStart(2, '0');
+            const randomStr = Math.random().toString(36).substr(2, 4).toUpperCase();
+            orderNumber = `CT-${dateStr}-${randomStr}`;
+            document.getElementById('order-number').textContent = `Número de Pedido: ${orderNumber}`;
+        }
+        
+        function updateOrderDate() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('es-ES') + ' ' + now.toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('order-date').textContent = `Fecha: ${dateStr}`;
+        }
+        
+        function formatOrderForWhatsApp() {
+            if (cart.length === 0) return '';
+            
+            let message = `🌮 *PEDIDO COOL TACOS CIB* 🌮\n`;
+            message += `📋 Nº Pedido: ${orderNumber}\n`;
+            message += `📅 Fecha: ${new Date().toLocaleDateString('es-ES')} ${new Date().toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'})}\n`;
+            message += `━━━━━━━━━━━━━━━\n\n`;
+            
+            // Group items by category
+            const categories = {
+                'tacos': '🌮 TACOS',
+                'entrantes': '🥗 ENTRANTES',
+                'patatas': '🍟 PATATAS',
+                'hamburguesas': '🍔 HAMBURGUESAS',
+                'bocadillos': '🥖 BOCADILLOS',
+                'bebidas': '🥤 BEBIDAS',
+                'kids': '👶 COOL KIDS'
+            };
+            
+            Object.keys(categories).forEach(category => {
+                const categoryItems = cart.filter(item => item.category === category);
+                if (categoryItems.length > 0) {
+                    message += `*${categories[category]}*\n`;
+                    categoryItems.forEach(item => {
+                        message += `▪️ ${item.name} x${item.quantity} - ${item.totalPrice.toFixed(2)}€\n`;
+                        if (item.customizations.length > 0) {
+                            item.customizations.forEach(custom => {
+                                message += `   • ${custom}\n`;
+                            });
+                        }
+                    });
+                    message += '\n';
+                }
+            });
+            
+            const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+            message += `━━━━━━━━━━━━━━━\n`;
+            message += `💰 *TOTAL: ${total.toFixed(2)}€*\n`;
+            message += `━━━━━━━━━━━━━━━\n\n`;
+            message += `📍 Dirección de entrega:\n`;
+            message += `📞 Teléfono:\n`;
+            message += `💳 Método de pago:\n`;
+            message += `📝 Notas adicionales:`;
+            
+            return message;
+        }
+        
+        function sendToWhatsApp() {
+            if (cart.length === 0) {
+                showToast('El carrito está vacío');
+                return;
+            }
+            
+            const message = formatOrderForWhatsApp();
+            const phoneNumber = '34600000000'; // Replace with your WhatsApp Business number
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        function copyOrder() {
+            if (cart.length === 0) {
+                showToast('El carrito está vacío');
+                return;
+            }
+            
+            const message = formatOrderForWhatsApp();
+            navigator.clipboard.writeText(message).then(() => {
+                showToast('Pedido copiado al portapapeles ✓');
+            }).catch(() => {
+                showToast('Error al copiar el pedido');
+            });
+        }
+        
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
