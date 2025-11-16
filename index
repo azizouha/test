@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Tacos CIB - Menú Profesional V3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #012022;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, #012022 0%, #1a1a1a 100%);
+            padding: 30px 0;
+            box-shadow: 0 4px 20px rgba(139, 195, 74, 0.15);
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8BC34A, transparent);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            background: #012022;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #8BC34A;
+        }
+
+        .logo-circle img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        .restaurant-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #8BC34A;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .nav-container {
+            background: #1a1a1a;
+            padding: 15px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .nav-item {
+            background: #012022;
+            color: #ffffff;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: #8BC34A;
+            color: #012022;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
+        }
+
+        /* ===== TAB CONTENT ===== */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== BANNERS ===== */
+        .tab-banner {
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(1,32,34,0.4), rgba(139, 195, 74, 0.2));
+            border-radius: 15px;
+        }
+
+        /* ===== SECTION TITLES ===== */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8BC34A;
+            text-align: center;
+            margin: 40px 0 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* ===== PRODUCT GRID ===== */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        /* ===== MENU ITEM CARD ===== */
+        .menu-item {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8BC34A, transparent);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            transform: translateX(0);
+        }
+
+        .menu-item:hover {
+            border-color: #8BC34A;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 195, 74, 0.2);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+
+        .item-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 3px solid #8BC34A;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a0a;
+        }
+
+        .item-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #8BC34A;
+            margin-bottom: 8px;
+        }
+
+        .item-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .item-description {
+            color: #cccccc;
+            font-size: 1rem;
+            line-height: 1.4;
+            margin-top: 10px;
+        }
+
+        .item-subitems {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(139, 195, 74, 0.2);
+        }
+
+        .subitem {
+            display: flex;
+            justify-content: space-between;
+            color: #cccccc;
+            font-size: 0.95rem;
+            margin: 8px 0;
+        }
+
+        .subitem-price {
+            color: #8BC34A;
+            font-weight: 600;
+        }
+
+        /* ===== CUSTOMIZATION ===== */
+        .customization-section {
+            background: #0a0a0a;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .customization-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #8BC34A;
+            margin-bottom: 15px;
+        }
+
+        .option-group {
+            margin-bottom: 20px;
+        }
+
+        .option-label {
+            font-size: 1rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .option-item {
+            position: relative;
+        }
+
+        .option-checkbox {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .option-label-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+            padding: 12px 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            min-height: 90px;
+        }
+
+        .option-checkbox:checked + .option-label-box {
+            background: #8BC34A;
+            color: #012022;
+            border-color: #ffffff;
+        }
+
+        .option-label-box:hover {
+            border-color: #8BC34A;
+        }
+
+        .option-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .option-price {
+            font-size: 0.85rem;
+            color: #689F38;
+        }
+
+        /* ===== CONTROLS ===== */
+        .item-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            gap: 10px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            background: #012022;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #8BC34A;
+        }
+
+        .quantity-btn {
+            background: #8BC34A;
+            color: #012022;
+            border: none;
+            width: 35px;
+            height: 35px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #689F38;
+        }
+
+        .quantity-display {
+            padding: 0 20px;
+            font-weight: 600;
+            color: #ffffff;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            color: #ffffff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(139, 195, 74, 0.3);
+        }
+
+        /* ===== FLOATING CART ===== */
+        .floating-cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 25px rgba(139, 195, 74, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-icon {
+            font-size: 2rem;
+            color: #ffffff;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4444;
+            color: #ffffff;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        /* ===== CART MODAL ===== */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .cart-modal.active {
+            display: flex;
+        }
+
+        .cart-content {
+            background: #1a1a1a;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #8BC34A;
+        }
+
+        .cart-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #8BC34A;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-cart:hover {
+            color: #ff4444;
+            transform: rotate(90deg);
+        }
+
+        .cart-items {
+            margin-bottom: 25px;
+        }
+
+        .cart-item {
+            background: #012022;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #2a2a2a;
+        }
+
+        .cart-item-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #8BC34A;
+            margin-bottom: 8px;
+        }
+
+        .cart-item-details {
+            color: #cccccc;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remove-item {
+            background: #ff4444;
+            color: #ffffff;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-item:hover {
+            background: #cc0000;
+        }
+
+        .cart-total {
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .total-label {
+            font-size: 1.2rem;
+            color: #012022;
+            margin-bottom: 5px;
+        }
+
+        .total-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .order-info {
+            background: #012022;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: #cccccc;
+        }
+
+        .order-number {
+            color: #8BC34A;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .cart-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: #ffffff;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            transform: scale(1.05);
+        }
+
+        .btn-copy {
+            background: #2a2a2a;
+            color: #ffffff;
+            border: 2px solid #8BC34A;
+        }
+
+        .btn-copy:hover {
+            background: #8BC34A;
+            color: #012022;
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            color: #ffffff;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 3000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px 20px;
+            color: #cccccc;
+        }
+
+        .empty-cart-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .restaurant-name {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                gap: 10px;
+            }
+            
+            .nav-item {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .cart-content {
+                padding: 20px;
+            }
+            
+            .floating-cart {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .tab-banner {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .restaurant-name {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-circle">
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczP4OeLcshqBU3kpcEo6RdvM-JIMqwN5rgWOz-fpJQZgeLEVFFk7AIIGsfzNUSWvapJUC1SvJaiVMnpjIhYmDuXhV-1F-E8O78FN6F-Uwt8bCjyxWkZliQ4yfJjhVLGXe-j4dSfCR3qji_piuHlGKyg=w770-h744-s-no-gm?authuser=0" alt="Cool Tacos Logo">
+                </div>
+            </div>
+            <h1 class="restaurant-name">Cool Tacos CIB</h1>
+            <p class="tagline">Original Taco Français</p>
+        </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="nav-container">
+        <div class="container">
+            <div class="nav-menu">
+                <button class="nav-item active" data-tab="personaliza">🌮 Personaliza tu Taco</button>
+                <button class="nav-item" data-tab="entrantes">🥗 Entrantes</button>
+                <button class="nav-item" data-tab="patatas">🍟 Patatas</button>
+                <button class="nav-item" data-tab="hamburguesas">🍔 Hamburguesas</button>
+                <button class="nav-item" data-tab="otros">🥖 Box & Bocadillos</button>
+                <button class="nav-item" data-tab="bebidas">🥤 Bebidas</button>
+                <button class="nav-item" data-tab="kids">👶 Cool Kids</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT - PART 1 ENDS HERE -->
+
+
+        <!-- MAIN CONTENT - FROM PART 1 HEADER/NAV, CONTINUE WITH BODY CONTENT -->
+    <main class="container">
+        <!-- PERSONALIZA TAB -->
+        <div id="personaliza" class="tab-content active">
+            <h2 class="section-title">🌮 Personaliza tu Taco en 4 Pasos</h2>
+
+            <!-- PASO 1: TALLA + SALSA -->
+            <h3 style="color: #8BC34A; font-size: 1.8rem; margin: 30px 0 20px; text-align: center;">Paso 1: Talla + Salsa</h3>
+            
+            <div class="menu-grid">
+                <!-- Taco M -->
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div style="display: flex; align-items: center; flex: 1; gap: 15px;">
+                            <div class="item-icon">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczMF89AEO-t7IlatPIE5-VTqEP6YmWQdHkhuEHfshh0QZfiz3_94w1uzktFETCJH4qOSX7h4AzGnavcbqBhIPr828stB88uxZRaSWayjbLty_Ypu_PlTHb81oJj8ojXitWRUAEPI9XJejRc6DFlkvzo=w869-h869-s-no-gm?authuser=0" alt="Taco M">
+                            </div>
+                            <div class="item-info">
+                                <div class="item-name">Taco M</div>
+                                <div class="item-price">7.90€</div>
+                                <div class="item-description">Carne simple</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="customization-section">
+                        <h4 class="customization-title">Elige tu Salsa</h4>
+                        <div class="option-grid">
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox salsa-m" id="salsa-argelina-m" data-name="Argelina">
+                                <label class="option-label-box" for="salsa-argelina-m">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczMgq3-QbirVZVwsgpnXKQPysJtFfcj8VA6DO3xnJoSaQD95tODdmle55FAGzSBFntiQ0SEuIus7UQDl6POGUp4nNcw7lRdbSBDLD7giOmz7bYP1fBGLas5vvv6vzBMgXsx2EJb1_kpECP4gDTySTi0=w869-h869-s-no-gm?authuser=0" alt="Argelina" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <span class="option-name">Argelina</span>
+                                </label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox salsa-m" id="salsa-biggy-m" data-name="Biggy">
+                                <label class="option-label-box" for="salsa-biggy-m">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczNeQ4FJidHKpMFuyJrFJGpGmrcR4mOVqSWx-30mi6x1Gj0qLEvODfb20UvYLXvTYii9pdcodDSL5zVsxyeMWbYP5w1T6b7_drH4z0mxumURVsEa7clsOKJ1d-2F2Z7Jlv-G_4pX7n7FdqAXc8apwXE=w869-h869-s-no-gm?authuser=0" alt="Biggy" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <span class="option-name">Biggy</span>
+                                </label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox salsa-m" id="salsa-andaluza-m" data-name="Andaluza">
+                                <label class="option-label-box" for="salsa-andaluza-m">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczP6VG6vBhGZdhjyVGIGGMFg19LmdpHhdtetTaRIXhVaIDddZizf3lQlun0jcQXnaquBwdM6b7enpvfsFIGbPtQfVYlP1FD6amfWKM2r_AwLnOjUNf_TB-ICQsWmQK4KAXlnl4x1velazi1sd_IQ7D0=w869-h869-s-no-gm?authuser=0" alt="Andaluza" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <span class="option-name">Andaluza</span>
+                                </label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox salsa-m" id="salsa-brasil-m" data-name="Brasil">
+                                <label class="option-label-box" for="salsa-brasil-m">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczPS23e75dn0lWga0AY8Sxu5WV1UkedFb1jYnxIxdTrQFZBdTlNXva-HMEAsM8dJkBugiLcA64JdXX9Tr2lg7s5o4ZzIC9zpdzh-x_tTlDxz9HFgPzESLZ7dh6TRQJZZj1oDYqi3Sx42KmheSn9xUYU=w869-h869-s-no-gm?authuser=0" alt="Brasil" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <span class="option-name">Brasil</span>
+                                </label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox salsa-m" id="salsa-chili-m" data-name="Chili Thai">
+                                <label class="option-label-box" for="salsa-chili-m">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczMkoVl3ytEaPirRD7IHPnLDiN32XC7lETXriVfs8arsCfkXlixZkW8Z2kHSjU9RryDZd1K7IXBQlfQDCoMYuq5pMniqJy6UfeXD9FXGiiGrO6Siu6UbVvaj5DdvYv-BUb7Rv8pyvbe0ffOEzxOOSLs=w869-h869-s-no-gm?authuser=0" alt="Chili Thai" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <span class="option-name">Chili Thai</span>
+                                </label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox salsa-m" id="salsa-barbacoa-m" data-name="Barbacoa">
+                                <label class="option-label-box" for="salsa-barbacoa-m">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczMk0AoimUQ3TS9njfGnkc-P0woSl35a0wlhQ_PlAuw656-x3owADGDQcUoMwJuHJurW9tqPGMetTEKC0CpJf7ZqPH7EmPIu9CbbrYHror4I3DPgNy4ZXEzTB1enA9z_CHQ4Uc2e7SiLZsJIN51GFac=w869-h869-s-no-gm?authuser=0" alt="Barbacoa" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <span class="option-name">Barbacoa</span>
+                                </label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox salsa-m" id="salsa-samurai-m" data-name="Samurai">
+                                <label class="option-label-box" for="salsa-samurai-m">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczPqhGFZ_qjCNsUJlfkvw-jjI-t6-wBRm499ySC6JeVw2Z9P6U_w_29zmfcp0PsIsb5DcCmdYwy8Yo7jzLPMdZHFKhzUfV5TW4-K0aiX1LLeRyI9eAAqk0Fc6feddPG4l25HBig1pbEkq18tq72R9A0=w869-h869-s-no-gm?authuser=0" alt="Samurai" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <span class="option-name">Samurai</span>
+                                </label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox salsa-m" id="salsa-ketchup-m" data-name="Ketchup">
+                                <label class="option-label-box" for="salsa-ketchup-m">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczMzsqeYhw3Aaom6P1geXVV96QfvDjRVwdDT7gV8zkC8w36ZoxyV3wqrWajKyecBe5fWWih2icuzsgta9Xq6BYK7H9j9w5aFOGtCmAYUTx3tHKQFeC487WKCgZWFF-ErtYcYWl38mjBuvoBGWQFHXLc=w869-h869-s-no-gm?authuser=0" alt="Ketchup" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <span class="option-name">Ketchup</span>
+                                </label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox salsa-m" id="salsa-curry-m" data-name="Curry">
+                                <label class="option-label-box" for="salsa-curry-m">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczNH6n-RV-N03KyFr6GDPzTFQEbCpqOA14WvxXhp13HraF1lghtMHbRIBgF2bxuCG5HWTER7jCANmIL0aSQmd2WRY_9rq7jpRhe2oAyNAsZ3nSvOm5sEx-MAgyPEihVWqQaK9MNXgH6A-BXctzurIi8=w869-h869-s-no-gm?authuser=0" alt="Curry" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <span class="option-name">Curry</span>
+                                </label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox salsa-m" id="salsa-mayo-m" data-name="Mayo">
+                                <label class="option-label-box" for="salsa-mayo-m">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczNH6n-RV-N03KyFr6GDPzTFQEbCpqOA14WvxXhp13HraF1lghtMHbRIBgF2bxuCG5HWTER7jCANmIL0aSQmd2WRY_9rq7jpRhe2oAyNAsZ3nSvOm5sEx-MAgyPEihVWqQaK9MNXgH6A-BXctzurIi8=w869-h869-s-no-gm?authuser=0" alt="Mayo" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <span class="option-name">Mayo</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="tacos-m">−</button>
+                            <span class="quantity-display" id="qty-tacos-m">1</span>
+                            <button class="quantity-btn plus" data-item="tacos-m">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="tacos-m" data-name="Taco M" data-price="7.90" data-category="tacos">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Taco L -->
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div style="display: flex; align-items: center; flex: 1; gap: 15px;">
+                            <div class="item-icon">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczPHCvSM88qJsta6perEkiZ8vQ7hQNG4BOzErUgZS0nS3q0awyY30TLQn9uchyx7U8qV00E_1opig1DUggT7BdbHYJk2U_d9_oVyoa5MlOeycQEOZksCUoFtjsdcoNdtoGuEc4dAwcvn2TktH8XD01Y=w869-h869-s-no-gm?authuser=0" alt="Taco L">
+                            </div>
+                            <div class="item-info">
+                                <div class="item-name">Taco L</div>
+                                <div class="item-price">9.90€</div>
+                                <div class="item-description">Doble carne</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="customization-section">
+                        <h4 class="customization-title">Elige tu Salsa</h4>
+                        <div class="option-grid">
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox salsa-l" id="salsa-argelina-l" data-name="Argelina">
+                                <label class="option-label-box" for="salsa-argelina-l">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczMgq3-QbirVZVwsgpnXKQPysJtFfcj8VA6DO3xnJoSaQD95tODdmle55FAGzSBFntiQ0SEuIus7UQDl6POGUp4nNcw7lRdbSBDLD7giOmz7bYP1fBGLas5vvv6vzBMgXsx2EJb1_kpECP4gDTySTi0=w869-h869-s-no-gm?authuser=0" alt="Argelina" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <span class="option-name">Argelina</span>
+                                </label>
+                            </div>
+                            <!-- ...resto de salsas L... -->
+                        </div>
+                    </div>
+
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="tacos-l">−</button>
+                            <span class="quantity-display" id="qty-tacos-l">1</span>
+                            <button class="quantity-btn plus" data-item="tacos-l">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="tacos-l" data-name="Taco L" data-price="9.90" data-category="tacos">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Taco XL -->
+                <div class="menu-item">
+                    <div class="item-header">
+                        <div style="display: flex; align-items: center; flex: 1; gap: 15px;">
+                            <div class="item-icon">
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczMcovcyoTfTdX3lxhtUglav21BFbKpWnaQhgbIPSIAIzMgj0c-Rq8pSWelEa-0tnzkUJTIWlAj-kG8Rq1r1MzwxtwwaBRwhjLsnJddmG9aTs1azt3B6CqCT6D_VFNHoC7IEkO_96twz5BW6_3fFt9s=w869-h869-s-no-gm?authuser=0" alt="Taco XL">
+                            </div>
+                            <div class="item-info">
+                                <div class="item-name">Taco XL</div>
+                                <div class="item-price">11.90€</div>
+                                <div class="item-description">Triple carne</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="customization-section">
+                        <h4 class="customization-title">Elige tu Salsa</h4>
+                        <div class="option-grid">
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox salsa-xl" id="salsa-argelina-xl" data-name="Argelina">
+                                <label class="option-label-box" for="salsa-argelina-xl">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczMgq3-QbirVZVwsgpnXKQPysJtFfcj8VA6DO3xnJoSaQD95tODdmle55FAGzSBFntiQ0SEuIus7UQDl6POGUp4nNcw7lRdbSBDLD7giOmz7bYP1fBGLas5vvv6vzBMgXsx2EJb1_kpECP4gDTySTi0=w869-h869-s-no-gm?authuser=0" alt="Argelina" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                    <span class="option-name">Argelina</span>
+                                </label>
+                            </div>
+                            <!-- ...resto de salsas XL... -->
+                        </div>
+                    </div>
+
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="tacos-xl">−</button>
+                            <span class="quantity-display" id="qty-tacos-xl">1</span>
+                            <button class="quantity-btn plus" data-item="tacos-xl">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="tacos-xl" data-name="Taco XL" data-price="11.90" data-category="tacos">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ENTRANTES, PATATAS, HAMBURGUESAS, OTROS, BEBIDAS, KIDS TABS -->
+        <!-- ...existing content tabs... -->
+
+    </main>
+
+    <!-- Floating Cart Button -->
+    <div class="floating-cart" onclick="toggleCart()">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-badge" id="cart-badge">0</span>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2 class="cart-title">Tu Pedido</h2>
+                <button class="close-cart" onclick="toggleCart()">×</button>
+            </div>
+            
+            <div class="cart-items" id="cart-items"></div>
+            
+            <div class="cart-total">
+                <div class="total-label">Total del Pedido:</div>
+                <div class="total-amount" id="total-amount">0.00€</div>
+            </div>
+            
+            <div class="order-info">
+                <div class="order-number" id="order-number">Número de Pedido: -</div>
+                <div class="order-date" id="order-date">Fecha: -</div>
+            </div>
+            
+            <div class="cart-actions">
+                <button class="btn btn-whatsapp" onclick="sendToWhatsApp()">
+                    📱 Enviar por WhatsApp
+                </button>
+                <button class="btn btn-copy" onclick="copyOrder()">
+                    📋 Copiar Pedido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Cart Management System
+        let cart = [];
+        let orderNumber = '';
+        const WHATSAPP_NUMBER = '+34613947550'; // Tu número WhatsApp
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTabs();
+            initializeQuantityControls();
+            initializeAddToCartButtons();
+            generateOrderNumber();
+            updateOrderDate();
+        });
+        
+        // Tab Navigation
+        function initializeTabs() {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+        }
+        
+        // Quantity Controls
+        function initializeQuantityControls() {
+            document.querySelectorAll('.quantity-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-item');
+                    const quantityDisplay = document.getElementById('qty-' + itemId);
+                    let currentQty = parseInt(quantityDisplay.textContent);
+                    
+                    if (this.classList.contains('plus')) {
+                        currentQty++;
+                    } else if (this.classList.contains('minus') && currentQty > 1) {
+                        currentQty--;
+                    }
+                    quantityDisplay.textContent = currentQty;
+                });
+            });
+        }
+        
+        // Add to Cart
+        function initializeAddToCartButtons() {
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-item');
+                    const itemName = this.getAttribute('data-name');
+                    const basePrice = parseFloat(this.getAttribute('data-price'));
+                    const category = this.getAttribute('data-category');
+                    const quantity = parseInt(document.getElementById('qty-' + itemId).textContent);
+                    
+                    let customizations = [];
+                    let extraPrice = 0;
+                    
+                    // Get customizations for tacos
+                    if (category === 'tacos') {
+                        const salsas = [];
+                        document.querySelectorAll(`.salsa-${itemId.split('-')[1]}:checked`).forEach(checkbox => {
+                            salsas.push(checkbox.getAttribute('data-name'));
+                        });
+                        if (salsas.length > 0) {
+                            customizations.push(`Salsas: ${salsas.join(', ')}`);
+                        }
+                    }
+                    
+                    const totalItemPrice = (basePrice + extraPrice) * quantity;
+                    
+                    const cartItem = {
+                        id: itemId + Date.now(),
+                        itemId: itemId,
+                        name: itemName,
+                        category: category,
+                        basePrice: basePrice,
+                        extraPrice: extraPrice,
+                        quantity: quantity,
+                        totalPrice: totalItemPrice,
+                        customizations: customizations
+                    };
+                    
+                    cart.push(cartItem);
+                    updateCartBadge();
+                    showToast('Añadido al carrito ✓');
+                    document.getElementById('qty-' + itemId).textContent = '1';
+                });
+            });
+        }
+        
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('active');
+            if (modal.classList.contains('active')) {
+                renderCart();
+            }
+        }
+        
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.textContent = totalItems;
+        }
+        
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalAmountElement = document.getElementById('total-amount');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `<div class="empty-cart"><div class="empty-cart-icon">🛒</div><div>Tu carrito está vacío</div></div>`;
+                totalAmountElement.textContent = '0.00€';
+                return;
+            }
+            
+            let html = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                html += `<div class="cart-item"><div class="cart-item-name">${item.name} x${item.quantity}</div><div class="cart-item-price">${item.totalPrice.toFixed(2)}€</div>${item.customizations.length > 0 ? `<div class="cart-item-details">${item.customizations.join('<br>')}</div>` : ''}<div class="cart-item-controls"><button class="remove-item" onclick="removeFromCart('${item.id}')">Eliminar</button></div></div>`;
+                total += item.totalPrice;
+            });
+            
+            cartItemsContainer.innerHTML = html;
+            totalAmountElement.textContent = total.toFixed(2) + '€';
+        }
+        
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCartBadge();
+            renderCart();
+        }
+        
+        function generateOrderNumber() {
+            const date = new Date();
+            const dateStr = date.getFullYear().toString().substr(-2) + (date.getMonth() + 1).toString().padStart(2, '0') + date.getDate().toString().padStart(2, '0');
+            const randomStr = Math.random().toString(36).substr(2, 4).toUpperCase();
+            orderNumber = `CT-${dateStr}-${randomStr}`;
+            document.getElementById('order-number').textContent = `Número de Pedido: ${orderNumber}`;
+        }
+        
+        function updateOrderDate() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('es-ES') + ' ' + now.toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('order-date').textContent = `Fecha: ${dateStr}`;
+        }
+        
+        function formatOrderForWhatsApp() {
+            if (cart.length === 0) return '';
+            let message = `🌮 *PEDIDO COOL TACOS CIB* 🌮\n📋 Nº: ${orderNumber}\n📅 ${new Date().toLocaleDateString('es-ES')}\n━━━━━━━━━━━━━━━\n\n`;
+            cart.forEach(item => {
+                message += `▪️ ${item.name} x${item.quantity} - ${item.totalPrice.toFixed(2)}€\n`;
+                if (item.customizations.length > 0) {
+                    item.customizations.forEach(custom => {
+                        message += `   • ${custom}\n`;
+                    });
+                }
+            });
+            const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+            message += `\n━━━━━━━━━━━━━━━\n💰 *TOTAL: ${total.toFixed(2)}€*`;
+            return message;
+        }
+        
+        function sendToWhatsApp() {
+            if (cart.length === 0) {
+                showToast('El carrito está vacío');
+                return;
+            }
+            const message = formatOrderForWhatsApp();
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER.replace(/\+/, '')}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        function copyOrder() {
+            if (cart.length === 0) {
+                showToast('El carrito está vacío');
+                return;
+            }
+            const message = formatOrderForWhatsApp();
+            navigator.clipboard.writeText(message).then(() => {
+                showToast('Pedido copiado ✓');
+            });
+        }
+        
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>
