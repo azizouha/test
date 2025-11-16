@@ -395,12 +395,38 @@
             align-items: center;
             width: 280px;
             flex-shrink: 0;
+            cursor: pointer;
+            position: relative;
         }
 
         .talla-card:hover {
             border-color: #8BC34A;
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(139, 195, 74, 0.2);
+        }
+
+        .talla-card.selected {
+            border-color: #8BC34A;
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(139, 195, 74, 0.15), rgba(104, 159, 56, 0.1));
+            box-shadow: 0 10px 40px rgba(139, 195, 74, 0.4);
+        }
+
+        .talla-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #8BC34A;
+            color: #012022;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 700;
         }
 
         .talla-image {
@@ -457,6 +483,8 @@
             align-items: center;
             transition: all 0.3s ease;
             width: 160px;
+            cursor: pointer;
+            position: relative;
         }
 
         .ingrediente-item:hover {
@@ -476,11 +504,37 @@
             transition: all 0.3s ease;
             overflow: hidden;
             padding: 5px;
+            position: relative;
         }
 
         .ingrediente-item:hover .ingrediente-circle {
             border-color: #8BC34A;
             box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
+        }
+
+        .ingrediente-item.selected .ingrediente-circle {
+            border-color: #8BC34A;
+            border-width: 4px;
+            box-shadow: 0 8px 30px rgba(139, 195, 74, 0.5);
+            background: rgba(139, 195, 74, 0.1);
+        }
+
+        .ingrediente-item.selected .ingrediente-circle::after {
+            content: '✓';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #8BC34A;
+            color: #012022;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            z-index: 10;
         }
 
         .ingrediente-circle img {
@@ -1118,6 +1172,690 @@
                 height: 90px;
             }
         }
+
+        /* ==================== CART SYSTEM STYLES ==================== */
+
+        /* Quantity and Add to Cart Controls */
+        .item-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            gap: 10px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            background: #012022;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #8BC34A;
+        }
+
+        .quantity-btn {
+            background: #8BC34A;
+            color: #012022;
+            border: none;
+            width: 35px;
+            height: 35px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #689F38;
+        }
+
+        .quantity-display {
+            padding: 0 20px;
+            font-weight: 600;
+            color: #ffffff;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            color: #ffffff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(139, 195, 74, 0.3);
+        }
+
+        /* Customization Options for Cart */
+        .customization-cart-section {
+            background: #0a0a0a;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .customization-title-cart {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #8BC34A;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .option-group {
+            margin-bottom: 20px;
+        }
+
+        .option-label {
+            font-size: 1rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .option-grid-cart {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .option-item {
+            position: relative;
+        }
+
+        .option-checkbox {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .option-label-box {
+            display: block;
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .option-checkbox:checked + .option-label-box {
+            background: #8BC34A;
+            color: #012022;
+            border-color: #ffffff;
+        }
+
+        .option-label-box:hover {
+            border-color: #8BC34A;
+        }
+
+        .option-price {
+            font-size: 0.9rem;
+            color: #689F38;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Floating Cart */
+        .floating-cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 25px rgba(139, 195, 74, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-icon {
+            font-size: 2rem;
+            color: #ffffff;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4444;
+            color: #ffffff;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .cart-modal.active {
+            display: flex;
+        }
+
+        .cart-content {
+            background: #1a1a1a;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #8BC34A;
+        }
+
+        .cart-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #8BC34A;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-cart:hover {
+            color: #ff4444;
+            transform: rotate(90deg);
+        }
+
+        .cart-items {
+            margin-bottom: 25px;
+        }
+
+        .cart-item {
+            background: #012022;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #2a2a2a;
+        }
+
+        .cart-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #8BC34A;
+            flex: 1;
+        }
+
+        .cart-item-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .cart-item-details {
+            color: #cccccc;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remove-item {
+            background: #ff4444;
+            color: #ffffff;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-item:hover {
+            background: #cc0000;
+        }
+
+        .cart-total {
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .total-label {
+            font-size: 1.2rem;
+            color: #012022;
+            margin-bottom: 5px;
+        }
+
+        .total-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .order-info {
+            background: #012022;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .order-number {
+            font-size: 1.1rem;
+            color: #8BC34A;
+            margin-bottom: 10px;
+        }
+
+        .order-date {
+            font-size: 0.95rem;
+            color: #cccccc;
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: #ffffff;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            transform: scale(1.05);
+        }
+
+        .btn-copy {
+            background: #2a2a2a;
+            color: #ffffff;
+            border: 2px solid #8BC34A;
+        }
+
+        .btn-copy:hover {
+            background: #8BC34A;
+            color: #012022;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #8BC34A, #689F38);
+            color: #ffffff;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 3000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Empty Cart Message */
+        .empty-cart {
+            text-align: center;
+            padding: 40px 20px;
+            color: #cccccc;
+        }
+
+        .empty-cart-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-cart-text {
+            font-size: 1.2rem;
+        }
+
+        /* Responsive Cart Styles */
+        @media (max-width: 768px) {
+            .cart-content {
+                padding: 20px;
+            }
+
+            .cart-actions {
+                flex-direction: column;
+            }
+
+            .floating-cart {
+                width: 60px;
+                height: 60px;
+                bottom: 90px;
+            }
+
+            /* ==================== OPTIMISATION MOBILE COMPLÈTE ==================== */
+
+            /* Menu Items - Meilleure adaptation mobile */
+            .menu-item {
+                padding: 15px;
+            }
+
+            .item-name {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .item-name-with-icon {
+                width: 100%;
+            }
+
+            .item-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .item-price {
+                font-size: 1.2rem;
+            }
+
+            /* Item Controls - Correction débordement */
+            .item-controls {
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 12px;
+            }
+
+            .quantity-control {
+                flex: 0 0 auto;
+                min-width: 110px;
+            }
+
+            .quantity-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 1.1rem;
+            }
+
+            .quantity-display {
+                padding: 0 15px;
+                font-size: 1rem;
+            }
+
+            .add-to-cart-btn {
+                flex: 1 1 100%;
+                min-width: 100%;
+                padding: 12px 20px;
+                font-size: 1rem;
+                margin-top: 8px;
+            }
+
+            /* Subitems - Meilleure disposition mobile */
+            .subitem {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 10px;
+            }
+
+            .subitem .add-to-cart-btn {
+                width: 100%;
+                margin: 8px 0 0 0 !important;
+                padding: 10px !important;
+            }
+
+            /* Menu Grid - Optimisation mobile */
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0 10px;
+            }
+
+            /* Tallas Grid - Scroll horizontal sur mobile */
+            .tallas-grid {
+                display: flex;
+                overflow-x: auto;
+                gap: 15px;
+                padding: 10px 5px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .talla-card {
+                flex: 0 0 240px;
+                scroll-snap-align: center;
+            }
+
+            /* Ingredientes Grid - Meilleure disposition mobile */
+            .ingredientes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 12px;
+                padding: 0 10px;
+            }
+
+            .ingrediente-item {
+                width: 100%;
+            }
+
+            .ingrediente-circle {
+                width: 110px;
+                height: 110px;
+            }
+
+            .ingrediente-circle img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .ingrediente-name {
+                font-size: 0.95rem;
+            }
+
+            /* Section Titles - Plus compact sur mobile */
+            .section-title {
+                font-size: 2rem;
+                padding: 15px 10px;
+            }
+
+            .personalizacion-title {
+                font-size: 2rem;
+                padding: 20px 10px;
+            }
+
+            /* Paso sections - Meilleur espacement mobile */
+            .paso-section {
+                padding: 20px 10px;
+            }
+
+            .paso-title {
+                font-size: 1.5rem;
+            }
+
+            /* Prix affiché - Plus visible sur mobile */
+            #total-price-display {
+                font-size: 2.5rem !important;
+            }
+
+            #total-taco-price {
+                font-size: 2.5rem;
+            }
+
+            /* Kids Section - Optimisation mobile */
+            .kids-option-card {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+
+            .kids-includes {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            /* Contact Section - Meilleure disposition mobile */
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            /* Banners - Affichage optimisé */
+            .banner-desktop {
+                display: none !important;
+            }
+
+            .banner-mobile {
+                display: block !important;
+                min-height: 200px;
+            }
+        }
+
+        /* Très petits écrans (< 400px) */
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .item-controls {
+                flex-direction: column;
+            }
+
+            .quantity-control {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .add-to-cart-btn {
+                width: 100%;
+                padding: 14px;
+            }
+
+            .ingredientes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .menu-grid {
+                padding: 0 5px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            /* Taille des cartes tacos pour très petits écrans */
+            .talla-card {
+                flex: 0 0 200px;
+                padding: 20px;
+            }
+
+            .talla-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .talla-image img {
+                width: 110px;
+                height: 110px;
+            }
+
+            /* Floating cart - Position ajustée */
+            .floating-cart {
+                width: 55px;
+                height: 55px;
+                bottom: 80px;
+                right: 15px;
+            }
+
+            .cart-icon {
+                font-size: 1.7rem;
+            }
+
+            .cart-badge {
+                width: 22px;
+                height: 22px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Optimisation tablette (768px - 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ingredientes-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .item-controls {
+                gap: 12px;
+            }
+
+            .add-to-cart-btn {
+                flex: 1;
+                min-width: 150px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1159,7 +1897,7 @@
                     </div>
 
                     <div class="tallas-grid">
-                        <div class="talla-card">
+                        <div class="talla-card" data-size="xl" data-price="11.90">
                             <div class="talla-image">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczMcovcyoTfTdX3lxhtUglav21BFbKpWnaQhgbIPSIAIzMgj0c-Rq8pSWelEa-0tnzkUJTIWlAj-kG8Rq1r1MzwxtwwaBRwhjLsnJddmG9aTs1azt3B6CqCT6D_VFNHoC7IEkO_96twz5BW6_3fFt9s=w869-h869-s-no-gm?authuser=0" alt="Taco XL">
                             </div>
@@ -1167,7 +1905,7 @@
                             <div class="talla-description">Triple carne</div>
                             <div class="talla-price">11,90€</div>
                         </div>
-                        <div class="talla-card">
+                        <div class="talla-card" data-size="l" data-price="9.90">
                             <div class="talla-image">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczPHCvSM88qJsta6perEkiZ8vQ7hQNG4BOzErUgZS0nS3q0awyY30TLQn9uchyx7U8qV00E_1opig1DUggT7BdbHYJk2U_d9_oVyoa5MlOeycQEOZksCUoFtjsdcoNdtoGuEc4dAwcvn2TktH8XD01Y=w869-h869-s-no-gm?authuser=0" alt="Taco L">
                             </div>
@@ -1175,7 +1913,7 @@
                             <div class="talla-description">Doble carne</div>
                             <div class="talla-price">9,90€</div>
                         </div>
-                        <div class="talla-card">
+                        <div class="talla-card" data-size="m" data-price="7.90">
                             <div class="talla-image">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczMF89AEO-t7IlatPIE5-VTqEP6YmWQdHkhuEHfshh0QZfiz3_94w1uzktFETCJH4qOSX7h4AzGnavcbqBhIPr828stB88uxZRaSWayjbLty_Ypu_PlTHb81oJj8ojXitWRUAEPI9XJejRc6DFlkvzo=w869-h869-s-no-gm?authuser=0" alt="Taco M">
                             </div>
@@ -1190,62 +1928,62 @@
                     </div>
 
                     <h4 style="color: #8BC34A; font-size: 1.3rem; margin-bottom: 15px; text-align: center;">Elige tu Salsa</h4>
-                    <div class="ingredientes-grid">
-                        <div class="ingrediente-item">
+                    <div class="ingredientes-grid" id="salsas-grid">
+                        <div class="ingrediente-item" data-type="salsa" data-name="Argelina">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczMgq3-QbirVZVwsgpnXKQPysJtFfcj8VA6DO3xnJoSaQD95tODdmle55FAGzSBFntiQ0SEuIus7UQDl6POGUp4nNcw7lRdbSBDLD7giOmz7bYP1fBGLas5vvv6vzBMgXsx2EJb1_kpECP4gDTySTi0=w869-h869-s-no-gm?authuser=0" alt="Argelina">
                             </div>
                             <div class="ingrediente-name">Argelina</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="salsa" data-name="Biggy">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczNeQ4FJidHKpMFuyJrFJGpGmrcR4mOVqSWx-30mi6x1Gj0qLEvODfb20UvYLXvTYii9pdcodDSL5zVsxyeMWbYP5w1T6b7_drH4z0mxumURVsEa7clsOKJ1d-2F2Z7Jlv-G_4pX7n7FdqAXc8apwXE=w869-h869-s-no-gm?authuser=0" alt="Biggy">
                             </div>
                             <div class="ingrediente-name">Biggy</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="salsa" data-name="Andaluza">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczP6VG6vBhGZdhjyVGIGGMFg19LmdpHhdtetTaRIXhVaIDddZizf3lQlun0jcQXnaquBwdM6b7enpvfsFIGbPtQfVYlP1FD6amfWKM2r_AwLnOjUNf_TB-ICQsWmQK4KAXlnl4x1velazi1sd_IQ7D0=w869-h869-s-no-gm?authuser=0" alt="Andaluza">
                             </div>
                             <div class="ingrediente-name">Andaluza</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="salsa" data-name="Brasil">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczNamy_NvWeV2WgNchWMxHedPJeWj3hBkYjJDMucWnYcueDuQJpnwJpCVOJ0k4YKXastVtJpRXQD2twPwinMX-trP4xw2sQVg34MZJuAXmsHo6N90kR3jSIICyAC0BIClqmz9wI3pASg5DEdhqbpL0Q=w869-h869-s-no-gm?authuser=0" alt="Brasil">
                             </div>
                             <div class="ingrediente-name">Brasil</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="salsa" data-name="Chili Thai">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczPS23e75dn0lWga0AY8Sxu5WV1UkedFb1jYnxIxdTrQFZBdTlNXva-HMEAsM8dJkBugiLcA64JdXX9Tr2lg7s5o4ZzIC9zpdzh-x_tTlDxz9HFgPzESLZ7dh6TRQJZZj1oDYqi3Sx42KmheSn9xUYU=w869-h869-s-no-gm?authuser=0" alt="Chili Thai">
                             </div>
                             <div class="ingrediente-name">Chili Thai</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="salsa" data-name="Barbacoa">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczMkoVl3ytEaPirRD7IHPnLDiN32XC7lETXriVfs8arsCfkXlixZkW8Z2kHSjU9RryDZd1K7IXBQlfQDCoMYuq5pMniqJy6UfeXD9FXGiiGrO6Siu6UbVvaj5DdvYv-BUb7Rv8pyvbe0ffOEzxOOSLs=w869-h869-s-no-gm?authuser=0" alt="Barbacoa">
                             </div>
                             <div class="ingrediente-name">Barbacoa</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="salsa" data-name="Samurai">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczMk0AoimUQ3TS9njfGnkc-P0woSl35a0wlhQ_PlAuw656-x3owADGDQcUoMwJuHJurW9tqPGMetTEKC0CpJf7ZqPH7EmPIu9CbbrYHror4I3DPgNy4ZXEzTB1enA9z_CHQ4Uc2e7SiLZsJIN51GFac=w869-h869-s-no-gm?authuser=0" alt="Samurai">
                             </div>
                             <div class="ingrediente-name">Samurai</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="salsa" data-name="Ketchup">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczPqhGFZ_qjCNsUJlfkvw-jjI-t6-wBRm499ySC6JeVw2Z9P6U_w_29zmfcp0PsIsb5DcCmdYwy8Yo7jzLPMdZHFKhzUfV5TW4-K0aiX1LLeRyI9eAAqk0Fc6feddPG4l25HBig1pbEkq18tq72R9A0=w869-h869-s-no-gm?authuser=0" alt="Ketchup">
                             </div>
                             <div class="ingrediente-name">Ketchup</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="salsa" data-name="Curry">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczMzsqeYhw3Aaom6P1geXVV96QfvDjRVwdDT7gV8zkC8w36ZoxyV3wqrWajKyecBe5fWWih2icuzsgta9Xq6BYK7H9j9w5aFOGtCmAYUTx3tHKQFeC487WKCgZWFF-ErtYcYWl38mjBuvoBGWQFHXLc=w869-h869-s-no-gm?authuser=0" alt="Curry">
                             </div>
                             <div class="ingrediente-name">Curry</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="salsa" data-name="Mayo">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczNH6n-RV-N03KyFr6GDPzTFQEbCpqOA14WvxXhp13HraF1lghtMHbRIBgF2bxuCG5HWTER7jCANmIL0aSQmd2WRY_9rq7jpRhe2oAyNAsZ3nSvOm5sEx-MAgyPEihVWqQaK9MNXgH6A-BXctzurIi8=w869-h869-s-no-gm?authuser=0" alt="Mayo">
                             </div>
@@ -1262,31 +2000,31 @@
                     </div>
 
                     <div class="ingredientes-grid">
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="carne" data-name="Ternera">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczMTmLDDaiOA5ow0RAI78WtyRk_lD0I_Bo50tb7y6RnD37MOXTKUB9W1trzt3pLsPW_Pd2WyI67tQgzfbYF89b3gKZWxKUTG3oWcv8c_WENrr-nrnnrEx-Ps6RfpZZMuYblLicjvEcdDRSjTACGArJA=w869-h869-s-no-gm?authuser=0" alt="Ternera Picada">
                             </div>
                             <div class="ingrediente-name">Ternera Picada</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="carne" data-name="Ternera">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczO8SRLCNwWpClCLdWcDRGD_RZ2273zSk_pIvW2tQHtb23lGG5Cv2AxQhjh88PEhuPFTjgnU9x3hBgrCbxAdAhn2JWRPGMFdL2b94Rzgfs6NDSVx4q9hrDnpo9ut5d8CTMZLpy1RQW_moJXY__3LUgQ=w869-h869-s-no-gm?authuser=0" alt="Pechuga de Pollo">
                             </div>
                             <div class="ingrediente-name">Pechuga de Pollo</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="carne" data-name="Ternera">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczPnUC_iAhXit5ok1ep6sV4C3mwnIqAn2-OU9mHmXlwG0U0kegmQtrSHWVwohu-wkY1KE0yKrtP1ockYWULsPpR9gqJEvZgVifhQU0p6Xh1--szOGlKNoxi1OiIGMsWJau9M3hOjLdxysxyeIpLTC0c=w869-h869-s-no-gm?authuser=0" alt="Cordon Bleu">
                             </div>
                             <div class="ingrediente-name">Cordon Bleu</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="carne" data-name="Ternera">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczN6cmMlsTYTIlHsZ4FDVL2Q1oMKaeeT7_Nzladiz_EkVrlNJpbxCWCIdZn3eS2EapHKQE8VFbl1txJViGb1JUJvqkfZ0H7kDYvcXDmUZ0h7rGXk-ofYpdQDqtbBXlnvXSJq7Zw0J0Bl1S2wV_WiP4M=w869-h869-s-no-gm?authuser=0" alt="Tenders">
                             </div>
                             <div class="ingrediente-name">Tenders</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="carne" data-name="Ternera">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczOHi61Oad2dMvN_ZC7zDM6yW34_j9O_374xLPeyogYAaT4de1bjB2qqL4Q86zh1vM214Ezhcjiqd-ysuwScbBy_Z4MP_WKvEfYKNIYkFW5hzFAvn_Td-oy_Y282talxcP3YIPskH1FdL6XFWO5_xkE=w869-h869-s-no-gm?authuser=0" alt="Nuggets">
                             </div>
@@ -1304,25 +2042,25 @@
                     
                     <div class="precio-extra" style="text-align: center; font-size: 1.1rem; margin-bottom: 15px;">+ 0,50€</div>
                     <div class="ingredientes-grid">
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="extra" data-name="Cheddar" data-price="0.5">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczPizw07rNrZiqEuWlyf0J3LVevkjMog2KoQHhpDJdqg5rYmyyigOGBFhUsiK4szJde4xno3efaoVlDFw3lBXHpOtHFT1oKz-1XaUtRZ82EuiuaaW19SrBYHdb0Pd1LKcLqSmHVD0gW6h1XrCcYCqi0=w869-h869-s-no-gm?authuser=0" alt="Cheddar">
                             </div>
                             <div class="ingrediente-name">Cheddar</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="extra" data-name="La Vaca Que Ríe" data-price="0.5">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczO3qvSJQMsrkVa0NO1tjcjkHNtTOV1zBfapmyvevIIxumZ3ltQGngg7-C75kc5f0g9JJt5Hrv-QCUCmHftw4MtfTXcnvy_1GcObz4-UhI9KZkCk0zHeS-SndO-XqrGgyO0zlX1H9ydMXFUPvlNHkZM=w869-h869-s-no-gm?authuser=0" alt="La Vaca Que Ríe">
                             </div>
                             <div class="ingrediente-name">La Vaca Que Ríe</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="extra" data-name="Emmental" data-price="0.5">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczPlxJCmddngOOF-i8A0BWNanaBGXGzADfR3WQR8liDHXjYXkRgThvDmcLQi0_IK0g20IrfTTDWW1uVahcagTCA97UpwIGRJ-eE-HyiNz88FPmGLvrP-fGlRaAxtQCEeTifm63KLgjhlf5Ox9qf472E=w869-h869-s-no-gm?authuser=0" alt="Emmental">
                             </div>
                             <div class="ingrediente-name">Emmental</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="extra" data-name="Cebolla Crispy" data-price="0.5">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczPxHF_FKkaWVGzNZwM6zkPLSn1P9OtobxtC4jKPfAhVqojSqxRf2CQhyjvAtmrNBz_6_P-H1XLvPTXHQeDhb9rD9pnE27PqmNOOIKliM_HyX8N8B1ix6qD_Ce0VxKNmtHWCMQ7cHb31Pvv4PxEdld0=w869-h869-s-no-gm?authuser=0" alt="Cebolla Crispy">
                             </div>
@@ -1332,31 +2070,31 @@
 
                     <div class="precio-extra" style="text-align: center; font-size: 1.1rem; margin: 30px 0 15px 0;">+ 0,90€</div>
                     <div class="ingredientes-grid">
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="extra" data-name="Boursin" data-price="0.9">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczMFIRnZ_pMztK_ssWgGUVxt86rJCjyA0Xc-6yBb64VBi-WBxLWV-QkFiErA6jegwTMf6Asdyjto4Gga1u54GX_Vx3uHoVXa5mFTpc_7p826KOiYKVifkZxCkGHHdLGdEZLjB_mxIS3-S38bNJ8W46w=w860-h573-s-no-gm?authuser=0" alt="Boursin">
                             </div>
                             <div class="ingrediente-name">Boursin</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="extra" data-name="Cabra" data-price="0.9">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczNYTR93ZpIJFlQobvMQZeFSfzAqbKw21Vod1tiBjqAElosEspUaaFpBLkHIj1tYw521fSAollM0des1C7ZAxd8q4tDo21tMdlTjj51RUnVUvVYEHk4gSVfC_iwPKLYVPTMdewNF5BL3P1EJjepF_BI=w869-h869-s-no-gm?authuser=0" alt="Cabra">
                             </div>
                             <div class="ingrediente-name">Cabra</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="extra" data-name="Mozzarella" data-price="0.9">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczOTkwRT5W9U69plA0pzNzo41rxja2QudFQszGt08iFfy5tpMa_dXucc4AIZEgkOTQQ5GD5z9v2LTtrmf7mdotGe-__xETrq88rLkGW8YFnxXf1H09ci83QKTxynkZMULkcOWEXpWl_Tr-kRZ3ANlNk=w869-h869-s-no-gm?authuser=0" alt="Mozzarella">
                             </div>
                             <div class="ingrediente-name">Mozzarella</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="extra" data-name="Huevo" data-price="0.9">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczOAyo-PlskzQKfiNZtw6Y_OPmpT9BYRGIdQigbyFffNC6tV64ul3e05IGH_qs-B1Ob-55GL6IwmtrCjyZWOU8ZsdgcQxx2CdfO2jkQu28tclgHoVoziG8_WI1eegGX3JWvtihAOQm86cr4pYrxdw2g=w869-h869-s-no-gm?authuser=0" alt="Huevo">
                             </div>
                             <div class="ingrediente-name">Huevo</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="extra" data-name="Cebolla Caramelizada" data-price="0.9">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczNg73n0qtutbvYzKOf9idA6jPajCG0mLSJd0l8EpVaDLuFwzrM2sBiZ0ZRy7QdObbgGT4JAOQ48LIZm7Mqt98-C2YWtwCOctL4XjyV-ALc72y03kLP2waa05s-Gl_f39Twom_lIz0ARGSRMpY48yRA=w869-h869-s-no-gm?authuser=0" alt="Cebolla Caramelizada">
                             </div>
@@ -1374,36 +2112,66 @@
                     <div class="precio-extra" style="text-align: center; font-size: 1.1rem; margin-bottom: 15px;">+ 1,00€</div>
 
                     <div class="ingredientes-grid">
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="gratinado" data-name="Cheddar" data-price="1.0">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczPizw07rNrZiqEuWlyf0J3LVevkjMog2KoQHhpDJdqg5rYmyyigOGBFhUsiK4szJde4xno3efaoVlDFw3lBXHpOtHFT1oKz-1XaUtRZ82EuiuaaW19SrBYHdb0Pd1LKcLqSmHVD0gW6h1XrCcYCqi0=w869-h869-s-no-gm?authuser=0" alt="Cheddar">
                             </div>
                             <div class="ingrediente-name">Cheddar</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="gratinado" data-name="Cabra Miel" data-price="1.0">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczNYTR93ZpIJFlQobvMQZeFSfzAqbKw21Vod1tiBjqAElosEspUaaFpBLkHIj1tYw521fSAollM0des1C7ZAxd8q4tDo21tMdlTjj51RUnVUvVYEHk4gSVfC_iwPKLYVPTMdewNF5BL3P1EJjepF_BI=w869-h869-s-no-gm?authuser=0" alt="Cabra Miel">
                             </div>
                             <div class="ingrediente-name">Cabra Miel</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="gratinado" data-name="Emmental" data-price="1.0">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczPlxJCmddngOOF-i8A0BWNanaBGXGzADfR3WQR8liDHXjYXkRgThvDmcLQi0_IK0g20IrfTTDWW1uVahcagTCA97UpwIGRJ-eE-HyiNz88FPmGLvrP-fGlRaAxtQCEeTifm63KLgjhlf5Ox9qf472E=w869-h869-s-no-gm?authuser=0" alt="Emmental">
                             </div>
                             <div class="ingrediente-name">Emmental</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="gratinado" data-name="Mozzarella" data-price="1.0">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczOTkwRT5W9U69plA0pzNzo41rxja2QudFQszGt08iFfy5tpMa_dXucc4AIZEgkOTQQ5GD5z9v2LTtrmf7mdotGe-__xETrq88rLkGW8YFnxXf1H09ci83QKTxynkZMULkcOWEXpWl_Tr-kRZ3ANlNk=w869-h869-s-no-gm?authuser=0" alt="Mozzarella">
                             </div>
                             <div class="ingrediente-name">Mozzarella</div>
                         </div>
-                        <div class="ingrediente-item">
+                        <div class="ingrediente-item" data-type="gratinado" data-name="Emmental Lardon" data-price="1.0">
                             <div class="ingrediente-circle">
                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczPsjacGQ8SiERXcmSXlG9I3sIago3j-tst5kzQyUaF0LpgUDFn3h6LT_fEOVgPXtvgzd8F97St9zfoMVznhLipGajsYW10oIDJOp4FH2oMiLOE5vhD8TawawhbNQx4bCR9BeWeYMvlGFGa4H14UcvU=w869-h869-s-no-gm?authuser=0" alt="Emmental Lardon">
                             </div>
                             <div class="ingrediente-name">Emmental Lardon</div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- ==================== CONTROLES DE COMMANDE ====================  -->
+                <div style="background: linear-gradient(135deg, rgba(139, 195, 74, 0.1), rgba(104, 159, 56, 0.05)); border-radius: 20px; padding: 30px; margin-top: 50px; border: 2px solid rgba(139, 195, 74, 0.3);">
+
+                    <!-- Prix Total -->
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="font-size: 1.2rem; color: #cccccc; margin-bottom: 10px;">Precio Total:</div>
+                        <div id="total-price-display" style="font-size: 3rem; font-weight: 700; color: #8BC34A;">
+                            <span id="total-taco-price">0,00</span>€
+                        </div>
+                        <div id="price-details" style="font-size: 0.95rem; color: #aaaaaa; margin-top: 10px;"></div>
+                    </div>
+
+                    <!-- Contrôles Quantité + Bouton -->
+                    <div class="item-controls" style="max-width: 600px; margin: 0 auto;">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" id="taco-qty-minus">−</button>
+                            <span class="quantity-display" id="taco-quantity">1</span>
+                            <button class="quantity-btn plus" id="taco-qty-plus">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" id="add-taco-to-cart" style="flex: 2;">
+                            🛒 Añadir al Carrito
+                        </button>
+                    </div>
+
+                    <!-- Message d'aide -->
+                    <div id="selection-message" style="text-align: center; margin-top: 20px; color: #ff6b6b; font-size: 0.95rem; min-height: 25px;">
+                        👆 Selecciona una talla para comenzar
                     </div>
                 </div>
 
@@ -1427,7 +2195,18 @@
                             Camembert
                         </div>
                         <span class="item-price">3,00€</span>
+                    
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="camembert">−</button>
+                            <span class="quantity-display" id="qty-camembert">1</span>
+                            <button class="quantity-btn plus" data-item="camembert">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="camembert" data-name="Camembert" data-price="3.00" data-category="general">
+                            🛒 Añadir
+                        </button>
                     </div>
+                </div>
                     <div class="item-description">5 unidades</div>
                 </div>
                 <div class="menu-item">
@@ -1437,7 +2216,18 @@
                             Mozza Sticks
                         </div>
                         <span class="item-price">3,00€</span>
+                    
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="mozza-sticks">−</button>
+                            <span class="quantity-display" id="qty-mozza-sticks">1</span>
+                            <button class="quantity-btn plus" data-item="mozza-sticks">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="mozza-sticks" data-name="Mozza Sticks" data-price="3.00" data-category="general">
+                            🛒 Añadir
+                        </button>
                     </div>
+                </div>
                     <div class="item-description">5 unidades</div>
                 </div>
                 <div class="menu-item">
@@ -1447,7 +2237,18 @@
                             Onion Rings
                         </div>
                         <span class="item-price">3,00€</span>
+                    
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="onion-rings">−</button>
+                            <span class="quantity-display" id="qty-onion-rings">1</span>
+                            <button class="quantity-btn plus" data-item="onion-rings">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="onion-rings" data-name="Onion Rings" data-price="3.00" data-category="general">
+                            🛒 Añadir
+                        </button>
                     </div>
+                </div>
                     <div class="item-description">7 unidades</div>
                 </div>
                 <div class="menu-item">
@@ -1458,8 +2259,20 @@
                         </div>
                     </div>
                     <div class="item-subitems">
-                        <div class="subitem"><span>3 unidades</span><span class="item-price">4,00€</span></div>
-                        <div class="subitem"><span>5 unidades</span><span class="item-price">6,50€</span></div>
+                        <div class="subitem">
+                            <span>3 unidades</span>
+                            <span class="item-price">4,00€</span>
+                            <button class="add-to-cart-btn" data-item="camembert---3-unidades" data-name="Camembert - 3 unidades" data-price="4.00" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">
+                                🛒
+                            </button>
+                        </div>
+                        <div class="subitem">
+                            <span>5 unidades</span>
+                            <span class="item-price">6,50€</span>
+                            <button class="add-to-cart-btn" data-item="camembert---5-unidades" data-name="Camembert - 5 unidades" data-price="6.50" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">
+                                🛒
+                            </button>
+                        </div>
                         <div class="subitem"><span>7 unidades</span><span class="item-price">8,00€</span></div>
                     </div>
                 </div>
@@ -1471,7 +2284,13 @@
                         </div>
                     </div>
                     <div class="item-subitems">
-                        <div class="subitem"><span>5 unidades</span><span class="item-price">3,00€</span></div>
+                        <div class="subitem">
+                            <span>5 unidades</span>
+                            <span class="item-price">3,00€</span>
+                            <button class="add-to-cart-btn" data-item="nuggets---5-unidades" data-name="Nuggets - 5 unidades" data-price="3.00" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">
+                                🛒
+                            </button>
+                        </div>
                         <div class="subitem"><span>7 unidades</span><span class="item-price">5,00€</span></div>
                     </div>
                 </div>
@@ -1485,10 +2304,32 @@
             <h2 class="section-title">Patatas</h2>
             <div class="menu-grid">
                 <div class="menu-item">
-                    <div class="item-name">Pequeñas <span class="item-price">2,00€</span></div>
+                    <div class="item-name">Pequeñas <span class="item-price">2,00€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="2.00" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                 </div>
                 <div class="menu-item">
-                    <div class="item-name">Grandes <span class="item-price">5,00€</span></div>
+                    <div class="item-name">Grandes <span class="item-price">5,00€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="5.00" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                 </div>
                 <div class="menu-item">
                     <div class="item-name">Extras</div>
@@ -1504,27 +2345,93 @@
             <h2 class="section-title">Hamburguesas</h2>
             <div class="menu-grid">
                 <div class="menu-item">
-                    <div class="item-name">La Picosa <span class="item-price">9,90€</span></div>
+                    <div class="item-name">La Picosa <span class="item-price">9,90€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                     <div class="item-description">2x90gr de carne smashenda, cheddar, salsa ardiente, lechuga, tomate y cebolla</div>
                 </div>
                 <div class="menu-item">
-                    <div class="item-name">Pecado Dulce <span class="item-price">9,90€</span></div>
+                    <div class="item-name">Pecado Dulce <span class="item-price">9,90€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                     <div class="item-description">2x90gr de carne smashenda, cheddar, salsa delicia, lechuga, tomate y cebolla</div>
                 </div>
                 <div class="menu-item">
-                    <div class="item-name">Chicken <span class="item-price">9,90€</span></div>
+                    <div class="item-name">Chicken <span class="item-price">9,90€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                     <div class="item-description">2 tenders crujientes, cheddar, salsas biggy y fromager, lechuga, tomate y cebolla</div>
                 </div>
                 <div class="menu-item">
-                    <div class="item-name">Classic <span class="item-price">8,90€</span></div>
+                    <div class="item-name">Classic <span class="item-price">8,90€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.90" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                     <div class="item-description">120gr de carne, cheddar, salsa biggy, lechuga, tomate y cebolla</div>
                 </div>
                 <div class="menu-item">
-                    <div class="item-name">Beef and Bacon <span class="item-price">9,90€</span></div>
+                    <div class="item-name">Beef and Bacon <span class="item-price">9,90€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                     <div class="item-description">170gr de carne, cheddar, salsa smoky, bacon, lechuga y tomate</div>
                 </div>
                 <div class="menu-item">
-                    <div class="item-name">Big Cool <span class="item-price">10,90€</span></div>
+                    <div class="item-name">Big Cool <span class="item-price">10,90€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="10.90" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                     <div class="item-description">180gr de carne, cheddar, salsa a elegir, huevo, lechuga y tomate</div>
                 </div>
             </div>
@@ -1537,11 +2444,33 @@
             <h2 class="section-title">Box & Bocadillos</h2>
             <div class="menu-grid">
                 <div class="menu-item">
-                    <div class="item-name">Box <span class="item-price">8,50€</span></div>
+                    <div class="item-name">Box <span class="item-price">8,50€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.50" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                     <div class="item-description">Carne a elegir, Patatas fritas, Salsa a elegir, Salsa Fromagère casera</div>
                 </div>
                 <div class="menu-item">
-                    <div class="item-name">Bocadillos <span class="item-price">8,50€</span></div>
+                    <div class="item-name">Bocadillos <span class="item-price">8,50€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.50" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                     <div class="item-description">Ternera / Pollo, Base: lechuga, tomate, cebolla, salsa a elegir y cheddar</div>
                 </div>
             </div>
@@ -1554,7 +2483,18 @@
             <h2 class="section-title">Bebidas</h2>
             <div class="menu-grid">
                 <div class="menu-item">
-                    <div class="item-name">Bebidas <span class="item-price">2,00€</span></div>
+                    <div class="item-name">Bebidas <span class="item-price">2,00€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="2.00" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                     <div class="item-description">Oasis, Capri Sun, Schweppes, Tropico, Lipton, Coca-cola, Orangina, 7up, Aquarius, Fanta</div>
                 </div>
             </div>
@@ -1562,10 +2502,32 @@
             <h2 class="section-title" style="margin-top: 40px;">Postres</h2>
             <div class="menu-grid">
                 <div class="menu-item">
-                    <div class="item-name">Tiramisú <span class="item-price">3,00€</span></div>
+                    <div class="item-name">Tiramisú <span class="item-price">3,00€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="3.00" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                 </div>
                 <div class="menu-item">
-                    <div class="item-name">Tarta de Chocolate <span class="item-price">3,00€</span></div>
+                    <div class="item-name">Tarta de Chocolate <span class="item-price">3,00€</span>
+                    <div class="item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-item="item">−</button>
+                            <span class="quantity-display" id="qty-item">1</span>
+                            <button class="quantity-btn plus" data-item="item">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="3.00" data-category="general">
+                            🛒 Añadir
+                        </button>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -1593,6 +2555,23 @@
                 <div class="kids-include-item">🍟 Patatas fritas</div>
                 <div class="kids-include-item">🧃 Capri Sun</div>
                 <div class="kids-include-item">🎁 Juguete</div>
+            </div>
+
+            <!-- Bouton d'ajout au panier pour Cool Kids -->
+            <div style="margin-top: 40px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                <div class="item-controls">
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" data-item="cool-kids-menu">−</button>
+                        <span class="quantity-display" id="qty-cool-kids-menu">1</span>
+                        <button class="quantity-btn plus" data-item="cool-kids-menu">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" data-item="cool-kids-menu" data-name="Cool Kids Menu" data-price="6.50" data-category="kids" style="flex: 2;">
+                        🛒 Añadir al Carrito
+                    </button>
+                </div>
+                <div style="text-align: center; margin-top: 15px; color: #aaaaaa; font-size: 0.9rem;">
+                    * Selecciona el plato principal al realizar el pedido
+                </div>
             </div>
         </div>
 
@@ -1653,7 +2632,589 @@
         </div>
     </div>
 
+    <!-- Floating Cart Button -->
+    <div class="floating-cart" onclick="toggleCart()">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-badge" id="cart-badge">0</span>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2 class="cart-title">Tu Pedido</h2>
+                <button class="close-cart" onclick="toggleCart()">×</button>
+            </div>
+
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be dynamically inserted here -->
+            </div>
+
+            <div class="cart-total">
+                <div class="total-label">Total del Pedido:</div>
+                <div class="total-amount" id="total-amount">0.00€</div>
+            </div>
+
+            <div class="order-info">
+                <div class="order-number" id="order-number">Número de Pedido: -</div>
+                <div class="order-date" id="order-date">Fecha: -</div>
+            </div>
+
+            <div class="cart-actions">
+                <button class="btn btn-whatsapp" onclick="sendToWhatsApp()">
+                    📱 Enviar por WhatsApp
+                </button>
+                <button class="btn btn-copy" onclick="copyOrder()">
+                    📋 Copiar Pedido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
     <script>
+        // ==================== CART MANAGEMENT SYSTEM ====================
+        let cart = [];
+        let orderNumber = '';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            generateOrderNumber();
+            updateOrderDate();
+        });
+
+        // Cart UI Functions
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('active');
+
+            if (modal.classList.contains('active')) {
+                renderCart();
+            }
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.textContent = totalItems;
+        }
+
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalAmountElement = document.getElementById('total-amount');
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <div class="empty-cart-text">Tu carrito está vacío</div>
+                    </div>
+                `;
+                totalAmountElement.textContent = '0.00€';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-header">
+                            <div class="cart-item-name">${item.name} x${item.quantity}</div>
+                            <div class="cart-item-price">${item.totalPrice.toFixed(2)}€</div>
+                        </div>
+                        ${item.customizations.length > 0 ? `
+                            <div class="cart-item-details">
+                                ${item.customizations.join('<br>')}
+                            </div>
+                        ` : ''}
+                        <div class="cart-item-controls">
+                            <button class="remove-item" onclick="removeFromCart('${item.id}')">
+                                Eliminar
+                            </button>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus" onclick="updateCartItemQuantity('${item.id}', -1)">−</button>
+                                <span class="quantity-display">${item.quantity}</span>
+                                <button class="quantity-btn plus" onclick="updateCartItemQuantity('${item.id}', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                total += item.totalPrice;
+            });
+
+            cartItemsContainer.innerHTML = html;
+            totalAmountElement.textContent = total.toFixed(2) + '€';
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCartBadge();
+            renderCart();
+            showToast('Producto eliminado');
+        }
+
+        function updateCartItemQuantity(itemId, change) {
+            const item = cart.find(item => item.id === itemId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(itemId);
+                } else {
+                    item.totalPrice = (item.basePrice + item.extraPrice) * item.quantity;
+                    renderCart();
+                    updateCartBadge();
+                }
+            }
+        }
+
+        // Order Functions
+        function generateOrderNumber() {
+            const date = new Date();
+            const dateStr = date.getFullYear().toString().substr(-2) +
+                          (date.getMonth() + 1).toString().padStart(2, '0') +
+                          date.getDate().toString().padStart(2, '0');
+            const randomStr = Math.random().toString(36).substr(2, 4).toUpperCase();
+            orderNumber = `CT-${dateStr}-${randomStr}`;
+            document.getElementById('order-number').textContent = `Número de Pedido: ${orderNumber}`;
+        }
+
+        function updateOrderDate() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('es-ES') + ' ' + now.toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('order-date').textContent = `Fecha: ${dateStr}`;
+        }
+
+        function formatOrderForWhatsApp() {
+            if (cart.length === 0) return '';
+
+            let message = `🌮 *PEDIDO COOL TACOS CIB* 🌮\n`;
+            message += `📋 Nº Pedido: ${orderNumber}\n`;
+            message += `📅 Fecha: ${new Date().toLocaleDateString('es-ES')} ${new Date().toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'})}\n`;
+            message += `━━━━━━━━━━━━━━━\n\n`;
+
+            // Group items by category
+            const categories = {
+                'tacos': '🌮 TACOS',
+                'entrantes': '🥗 ENTRANTES',
+                'patatas': '🍟 PATATAS',
+                'hamburguesas': '🍔 HAMBURGUESAS',
+                'otros': '🥖 BOX & BOCADILLOS',
+                'bebidas': '🥤 BEBIDAS',
+                'kids': '👶 COOL KIDS'
+            };
+
+            Object.keys(categories).forEach(category => {
+                const categoryItems = cart.filter(item => item.category === category);
+                if (categoryItems.length > 0) {
+                    message += `*${categories[category]}*\n`;
+                    categoryItems.forEach(item => {
+                        message += `▪️ ${item.name} x${item.quantity} - ${item.totalPrice.toFixed(2)}€\n`;
+                        if (item.customizations.length > 0) {
+                            item.customizations.forEach(custom => {
+                                message += `   • ${custom}\n`;
+                            });
+                        }
+                    });
+                    message += '\n';
+                }
+            });
+
+            const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+            message += `━━━━━━━━━━━━━━━\n`;
+            message += `💰 *TOTAL: ${total.toFixed(2)}€*\n`;
+            message += `━━━━━━━━━━━━━━━\n\n`;
+            message += `📍 Dirección de entrega:\n`;
+            message += `📞 Teléfono:\n`;
+            message += `💳 Método de pago:\n`;
+            message += `📝 Notas adicionales:`;
+
+            return message;
+        }
+
+        function sendToWhatsApp() {
+            if (cart.length === 0) {
+                showToast('El carrito está vacío');
+                return;
+            }
+
+            const message = formatOrderForWhatsApp();
+            const phoneNumber = '34613947550';
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function copyOrder() {
+            if (cart.length === 0) {
+                showToast('El carrito está vacío');
+                return;
+            }
+
+            const message = formatOrderForWhatsApp();
+            navigator.clipboard.writeText(message).then(() => {
+                showToast('Pedido copiado al portapapeles ✓');
+            }).catch(() => {
+                showToast('Error al copiar el pedido');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ==================== INTERACTIVE MENU SYSTEM ====================
+
+        let currentTacoSelection = {
+            size: null,
+            basePrice: 0,
+            salsas: [],
+            carnes: [],
+            extras: [],
+            gratinado: null
+        };
+
+        let tacoQuantity = 1;
+
+        // Initialize Interactive System
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTallaSelection();
+            initializeIngredienteSelection();
+            initializeTacoControls();
+            initializeGeneralMenuControls(); // Pour tous les autres items du menu
+        });
+
+        // Taille Selection
+        function initializeTallaSelection() {
+            document.querySelectorAll('.talla-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selected from all
+                    document.querySelectorAll('.talla-card').forEach(c => c.classList.remove('selected'));
+
+                    // Add selected to this one
+                    this.classList.add('selected');
+
+                    // Store selection
+                    currentTacoSelection.size = this.getAttribute('data-size');
+                    currentTacoSelection.basePrice = parseFloat(this.getAttribute('data-price'));
+
+                    // Reset other selections
+                    currentTacoSelection.salsas = [];
+                    currentTacoSelection.carnes = [];
+                    currentTacoSelection.extras = [];
+                    currentTacoSelection.gratinado = null;
+                    document.querySelectorAll('.ingrediente-item').forEach(i => i.classList.remove('selected'));
+
+                    updateTacoPrice();
+                    updateSelectionMessage();
+                });
+            });
+        }
+
+        // Ingrédients Selection
+        function initializeIngredienteSelection() {
+            // Salsas
+            document.querySelectorAll('[data-type="salsa"]').forEach(item => {
+                item.addEventListener('click', function() {
+                    if (!currentTacoSelection.size) {
+                        showToast('⚠️ Selecciona una talla primero');
+                        return;
+                    }
+
+                    const maxSalsas = currentTacoSelection.size === 'xl' ? 4 : 3;
+                    const salsaName = this.getAttribute('data-name');
+
+                    if (this.classList.contains('selected')) {
+                        // Deselect
+                        this.classList.remove('selected');
+                        currentTacoSelection.salsas = currentTacoSelection.salsas.filter(s => s !== salsaName);
+                    } else {
+                        // Select if under limit
+                        if (currentTacoSelection.salsas.length < maxSalsas) {
+                            this.classList.add('selected');
+                            currentTacoSelection.salsas.push(salsaName);
+                        } else {
+                            showToast(`⚠️ Máximo ${maxSalsas} salsas`);
+                        }
+                    }
+
+                    updateTacoPrice();
+                });
+            });
+
+            // Carnes
+            document.querySelectorAll('[data-type="carne"]').forEach(item => {
+                item.addEventListener('click', function() {
+                    if (!currentTacoSelection.size) {
+                        showToast('⚠️ Selecciona una talla primero');
+                        return;
+                    }
+
+                    const maxCarnes = currentTacoSelection.size === 'xl' ? 4 : 3;
+                    const carneName = this.getAttribute('data-name');
+
+                    if (this.classList.contains('selected')) {
+                        this.classList.remove('selected');
+                        currentTacoSelection.carnes = currentTacoSelection.carnes.filter(c => c !== carneName);
+                    } else {
+                        if (currentTacoSelection.carnes.length < maxCarnes) {
+                            this.classList.add('selected');
+                            currentTacoSelection.carnes.push(carneName);
+                        } else {
+                            showToast(`⚠️ Máximo ${maxCarnes} carnes`);
+                        }
+                    }
+
+                    updateTacoPrice();
+                });
+            });
+
+            // Extras
+            document.querySelectorAll('[data-type="extra"]').forEach(item => {
+                item.addEventListener('click', function() {
+                    if (!currentTacoSelection.size) {
+                        showToast('⚠️ Selecciona una talla primero');
+                        return;
+                    }
+
+                    const extraName = this.getAttribute('data-name');
+                    const extraPrice = parseFloat(this.getAttribute('data-price'));
+
+                    if (this.classList.contains('selected')) {
+                        this.classList.remove('selected');
+                        currentTacoSelection.extras = currentTacoSelection.extras.filter(e => e.name !== extraName);
+                    } else {
+                        this.classList.add('selected');
+                        currentTacoSelection.extras.push({ name: extraName, price: extraPrice });
+                    }
+
+                    updateTacoPrice();
+                });
+            });
+
+            // Gratinado
+            document.querySelectorAll('[data-type="gratinado"]').forEach(item => {
+                item.addEventListener('click', function() {
+                    if (!currentTacoSelection.size) {
+                        showToast('⚠️ Selecciona una talla primero');
+                        return;
+                    }
+
+                    const gratinadoName = this.getAttribute('data-name');
+                    const gratinadoPrice = parseFloat(this.getAttribute('data-price'));
+
+                    if (this.classList.contains('selected')) {
+                        this.classList.remove('selected');
+                        currentTacoSelection.gratinado = null;
+                    } else {
+                        // Deselect others first
+                        document.querySelectorAll('[data-type="gratinado"]').forEach(g => g.classList.remove('selected'));
+                        this.classList.add('selected');
+                        currentTacoSelection.gratinado = { name: gratinadoName, price: gratinadoPrice };
+                    }
+
+                    updateTacoPrice();
+                });
+            });
+        }
+
+        // Taco Controls
+        function initializeTacoControls() {
+            // Quantity +/-
+            document.getElementById('taco-qty-plus').addEventListener('click', function() {
+                tacoQuantity++;
+                document.getElementById('taco-quantity').textContent = tacoQuantity;
+                updateTacoPrice();
+            });
+
+            document.getElementById('taco-qty-minus').addEventListener('click', function() {
+                if (tacoQuantity > 1) {
+                    tacoQuantity--;
+                    document.getElementById('taco-quantity').textContent = tacoQuantity;
+                    updateTacoPrice();
+                }
+            });
+
+            // Add to Cart
+            document.getElementById('add-taco-to-cart').addEventListener('click', function() {
+                if (!currentTacoSelection.size) {
+                    showToast('⚠️ Selecciona una talla para comenzar');
+                    return;
+                }
+
+                // Build customizations
+                const customizations = [];
+                if (currentTacoSelection.salsas.length > 0) {
+                    customizations.push(`Salsas: ${currentTacoSelection.salsas.join(', ')}`);
+                }
+                if (currentTacoSelection.carnes.length > 0) {
+                    customizations.push(`Carnes: ${currentTacoSelection.carnes.join(', ')}`);
+                }
+                if (currentTacoSelection.extras.length > 0) {
+                    customizations.push(`Extras: ${currentTacoSelection.extras.map(e => e.name).join(', ')}`);
+                }
+                if (currentTacoSelection.gratinado) {
+                    customizations.push(`Gratinado: ${currentTacoSelection.gratinado.name}`);
+                }
+
+                // Calculate prices
+                const extraPrice = currentTacoSelection.extras.reduce((sum, e) => sum + e.price, 0) +
+                                 (currentTacoSelection.gratinado ? currentTacoSelection.gratinado.price : 0);
+                const totalPrice = (currentTacoSelection.basePrice + extraPrice) * tacoQuantity;
+
+                // Add to cart
+                const cartItem = {
+                    id: 'taco-' + Date.now(),
+                    itemId: 'taco-' + currentTacoSelection.size,
+                    name: `Taco ${currentTacoSelection.size.toUpperCase()}`,
+                    category: 'tacos',
+                    basePrice: currentTacoSelection.basePrice,
+                    extraPrice: extraPrice,
+                    quantity: tacoQuantity,
+                    totalPrice: totalPrice,
+                    customizations: customizations
+                };
+
+                cart.push(cartItem);
+
+                // Reset
+                resetTacoSelection();
+                updateCartBadge();
+                showToast('✅ Taco añadido al carrito!');
+            });
+        }
+
+        // Update Price Display
+        function updateTacoPrice() {
+            if (!currentTacoSelection.size) {
+                document.getElementById('total-taco-price').textContent = '0,00';
+                document.getElementById('price-details').innerHTML = '';
+                return;
+            }
+
+            const extraPrice = currentTacoSelection.extras.reduce((sum, e) => sum + e.price, 0) +
+                             (currentTacoSelection.gratinado ? currentTacoSelection.gratinado.price : 0);
+            const unitPrice = currentTacoSelection.basePrice + extraPrice;
+            const totalPrice = unitPrice * tacoQuantity;
+
+            document.getElementById('total-taco-price').textContent = totalPrice.toFixed(2).replace('.', ',');
+
+            // Price breakdown
+            let details = `Base: ${currentTacoSelection.basePrice.toFixed(2)}€`;
+            if (extraPrice > 0) {
+                details += ` + Extras: ${extraPrice.toFixed(2)}€`;
+            }
+            if (tacoQuantity > 1) {
+                details += ` × ${tacoQuantity}`;
+            }
+            document.getElementById('price-details').innerHTML = details;
+        }
+
+        // Update Selection Message
+        function updateSelectionMessage() {
+            const msg = document.getElementById('selection-message');
+            if (!currentTacoSelection.size) {
+                msg.innerHTML = '👆 Selecciona una talla para comenzar';
+                msg.style.color = '#ff6b6b';
+            } else {
+                msg.innerHTML = '✨ ¡Ahora personaliza tu taco!';
+                msg.style.color = '#8BC34A';
+            }
+        }
+
+        // Reset Selection
+        function resetTacoSelection() {
+            currentTacoSelection = {
+                size: null,
+                basePrice: 0,
+                salsas: [],
+                carnes: [],
+                extras: [],
+                gratinado: null
+            };
+            tacoQuantity = 1;
+
+            document.querySelectorAll('.talla-card, .ingrediente-item').forEach(el => el.classList.remove('selected'));
+            document.getElementById('taco-quantity').textContent = '1';
+            updateTacoPrice();
+            updateSelectionMessage();
+        }
+
+        // ==================== GENERAL MENU CONTROLS ====================
+        // Pour tous les items de menu (Entrantes, Patatas, Hamburguesas, etc.)
+
+        function initializeGeneralMenuControls() {
+            // Initialiser les contrôles de quantité
+            document.querySelectorAll('.quantity-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-item');
+                    const quantityDisplay = document.getElementById('qty-' + itemId);
+
+                    if (!quantityDisplay) return;
+
+                    let currentQty = parseInt(quantityDisplay.textContent);
+
+                    if (this.classList.contains('plus')) {
+                        currentQty++;
+                    } else if (this.classList.contains('minus') && currentQty > 1) {
+                        currentQty--;
+                    }
+
+                    quantityDisplay.textContent = currentQty;
+                });
+            });
+
+            // Initialiser les boutons "Añadir al carrito"
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                // Skip le bouton du taco (déjà géré)
+                if (btn.id === 'add-taco-to-cart') return;
+
+                btn.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-item');
+                    const itemName = this.getAttribute('data-name');
+                    const basePrice = parseFloat(this.getAttribute('data-price'));
+                    const category = this.getAttribute('data-category');
+                    const quantityElement = document.getElementById('qty-' + itemId);
+                    const quantity = quantityElement ? parseInt(quantityElement.textContent) : 1;
+
+                    const totalItemPrice = basePrice * quantity;
+
+                    // Ajouter au panier
+                    const cartItem = {
+                        id: itemId + '-' + Date.now(),
+                        itemId: itemId,
+                        name: itemName,
+                        category: category,
+                        basePrice: basePrice,
+                        extraPrice: 0,
+                        quantity: quantity,
+                        totalPrice: totalItemPrice,
+                        customizations: []
+                    };
+
+                    cart.push(cartItem);
+
+                    // Reset quantité
+                    if (quantityElement) {
+                        quantityElement.textContent = '1';
+                    }
+
+                    // Update UI
+                    updateCartBadge();
+                    showToast('✅ ' + itemName + ' añadido!');
+                });
+            });
+        }
+
+        // ==================== ORIGINAL TAB NAVIGATION ====================
         // Show tab and scroll to top of menu
         function showTab(tabName) {
             // Hide all tabs
