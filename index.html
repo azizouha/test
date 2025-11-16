@@ -1271,6 +1271,65 @@
             box-shadow: 0 5px 20px rgba(139, 195, 74, 0.4);
         }
 
+        /* Extras/Salsas Selection */
+        .extras-selection {
+            background: rgba(139, 195, 74, 0.05);
+            border: 1px solid rgba(139, 195, 74, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .extras-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #8BC34A;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 8px;
+        }
+
+        .extra-option {
+            position: relative;
+        }
+
+        .extra-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .extra-option label {
+            display: block;
+            padding: 8px 12px;
+            background: #1a1a1a;
+            border: 2px solid rgba(139, 195, 74, 0.3);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #cccccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .extra-option input[type="radio"]:checked + label {
+            background: rgba(139, 195, 74, 0.2);
+            border-color: #8BC34A;
+            color: #8BC34A;
+            font-weight: 600;
+        }
+
+        .extra-option label:hover {
+            border-color: #8BC34A;
+            color: #8BC34A;
+        }
+
         /* Customization Options for Cart */
         .customization-cart-section {
             background: #0a0a0a;
@@ -1901,6 +1960,83 @@
                 min-width: 150px;
             }
         }
+
+        /* Desktop: Restructuration verticale pour meilleur affichage */
+        @media (min-width: 769px) {
+            .menu-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 30px 20px;
+            }
+
+            .item-name {
+                flex-direction: column;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .item-name-with-icon {
+                flex-direction: column;
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .item-icon {
+                width: 120px;
+                height: 120px;
+                margin-right: 0;
+                margin-bottom: 15px;
+                border: 3px solid rgba(139, 195, 74, 0.4);
+            }
+
+            .item-name-with-icon::after {
+                content: attr(data-name);
+                display: block;
+                font-size: 1.4rem;
+                font-weight: 600;
+                color: #ffffff;
+                margin-top: 10px;
+            }
+
+            .item-price {
+                display: block;
+                width: 100%;
+                text-align: center;
+                font-size: 1.5rem;
+                margin: 10px 0;
+            }
+
+            .item-description {
+                width: 100%;
+                text-align: center;
+                margin: 10px 0 15px 0;
+                font-size: 1rem;
+            }
+
+            .extras-selection {
+                width: 100%;
+                margin: 15px 0;
+            }
+
+            .item-controls {
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            .quantity-control {
+                width: 100%;
+                max-width: 200px;
+                margin: 0 auto 12px auto;
+            }
+
+            .add-to-cart-btn {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2240,19 +2376,50 @@
                             Camembert
                         </div>
                         <span class="item-price">3,00€</span>
-                    
+                    </div>
+                    <div class="item-description">5 unidades</div>
+
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="camembert-salsa-none" name="camembert-salsa" value="Sin salsa" checked>
+                                <label for="camembert-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="camembert-salsa-cheddar" name="camembert-salsa" value="Salsa Cheddar">
+                                <label for="camembert-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="camembert-salsa-bacon" name="camembert-salsa" value="Salsa Bacon">
+                                <label for="camembert-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="camembert-salsa-fromagere" name="camembert-salsa" value="Salsa Fromagère">
+                                <label for="camembert-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="camembert-salsa-casera" name="camembert-salsa" value="Casera">
+                                <label for="camembert-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="camembert-salsa-lardon" name="camembert-salsa" value="Lardon">
+                                <label for="camembert-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="camembert">−</button>
                             <span class="quantity-display" id="qty-camembert">1</span>
                             <button class="quantity-btn plus" data-item="camembert">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="camembert" data-name="Camembert" data-price="3.00" data-category="general">
+                        <button class="add-to-cart-btn" data-item="camembert" data-name="Camembert" data-price="3.00" data-category="general" data-extras-group="camembert-salsa">
                             Añadir
                         </button>
                     </div>
-                </div>
-                    <div class="item-description">5 unidades</div>
                 </div>
                 <div class="menu-item">
                     <div class="item-name">
@@ -2261,19 +2428,50 @@
                             Mozza Sticks
                         </div>
                         <span class="item-price">3,00€</span>
-                    
+                    </div>
+                    <div class="item-description">5 unidades</div>
+
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="mozza-salsa-none" name="mozza-salsa" value="Sin salsa" checked>
+                                <label for="mozza-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="mozza-salsa-cheddar" name="mozza-salsa" value="Salsa Cheddar">
+                                <label for="mozza-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="mozza-salsa-bacon" name="mozza-salsa" value="Salsa Bacon">
+                                <label for="mozza-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="mozza-salsa-fromagere" name="mozza-salsa" value="Salsa Fromagère">
+                                <label for="mozza-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="mozza-salsa-casera" name="mozza-salsa" value="Casera">
+                                <label for="mozza-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="mozza-salsa-lardon" name="mozza-salsa" value="Lardon">
+                                <label for="mozza-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="mozza-sticks">−</button>
                             <span class="quantity-display" id="qty-mozza-sticks">1</span>
                             <button class="quantity-btn plus" data-item="mozza-sticks">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="mozza-sticks" data-name="Mozza Sticks" data-price="3.00" data-category="general">
+                        <button class="add-to-cart-btn" data-item="mozza-sticks" data-name="Mozza Sticks" data-price="3.00" data-category="general" data-extras-group="mozza-salsa">
                             Añadir
                         </button>
                     </div>
-                </div>
-                    <div class="item-description">5 unidades</div>
                 </div>
                 <div class="menu-item">
                     <div class="item-name">
@@ -2282,19 +2480,50 @@
                             Onion Rings
                         </div>
                         <span class="item-price">3,00€</span>
-                    
+                    </div>
+                    <div class="item-description">7 unidades</div>
+
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="onion-salsa-none" name="onion-salsa" value="Sin salsa" checked>
+                                <label for="onion-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="onion-salsa-cheddar" name="onion-salsa" value="Salsa Cheddar">
+                                <label for="onion-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="onion-salsa-bacon" name="onion-salsa" value="Salsa Bacon">
+                                <label for="onion-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="onion-salsa-fromagere" name="onion-salsa" value="Salsa Fromagère">
+                                <label for="onion-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="onion-salsa-casera" name="onion-salsa" value="Casera">
+                                <label for="onion-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="onion-salsa-lardon" name="onion-salsa" value="Lardon">
+                                <label for="onion-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="onion-rings">−</button>
                             <span class="quantity-display" id="qty-onion-rings">1</span>
                             <button class="quantity-btn plus" data-item="onion-rings">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="onion-rings" data-name="Onion Rings" data-price="3.00" data-category="general">
+                        <button class="add-to-cart-btn" data-item="onion-rings" data-name="Onion Rings" data-price="3.00" data-category="general" data-extras-group="onion-salsa">
                             Añadir
                         </button>
                     </div>
-                </div>
-                    <div class="item-description">7 unidades</div>
                 </div>
                 <div class="menu-item">
                     <div class="item-name">
@@ -2307,16 +2536,12 @@
                         <div class="subitem">
                             <span>3 unidades</span>
                             <span class="item-price">4,00€</span>
-                            <button class="add-to-cart-btn" data-item="camembert---3-unidades" data-name="Camembert - 3 unidades" data-price="4.00" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">
-                                🛒
-                            </button>
+                            <button class="add-to-cart-btn" data-item="camembert---3-unidades" data-name="Camembert - 3 unidades" data-price="4.00" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">Añadir</button>
                         </div>
                         <div class="subitem">
                             <span>5 unidades</span>
                             <span class="item-price">6,50€</span>
-                            <button class="add-to-cart-btn" data-item="camembert---5-unidades" data-name="Camembert - 5 unidades" data-price="6.50" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">
-                                🛒
-                            </button>
+                            <button class="add-to-cart-btn" data-item="camembert---5-unidades" data-name="Camembert - 5 unidades" data-price="6.50" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">Añadir</button>
                         </div>
                         <div class="subitem"><span>7 unidades</span><span class="item-price">8,00€</span></div>
                     </div>
@@ -2332,9 +2557,7 @@
                         <div class="subitem">
                             <span>5 unidades</span>
                             <span class="item-price">3,00€</span>
-                            <button class="add-to-cart-btn" data-item="nuggets---5-unidades" data-name="Nuggets - 5 unidades" data-price="3.00" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">
-                                🛒
-                            </button>
+                            <button class="add-to-cart-btn" data-item="nuggets---5-unidades" data-name="Nuggets - 5 unidades" data-price="3.00" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">Añadir</button>
                         </div>
                         <div class="subitem"><span>7 unidades</span><span class="item-price">5,00€</span></div>
                     </div>
@@ -2350,13 +2573,44 @@
             <div class="menu-grid">
                 <div class="menu-item">
                     <div class="item-name">Pequeñas <span class="item-price">2,00€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="2.00" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="2.00" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2364,13 +2618,44 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-name">Grandes <span class="item-price">5,00€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="5.00" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="5.00" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2391,13 +2676,44 @@
             <div class="menu-grid">
                 <div class="menu-item">
                     <div class="item-name">La Picosa <span class="item-price">9,90€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2406,13 +2722,44 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-name">Pecado Dulce <span class="item-price">9,90€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2421,13 +2768,44 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-name">Chicken <span class="item-price">9,90€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2436,13 +2814,44 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-name">Classic <span class="item-price">8,90€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.90" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.90" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2451,13 +2860,44 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-name">Beef and Bacon <span class="item-price">9,90€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2466,13 +2906,44 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-name">Big Cool <span class="item-price">10,90€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="10.90" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="10.90" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2490,13 +2961,44 @@
             <div class="menu-grid">
                 <div class="menu-item">
                     <div class="item-name">Box <span class="item-price">8,50€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.50" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.50" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2505,13 +3007,44 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-name">Bocadillos <span class="item-price">8,50€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.50" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.50" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2529,13 +3062,44 @@
             <div class="menu-grid">
                 <div class="menu-item">
                     <div class="item-name">Bebidas <span class="item-price">2,00€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="2.00" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="2.00" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2548,13 +3112,44 @@
             <div class="menu-grid">
                 <div class="menu-item">
                     <div class="item-name">Tiramisú <span class="item-price">3,00€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="3.00" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="3.00" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2562,13 +3157,44 @@
                 </div>
                 <div class="menu-item">
                     <div class="item-name">Tarta de Chocolate <span class="item-price">3,00€</span>
-                    <div class="item-controls">
+                    
+                    <!-- Salsas Selection -->
+                    <div class="extras-selection">
+                        <div class="extras-title">Elige tu salsa (opcional)</div>
+                        <div class="extras-grid">
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-none" name="item-salsa-salsa" value="Sin salsa" checked>
+                                <label for="item-salsa-salsa-none">Sin salsa</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-cheddar" name="item-salsa-salsa" value="Salsa Cheddar">
+                                <label for="item-salsa-salsa-cheddar">Salsa Cheddar</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-bacon" name="item-salsa-salsa" value="Salsa Bacon">
+                                <label for="item-salsa-salsa-bacon">Salsa Bacon</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-fromagere" name="item-salsa-salsa" value="Salsa Fromagère">
+                                <label for="item-salsa-salsa-fromagere">Salsa Fromagère</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-casera" name="item-salsa-salsa" value="Casera">
+                                <label for="item-salsa-salsa-casera">Casera</label>
+                            </div>
+                            <div class="extra-option">
+                                <input type="radio" id="item-salsa-salsa-lardon" name="item-salsa-salsa" value="Lardon">
+                                <label for="item-salsa-salsa-lardon">Lardon</label>
+                            </div>
+                        </div>
+                    </div>
+<div class="item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn minus" data-item="item">−</button>
                             <span class="quantity-display" id="qty-item">1</span>
                             <button class="quantity-btn plus" data-item="item">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="3.00" data-category="general">
+                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="3.00" data-category="general" data-extras-group="item-salsa">
                             Añadir
                         </button>
                     </div>
@@ -2836,20 +3462,20 @@
         function formatOrderForWhatsApp(clientInfo) {
             if (cart.length === 0) return '';
 
-            let message = `🌮 *PEDIDO COOL TACOS CTB* 🌮\n`;
-            message += `📋 Nº Pedido: ${orderNumber}\n`;
-            message += `📅 Fecha: ${new Date().toLocaleDateString('es-ES')} ${new Date().toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'})}\n`;
+            let message = `*** PEDIDO COOL TACOS CTB ***\n`;
+            message += `# Nº Pedido: ${orderNumber}\n`;
+            message += `# Fecha: ${new Date().toLocaleDateString('es-ES')} ${new Date().toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'})}\n`;
             message += `${'─'.repeat(30)}\n\n`;
 
             // Group items by category
             const categories = {
-                'tacos': '🌮 TACOS',
-                'entrantes': '🥗 ENTRANTES',
-                'patatas': '🍟 PATATAS',
-                'hamburguesas': '🍔 HAMBURGUESAS',
-                'otros': '🥖 BOX & BOCADILLOS',
-                'bebidas': '🥤 BEBIDAS',
-                'kids': '👶 COOL KIDS'
+                'tacos': '>> TACOS',
+                'entrantes': '>> ENTRANTES',
+                'patatas': '>> PATATAS',
+                'hamburguesas': '>> HAMBURGUESAS',
+                'otros': '>> BOX & BOCADILLOS',
+                'bebidas': '>> BEBIDAS',
+                'kids': '>> COOL KIDS'
             };
 
             Object.keys(categories).forEach(category => {
@@ -2857,10 +3483,10 @@
                 if (categoryItems.length > 0) {
                     message += `*${categories[category]}*\n`;
                     categoryItems.forEach(item => {
-                        message += `▪️ ${item.name} x${item.quantity} - ${item.totalPrice.toFixed(2)}€\n`;
+                        message += `- ${item.name} x${item.quantity} - ${item.totalPrice.toFixed(2)}€\n`;
                         if (item.customizations.length > 0) {
                             item.customizations.forEach(custom => {
-                                message += `   • ${custom}\n`;
+                                message += `   * ${custom}\n`;
                             });
                         }
                     });
@@ -2870,16 +3496,16 @@
 
             const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
             message += `${'─'.repeat(30)}\n`;
-            message += `💰 *TOTAL: ${total.toFixed(2)}€*\n`;
+            message += `*** TOTAL: ${total.toFixed(2)}€ ***\n`;
             message += `${'─'.repeat(30)}\n\n`;
 
             // Informations client
             if (clientInfo) {
-                message += `📍 *Dirección:* ${clientInfo.address}\n`;
-                message += `📞 *Teléfono:* ${clientInfo.phone}\n`;
-                message += `💳 *Método de pago:* ${clientInfo.payment}\n`;
+                message += `@ Dirección: ${clientInfo.address}\n`;
+                message += `@ Teléfono: ${clientInfo.phone}\n`;
+                message += `@ Método de pago: ${clientInfo.payment}\n`;
                 if (clientInfo.notes) {
-                    message += `📝 *Notas:* ${clientInfo.notes}\n`;
+                    message += `@ Notas: ${clientInfo.notes}\n`;
                 }
             }
 
@@ -3319,10 +3945,20 @@
                     const itemName = this.getAttribute('data-name');
                     const basePrice = parseFloat(this.getAttribute('data-price'));
                     const category = this.getAttribute('data-category');
+                    const extrasGroup = this.getAttribute('data-extras-group');
                     const quantityElement = document.getElementById('qty-' + itemId);
                     const quantity = quantityElement ? parseInt(quantityElement.textContent) : 1;
 
                     const totalItemPrice = basePrice * quantity;
+
+                    // Récupérer la salsa sélectionnée si elle existe
+                    const customizations = [];
+                    if (extrasGroup) {
+                        const selectedSalsa = document.querySelector(`input[name="${extrasGroup}"]:checked`);
+                        if (selectedSalsa && selectedSalsa.value !== 'Sin salsa') {
+                            customizations.push(`Salsa: ${selectedSalsa.value}`);
+                        }
+                    }
 
                     // Ajouter au panier
                     const cartItem = {
@@ -3334,7 +3970,7 @@
                         extraPrice: 0,
                         quantity: quantity,
                         totalPrice: totalItemPrice,
-                        customizations: []
+                        customizations: customizations
                     };
 
                     cart.push(cartItem);
