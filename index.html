@@ -1424,8 +1424,20 @@
         }
 
         .cart-icon {
-            font-size: 2rem;
-            color: #ffffff;
+            width: 45px;
+            height: 45px;
+            background: #000000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .cart-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff;
         }
 
         .cart-badge {
@@ -2043,7 +2055,13 @@
             }
 
             .cart-icon {
-                font-size: 1.7rem;
+                width: 38px;
+                height: 38px;
+            }
+
+            .cart-icon svg {
+                width: 20px;
+                height: 20px;
             }
 
             .cart-badge {
@@ -3218,11 +3236,11 @@
                 <div class="menu-item">
                     <div class="item-name">Tiramisú <span class="item-price">3,00€</span><div class="item-controls">
                         <div class="quantity-control">
-                            <button class="quantity-btn minus" data-item="item">−</button>
-                            <span class="quantity-display" id="qty-item">1</span>
-                            <button class="quantity-btn plus" data-item="item">+</button>
+                            <button class="quantity-btn minus" data-item="tiramisu">−</button>
+                            <span class="quantity-display" id="qty-tiramisu">1</span>
+                            <button class="quantity-btn plus" data-item="tiramisu">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="3.00" data-category="general">
+                        <button class="add-to-cart-btn" data-item="tiramisu" data-name="Tiramisú" data-price="3.00" data-category="general">
                             Añadir
                         </button>
                     </div>
@@ -3231,11 +3249,11 @@
                 <div class="menu-item">
                     <div class="item-name">Tarta de Chocolate <span class="item-price">3,00€</span><div class="item-controls">
                         <div class="quantity-control">
-                            <button class="quantity-btn minus" data-item="item">−</button>
-                            <span class="quantity-display" id="qty-item">1</span>
-                            <button class="quantity-btn plus" data-item="item">+</button>
+                            <button class="quantity-btn minus" data-item="tarta-chocolate">−</button>
+                            <span class="quantity-display" id="qty-tarta-chocolate">1</span>
+                            <button class="quantity-btn plus" data-item="tarta-chocolate">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="3.00" data-category="general">
+                        <button class="add-to-cart-btn" data-item="tarta-chocolate" data-name="Tarta de Chocolate" data-price="3.00" data-category="general">
                             Añadir
                         </button>
                     </div>
@@ -3346,7 +3364,11 @@
 
     <!-- Floating Cart Button -->
     <div class="floating-cart" onclick="toggleCart()">
-        <span class="cart-icon"></span>
+        <span class="cart-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+            </svg>
+        </span>
         <span class="cart-badge" id="cart-badge">0</span>
     </div>
 
@@ -4153,6 +4175,12 @@
                     const quantity = quantityElement ? parseInt(quantityElement.textContent) : 1;
 
                     const totalItemPrice = basePrice * quantity;
+
+                    // Validation pour Patatas: exiger sélection salsa
+                    if (itemName.includes("Patatas") && !patatasSalsaSelection) {
+                        showToast('⚠️ Selecciona una salsa para las patatas');
+                        return;
+                    }
 
                     // Récupérer la salsa sélectionnée si elle existe
                     const customizations = [];
