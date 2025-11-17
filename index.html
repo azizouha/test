@@ -1725,6 +1725,24 @@
                 font-size: 1.2rem;
             }
 
+            /* Bebidas - Layout vertical sur mobile (image + nom + prix) */
+            #bebidas .menu-item .item-name {
+                flex-direction: row;
+                align-items: center;
+                gap: 12px;
+            }
+
+            #bebidas .item-name-with-icon {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            #bebidas .item-icon {
+                width: 60px;
+                height: 60px;
+                margin-right: 0;
+            }
+
             /* Item Controls - Correction débordement */
             .item-controls {
                 flex-wrap: wrap;
@@ -2531,12 +2549,12 @@
                         <div class="subitem">
                             <span>3 unidades</span>
                             <span class="item-price">4,00€</span>
-                            <button class="add-to-cart-btn" data-item="camembert---3-unidades" data-name="Camembert - 3 unidades" data-price="4.00" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">Añadir</button>
+                            <button class="add-to-cart-btn" data-item="tenders---3-unidades" data-name="Tenders - 3 unidades" data-price="4.00" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">Añadir</button>
                         </div>
                         <div class="subitem">
                             <span>5 unidades</span>
                             <span class="item-price">6,50€</span>
-                            <button class="add-to-cart-btn" data-item="camembert---5-unidades" data-name="Camembert - 5 unidades" data-price="6.50" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">Añadir</button>
+                            <button class="add-to-cart-btn" data-item="tenders---5-unidades" data-name="Tenders - 5 unidades" data-price="6.50" data-category="general" style="margin-left: 10px; padding: 8px 15px; font-size: 0.9rem;">Añadir</button>
                         </div>
                         <div class="subitem">
                             <span>7 unidades</span>
@@ -2577,11 +2595,11 @@
                 <div class="menu-item">
                     <div class="item-name">Pequeñas <span class="item-price">2,00€</span><div class="item-controls">
                         <div class="quantity-control">
-                            <button class="quantity-btn minus" data-item="item">−</button>
-                            <span class="quantity-display" id="qty-item">1</span>
-                            <button class="quantity-btn plus" data-item="item">+</button>
+                            <button class="quantity-btn minus" data-item="patatas-pequenas">−</button>
+                            <span class="quantity-display" id="qty-patatas-pequenas">1</span>
+                            <button class="quantity-btn plus" data-item="patatas-pequenas">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="2.00" data-category="general">
+                        <button class="add-to-cart-btn" data-item="patatas-pequenas" data-name="Patatas Pequeñas" data-price="2.00" data-category="general">
                             Añadir
                         </button>
                     </div>
@@ -2590,11 +2608,11 @@
                 <div class="menu-item">
                     <div class="item-name">Grandes <span class="item-price">5,00€</span><div class="item-controls">
                         <div class="quantity-control">
-                            <button class="quantity-btn minus" data-item="item">−</button>
-                            <span class="quantity-display" id="qty-item">1</span>
-                            <button class="quantity-btn plus" data-item="item">+</button>
+                            <button class="quantity-btn minus" data-item="patatas-grandes">−</button>
+                            <span class="quantity-display" id="qty-patatas-grandes">1</span>
+                            <button class="quantity-btn plus" data-item="patatas-grandes">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="5.00" data-category="general">
+                        <button class="add-to-cart-btn" data-item="patatas-grandes" data-name="Patatas Grandes" data-price="5.00" data-category="general">
                             Añadir
                         </button>
                     </div>
@@ -2618,6 +2636,12 @@
                         </div>
                         <div class="ingrediente-name">Salsa Fromagère Casera</div>
                     </div>
+                    <div class="ingrediente-item patatas-salsa-option" data-type="patatas-salsa" data-name="Sin salsa">
+                        <div class="ingrediente-circle" style="background: #333; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                            🚫
+                        </div>
+                        <div class="ingrediente-name">Sin salsa</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2631,11 +2655,11 @@
                 <div class="menu-item">
                     <div class="item-name">La Picosa <span class="item-price">9,90€</span><div class="item-controls">
                         <div class="quantity-control">
-                            <button class="quantity-btn minus" data-item="item">−</button>
-                            <span class="quantity-display" id="qty-item">1</span>
-                            <button class="quantity-btn plus" data-item="item">+</button>
+                            <button class="quantity-btn minus" data-item="la-picosa">−</button>
+                            <span class="quantity-display" id="qty-la-picosa">1</span>
+                            <button class="quantity-btn plus" data-item="la-picosa">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
+                        <button class="add-to-cart-btn" data-item="la-picosa" data-name="La Picosa" data-price="9.90" data-category="general">
                             Añadir
                         </button>
                     </div>
@@ -2645,11 +2669,11 @@
                 <div class="menu-item">
                     <div class="item-name">Pecado Dulce <span class="item-price">9,90€</span><div class="item-controls">
                         <div class="quantity-control">
-                            <button class="quantity-btn minus" data-item="item">−</button>
-                            <span class="quantity-display" id="qty-item">1</span>
-                            <button class="quantity-btn plus" data-item="item">+</button>
+                            <button class="quantity-btn minus" data-item="pecado-dulce">−</button>
+                            <span class="quantity-display" id="qty-pecado-dulce">1</span>
+                            <button class="quantity-btn plus" data-item="pecado-dulce">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
+                        <button class="add-to-cart-btn" data-item="pecado-dulce" data-name="Pecado Dulce" data-price="9.90" data-category="general">
                             Añadir
                         </button>
                     </div>
@@ -2659,11 +2683,11 @@
                 <div class="menu-item">
                     <div class="item-name">Chicken <span class="item-price">9,90€</span><div class="item-controls">
                         <div class="quantity-control">
-                            <button class="quantity-btn minus" data-item="item">−</button>
-                            <span class="quantity-display" id="qty-item">1</span>
-                            <button class="quantity-btn plus" data-item="item">+</button>
+                            <button class="quantity-btn minus" data-item="chicken">−</button>
+                            <span class="quantity-display" id="qty-chicken">1</span>
+                            <button class="quantity-btn plus" data-item="chicken">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
+                        <button class="add-to-cart-btn" data-item="chicken" data-name="Chicken" data-price="9.90" data-category="general">
                             Añadir
                         </button>
                     </div>
@@ -2673,11 +2697,11 @@
                 <div class="menu-item">
                     <div class="item-name">Classic <span class="item-price">8,90€</span><div class="item-controls">
                         <div class="quantity-control">
-                            <button class="quantity-btn minus" data-item="item">−</button>
-                            <span class="quantity-display" id="qty-item">1</span>
-                            <button class="quantity-btn plus" data-item="item">+</button>
+                            <button class="quantity-btn minus" data-item="classic">−</button>
+                            <span class="quantity-display" id="qty-classic">1</span>
+                            <button class="quantity-btn plus" data-item="classic">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="8.90" data-category="general">
+                        <button class="add-to-cart-btn" data-item="classic" data-name="Classic" data-price="8.90" data-category="general">
                             Añadir
                         </button>
                     </div>
@@ -2687,11 +2711,11 @@
                 <div class="menu-item">
                     <div class="item-name">Beef and Bacon <span class="item-price">9,90€</span><div class="item-controls">
                         <div class="quantity-control">
-                            <button class="quantity-btn minus" data-item="item">−</button>
-                            <span class="quantity-display" id="qty-item">1</span>
-                            <button class="quantity-btn plus" data-item="item">+</button>
+                            <button class="quantity-btn minus" data-item="beef-and-bacon">−</button>
+                            <span class="quantity-display" id="qty-beef-and-bacon">1</span>
+                            <button class="quantity-btn plus" data-item="beef-and-bacon">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="9.90" data-category="general">
+                        <button class="add-to-cart-btn" data-item="beef-and-bacon" data-name="Beef and Bacon" data-price="9.90" data-category="general">
                             Añadir
                         </button>
                     </div>
@@ -2701,11 +2725,11 @@
                 <div class="menu-item">
                     <div class="item-name">Big Cool <span class="item-price">10,90€</span><div class="item-controls">
                         <div class="quantity-control">
-                            <button class="quantity-btn minus" data-item="item">−</button>
-                            <span class="quantity-display" id="qty-item">1</span>
-                            <button class="quantity-btn plus" data-item="item">+</button>
+                            <button class="quantity-btn minus" data-item="big-cool">−</button>
+                            <span class="quantity-display" id="qty-big-cool">1</span>
+                            <button class="quantity-btn plus" data-item="big-cool">+</button>
                         </div>
-                        <button class="add-to-cart-btn" data-item="item" data-name="Item" data-price="10.90" data-category="general">
+                        <button class="add-to-cart-btn" data-item="big-cool" data-name="Big Cool" data-price="10.90" data-category="general">
                             Añadir
                         </button>
                     </div>
@@ -3901,10 +3925,10 @@
                     customizations.push(`Carnes: ${currentTacoSelection.carnes.join(', ')}`);
                 }
                 if (currentTacoSelection.extras.length > 0) {
-                    customizations.push(`Extras: ${currentTacoSelection.extras.map(e => e.name).join(', ')}`);
+                    customizations.push(`Extras: ${currentTacoSelection.extras.map(e => `${e.name} ${e.price.toFixed(2)}€`).join(', ')}`);
                 }
                 if (currentTacoSelection.gratinado) {
-                    customizations.push(`Gratinado: ${currentTacoSelection.gratinado.name}`);
+                    customizations.push(`Gratinado: ${currentTacoSelection.gratinado.name} ${currentTacoSelection.gratinado.price.toFixed(2)}€`);
                 }
 
                 // Calculate prices
@@ -4016,8 +4040,8 @@
 
             // Initialiser les boutons "Añadir al carrito"
             document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-                // Skip le bouton du taco (déjà géré)
-                if (btn.id === 'add-taco-to-cart') return;
+                // Skip les boutons déjà gérés par leurs propres fonctions
+                if (btn.id === 'add-taco-to-cart' || btn.id === 'add-box-to-cart' || btn.id === 'add-bocadillo-to-cart') return;
 
                 btn.addEventListener('click', function() {
                     const itemId = this.getAttribute('data-item');
@@ -4033,9 +4057,9 @@
                     // Récupérer la salsa sélectionnée si elle existe
                     const customizations = [];
 
-                    // Pour Patatas: ajouter la salsa sélectionnée
-                    if ((itemName === "Item" || itemName.includes("Patatas")) && patatasSalsaSelection) {
-                        customizations.push(`Salsa: ${patatasSalsaSelection}`);
+                    // Pour Patatas: ajouter la salsa sélectionnée (sauf si c'est "Sin salsa")
+                    if (itemName.includes("Patatas") && patatasSalsaSelection && patatasSalsaSelection !== "Sin salsa") {
+                        customizations.push(`${patatasSalsaSelection}`);
                     }
                     if (extrasGroup) {
                         const selectedSalsa = document.querySelector(`input[name="${extrasGroup}"]:checked`);
